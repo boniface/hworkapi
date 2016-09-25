@@ -1,4 +1,4 @@
-package domain.payroll.common
+package domain.position
 
 /**
  * Created by hashcode on 2016/01/08.

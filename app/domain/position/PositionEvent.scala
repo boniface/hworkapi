@@ -7,7 +7,7 @@ import play.api.libs.json.Json
 /**
  * Created by hashcode on 2016/01/07.
  */
-case class PositionEvent(positionId: String, id: String, date: Date, event: String)
+case class PositionEvent(positionId: String, positionEventId: String, date: Date, event: String)
 
 object PositionEvent {
 

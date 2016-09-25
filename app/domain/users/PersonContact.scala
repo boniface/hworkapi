@@ -7,8 +7,8 @@ import play.api.libs.json.Json
 /**
  * Created by hashcode on 2015/12/16.
  */
-case class PersonContact(id: String,
-                         personId: String,
+case class PersonContact(userId: String,
+                         personContactId: String,
                          addressTypeId: String,
                          contactValue: String,
                          status: String,

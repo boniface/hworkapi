@@ -7,16 +7,14 @@ import play.api.libs.json.Json
 /**
  * Created by hashcode on 2015/12/16.
  */
-case class PersonAddress( id: String,
-                          personId: String,
+case class PersonAddress( userId: String,
+                          personAddressId: String,
                           description: String,
                           postalCode: String,
                           addressTypeId: String,
                           date: Date,
-                          state: String
-                          )
+                          state: String)
 
 object PersonAddress {
-  implicit val personaddrFmt = Json.format[PersonAddress]
-
+  implicit val personAddressFmt = Json.format[PersonAddress]
 }

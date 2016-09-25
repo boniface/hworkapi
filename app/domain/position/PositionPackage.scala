@@ -8,7 +8,7 @@ import play.api.libs.json.Json
  * Created by hashcode on 2016/01/08.
  */
 case class PositionPackage(positionId: String,
-                           id: String,
+                           positionPackageId: String,
                            gradeId: String,
                            notchId:String,
                            date: Date,
