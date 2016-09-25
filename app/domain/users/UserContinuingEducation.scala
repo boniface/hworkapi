@@ -7,8 +7,9 @@ import play.api.libs.json.Json
 /**
  * Created by hashcode on 2015/12/16.
  */
-case class PersonContinuingEducation(id: String,
-                                     personId: String,
+case class PersonContinuingEducation(organisationId:String,
+                                     userId: String,
+                                     personContinuingEducationId: String,
                                      courseId: String,
                                      competencyEvaluationId: String,
                                      courseScheduleId: String,

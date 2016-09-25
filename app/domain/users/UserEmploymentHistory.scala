@@ -7,13 +7,14 @@ import play.api.libs.json.Json
 /**
  * Created by hashcode on 2015/12/16.
  */
-case class PersonEmploymentHistory(id: String,
-                                   personId: String,
+case class PersonEmploymentHistory(organisationId: String,
+                                   userId: String,
+                                   personEmploymentHistoryId: String,
                                    companyName: String,
                                    companyAddress: String,
                                    companyTelephone: String,
-                                   applicatSupervisor: String,
-                                   contactSupervisor: Boolean,
+                                   applicantSupervisor: String,
+                                   contactSupervisor: String,
                                    reasonsForLeaving: String,
                                    startDate: Date,
                                    endDate: Date,

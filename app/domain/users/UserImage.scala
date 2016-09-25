@@ -7,9 +7,9 @@ import play.api.libs.json.Json
 /**
  * Created by hashcode on 2016/01/03.
  */
-case class PersonImages(company: String,
-                        personId: String,
-                        id: String,
+case class PersonImages(organisationId: String,
+                        userId: String,
+                        personImageId: String,
                         url: String,
                         description: String,
                         mime: String,

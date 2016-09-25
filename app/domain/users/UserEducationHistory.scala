@@ -5,10 +5,11 @@ import java.util.Date
 import play.api.libs.json.Json
 
 /**
- * Created by hashcode on 2015/12/16.
- */
-case class PersonEducationHistory(id: String,
-                                  personId: String,
+  * Created by hashcode on 2015/12/16.
+  */
+case class PersonEducationHistory(organisationId: String,
+                                  userId: String,
+                                  personEducationHistoryId: String,
                                   institutionName: String,
                                   institutionLocation: String,
                                   yearOfGraduation: Int,
