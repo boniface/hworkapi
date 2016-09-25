@@ -5,7 +5,7 @@ package domain.common.demographics
  */
 import play.api.libs.json.Json
 
-case class IdentificationType(id: String, name: String,description:String,state:String)
+case class IdentificationType(identificationTypeId: String, name: String,description:String)
 
 object IdentificationType {
   implicit val idFmt = Json.format[IdentificationType]

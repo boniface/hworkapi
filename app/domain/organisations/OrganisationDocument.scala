@@ -5,19 +5,18 @@ import java.util.Date
 import play.api.libs.json.Json
 
 /**
- * Created by hashcode on 2016/01/05.
+  * Created by hashcode on 2016/01/05.
   *
- */
-case class CompanyDocuments(
-                             company: String,
-                             id: String,
-                             description: String,
-                             url: String,
-                             mime: String,
-                             date: Date,
-                             permission: Set[String],
-                             state:String)
+  */
+case class OrganisationDocuments(organisationId: String,
+                                 organisationDocumentsId: String,
+                                 description: String,
+                                 url: String,
+                                 mime: String,
+                                 date: Date,
+                                 permission: Set[String],
+                                 state: String)
 
-object CompanyDocuments {
-  implicit val companyDocFmt = Json.format[CompanyDocuments]
+object OrganisationDocuments {
+  implicit val companyDocFmt = Json.format[OrganisationDocuments]
 }
