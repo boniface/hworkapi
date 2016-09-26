@@ -6,9 +6,9 @@ import play.api.libs.json.Json
 /**
   * Created by hashcode on 2016/08/12.
   */
-case class UserContact(orgCode: String,
-                       email: String,
-                       id: String,
+case class UserContact(organisationId: String,
+                       userId: String,
+                       userContactId: String,
                        contactTypeId: String,
                        details: Map[String, String],
                        date: DateTime,

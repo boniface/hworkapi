@@ -5,7 +5,7 @@ package domain.common.demographics
  */
 import play.api.libs.json.Json
 
-case class MaritalStatus(id:String,name:String,state:String)
+case class MaritalStatus(maritalStatusId:String,name:String)
 
 object MaritalStatus{
   implicit val maritFmt = Json.format[MaritalStatus]

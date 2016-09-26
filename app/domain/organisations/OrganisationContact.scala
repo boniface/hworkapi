@@ -5,10 +5,10 @@ import play.api.libs.json.Json
 /**
   * Created by hashcode on 2016/09/14.
   */
-case class OrganisationContact(orgCode: String,
-                               email: String,
-                               id: String,
-                               contactId: String,
+case class OrganisationContact(organisationId: String,
+                               organisationEmail: String,
+                               organisationContactId: String,
+                               contactTypeId: String,
                                details: Map[String, String]) {
 
 }

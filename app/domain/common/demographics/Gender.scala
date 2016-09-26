@@ -7,7 +7,7 @@ package domain.common.demographics
 
 import play.api.libs.json.Json
 
-case class Gender(id:String,name:String,state:String)
+case class Gender(genderId:String,name:String)
 
 object Gender{
   implicit val genderFmt = Json.format[Gender]

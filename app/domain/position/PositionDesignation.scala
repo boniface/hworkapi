@@ -8,7 +8,7 @@ import play.api.libs.json.Json
  * Created by hashcode on 2016/01/07.
  */
 case class PositionDesignation(positionId: String,
-                               id: String,
+                               positionDesignationId: String,
                                date: Date,
                                designationId: String,
                                state: String)
