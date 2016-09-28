@@ -1,7 +1,6 @@
 package domain.users
 
-import java.util.Date
-
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
@@ -14,7 +13,7 @@ case class PersonImages(organisationId: String,
                         description: String,
                         mime: String,
                         size: Option[String],
-                        date: Date)
+                        date: DateTime)
 
 object PersonImages {
   implicit val companyImagesFmt = Json.format[PersonImages]
