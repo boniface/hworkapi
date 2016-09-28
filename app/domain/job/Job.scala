@@ -1,7 +1,6 @@
 package domain.job
 
-import java.util.Date
-
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
@@ -13,7 +12,7 @@ case class Job(organisationId:String,
                title:String,
                code:String,
                description:String,
-               date:Date,
+               date:DateTime,
                state:String
                 )
 
