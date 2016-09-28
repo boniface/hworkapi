@@ -8,7 +8,7 @@ import org.joda.time.DateTime
   */
 class JobEventFactory {
   def createJobEvent(values:Map[String, String],date:DateTime):JobEvent={
-  JobEvent(jobId = value("jobId"),jobEventId = values("jobEventId"),date=date,event = values("event"))
+  JobEvent(jobId = values("jobId"),jobEventId = values("jobEventId"),date=date,event = values("event"))
   }
 
 }
