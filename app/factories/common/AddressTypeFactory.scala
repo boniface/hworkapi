@@ -1,4 +1,4 @@
-package factories.common.address
+package factories.common
 
 import domain.common.address.AddressType
 
