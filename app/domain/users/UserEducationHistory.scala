@@ -1,7 +1,7 @@
 package domain.users
 
-import java.util.Date
 
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
@@ -16,7 +16,7 @@ case class PersonEducationHistory(organisationId: String,
                                   educationTypeId: String,
                                   degreeId: String,
                                   notes: String,
-                                  date: Date,
+                                  date: DateTime,
                                   state: String)
 
 object PersonEducationHistory {
