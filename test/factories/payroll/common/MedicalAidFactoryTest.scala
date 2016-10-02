@@ -5,7 +5,7 @@ import org.scalatest.FunSuite
 /**
   * Created by Malu.Mukendi on 2016-09-30.
   */
-class git MedicalAidFactoryTest extends FunSuite {
+class MedicalAidFactoryTest extends FunSuite {
   test("testMedicalAid")
   {
     val values = Map("organisationId"->"1000", "medicalAidId"->"MA2000", "name"->"Annual", "code"->"code")
