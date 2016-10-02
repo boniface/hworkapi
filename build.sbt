@@ -22,24 +22,24 @@ bashScriptExtraDefines ++= Seq(
   """addJava "-Xms1024m"""",
   """addJava "-Xmx2048m""""
 )
-
 libraryDependencies ++= Seq(
   jdbc,
   cache,
   ws,
-  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
-  "com.websudos" % "phantom-dsl_2.11" % PhantomVersion,
+  //"org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % "test",
+  //"com.websudos" % "phantom-dsl_2.11" % PhantomVersion,
   "com.websudos" % "phantom-reactivestreams_2.11" % PhantomVersion,
   "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.4.1",
   "org.apache.logging.log4j" % "log4j-api" % "2.4.1",
   "org.apache.logging.log4j" % "log4j-core" % "2.4.1",
   "com.chuusai" %% "shapeless" % "2.2.5"
 )
-
 // https://mvnrepository.com/artifact/io.getclump/clump_2.11
 libraryDependencies += "io.getclump" % "clump_2.11" % "0.0.11"
-libraryDependencies += "io.monix" %% "monix" % "2.0.0"
-libraryDependencies += "me.lessis" %% "courier" % "0.1.3"
+// https://mvnrepository.com/artifact/io.monix/monix-eval_2.10
+libraryDependencies += "io.monix" % "monix-eval_2.10" % "2.0.0"
+// https://mvnrepository.com/artifact/me.lessis/courier_2.10
+libraryDependencies += "me.lessis" % "courier_2.10" % "0.1.3"
 libraryDependencies += "com.jason-goodwin" % "authentikat-jwt_2.11" % "0.4.3"
 libraryDependencies += "me.lessis" % "base64_2.11" % "0.2.0"
 libraryDependencies += "junit" % "junit" % "4.12"
@@ -47,19 +47,22 @@ libraryDependencies += "com.github.t3hnar" % "scala-bcrypt_2.11" % "2.5"
 libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.4"
 libraryDependencies += "org.scalaz" %% "scalaz-core" % ScalaZVersion
 // https://mvnrepository.com/artifact/org.scalatest/scalatest_2.11
-libraryDependencies += "org.scalatest" % "scalatest_2.11" % "3.0.0"
-// https://mvnrepository.com/artifact/com.google.guava/guava
-libraryDependencies += "com.google.guava" % "guava" % "19.0"
-
+libraryDependencies += "org.scalatest" % "scalatest_2.11" % "3.0.0" % "test"
+// https://mvnrepository.com/artifact/com.google.guava/guava-gwt
+libraryDependencies += "com.google.guava" % "guava-gwt" % "16.0.1"
+// https://mvnrepository.com/artifact/org.scalatestplus.play/scalatestplus-play_2.11
+libraryDependencies += "org.scalatestplus.play" % "scalatestplus-play_2.11" % "1.5.1"
 // redis-server cache
-libraryDependencies += "com.github.karelcemus" %% "play-redis" % "1.2.0"
-libraryDependencies += "com.github.romix.akka" %% "akka-kryo-serialization" % "0.4.1"
+
+libraryDependencies += "com.chuusai" % "shapeless_2.11" % "2.2.5"
+// https://mvnrepository.com/artifact/com.github.karelcemus/play-redis_2.11
+libraryDependencies += "com.github.karelcemus" % "play-redis_2.11" % "1.2.0"
+// https://mvnrepository.com/artifact/com.github.romix.akka/akka-kryo-serialization_2.11
+libraryDependencies += "com.github.romix.akka" % "akka-kryo-serialization_2.11" % "0.3.3"
 // https://mvnrepository.com/artifact/com.esotericsoftware.kryo/kryo
 libraryDependencies += "com.esotericsoftware.kryo" % "kryo" % "2.24.0"
-libraryDependencies += "org.typelevel" %% "cats" % "0.7.2"
 // https://mvnrepository.com/artifact/com.github.nscala-time/nscala-time_2.11
 libraryDependencies += "com.github.nscala-time" % "nscala-time_2.11" % "2.12.0"
-
 routesGenerator := InjectedRoutesGenerator
 libraryDependencies += filters
 
