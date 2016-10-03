@@ -1,5 +1,4 @@
 package factories.organisation
-
 import org.scalatest.FunSuite
 
 /**
