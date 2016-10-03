@@ -7,6 +7,7 @@ import org.scalatest.FunSuite
 class OrganisationAddressFactoryTest extends FunSuite {
 
   test("createOrganisationAddress") {
+    //
     assert(1==1)
   }
 }
