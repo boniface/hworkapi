@@ -1,5 +1,4 @@
 package domain.payroll.funding
-
 import play.api.libs.json.Json
 
 /**
