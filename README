@@ -1,5 +1,19 @@
-This is your new Play application
+Contributors
 =================================
+
+FUll TIME
+========
+-common (Factories complete)
+-organisation 
+-users (Factories complete)
+-jobs (Factories complete)
+-storage (Factories complete)
+
+PART TIME
+=======
+-payroll
+-position
+-training
 
 This file will be packaged with your application when using `activator dist`.
 
