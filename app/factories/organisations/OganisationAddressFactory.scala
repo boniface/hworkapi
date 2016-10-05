@@ -7,7 +7,7 @@ import domain.organisations.OrganisationAddress
  */
 class OrganisationAddressFactory {
 
-  def createOrganisationAddress(values: Map[String, String],details: Map[String, String]): OrganisationAddress=
+  def createOrganisationAddress(values: Map[String, String]): OrganisationAddress=
   {
     OrganisationAddress(organisationId = values("organisationId"), organisationEmail = values("organisationEmail"), organisationAddressId = values("organisationAddressId"),organisationLocationId = values("organisationLocationId"), addressTypeId = values("addressTypeId"), details = details)
   }
