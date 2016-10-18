@@ -1,7 +1,6 @@
-package factories.job.position
+package factories.position
 
 import domain.position.Position
-import factories.position.PositionFactory
 import org.joda.time.DateTime
 import org.scalatest.FunSuite
 

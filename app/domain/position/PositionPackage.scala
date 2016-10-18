@@ -2,7 +2,6 @@ package domain.position
 
 import java.util.Date
 
-import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
@@ -12,7 +11,7 @@ case class PositionPackage(positionId: String,
                            positionPackageId: String,
                            gradeId: String,
                            notchId:String,
-                           date: DateTime,
+                           date: Date,
                            state: String)
 
 object PositionPackage {
