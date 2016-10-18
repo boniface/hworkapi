@@ -1,6 +1,7 @@
 package domain.job
 
 import java.util.Date
+
 import play.api.libs.json.Json
 
 /**
