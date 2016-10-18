@@ -1,6 +1,6 @@
 package domain.job
 
-import org.joda.time.DateTime
+import java.util.Date
 import play.api.libs.json.Json
 
 /**
@@ -8,7 +8,7 @@ import play.api.libs.json.Json
  */
 case class JobEvent(jobId:String,
                     jobEventId:String,
-                    date:DateTime,
+                    date:Date,
                     event:String)
 
 object JobEvent{
