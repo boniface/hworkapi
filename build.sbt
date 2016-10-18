@@ -42,12 +42,14 @@ libraryDependencies += "io.monix" %% "monix" % "2.0.0"
 libraryDependencies += "me.lessis" %% "courier" % "0.1.3"
 libraryDependencies += "com.jason-goodwin" % "authentikat-jwt_2.11" % "0.4.3"
 libraryDependencies += "me.lessis" % "base64_2.11" % "0.2.0"
-libraryDependencies += "junit" % "junit" % "4.12"
+
 libraryDependencies += "com.github.t3hnar" % "scala-bcrypt_2.11" % "2.5"
 libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.4"
 libraryDependencies += "org.scalaz" %% "scalaz-core" % ScalaZVersion
 // https://mvnrepository.com/artifact/org.scalatest/scalatest_2.11
 libraryDependencies += "org.scalatest" % "scalatest_2.11" % "3.0.0"
+libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.0"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 // https://mvnrepository.com/artifact/com.google.guava/guava
 libraryDependencies += "com.google.guava" % "guava" % "19.0"
 
@@ -81,3 +83,6 @@ resolvers ++= Seq(
 )
 
 
+
+
+fork in run := true
