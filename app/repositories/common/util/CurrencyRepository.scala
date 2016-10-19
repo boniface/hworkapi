@@ -18,13 +18,12 @@ import scala.concurrent.Future
 //name: String,
 //symbol: String
 sealed class CurrencyRepository extends CassandraTable[CurrencyRepository,Currency]{
-  object id extends StringColumn(this) with PartitionKey[String]
+  object currencyId extends StringColumn(this) with PartitionKey[String]
   object code extends StringColumn(this)
   object name extends StringColumn(this)
   object symbol extends StringColumn(this)
-  object state extends StringColumn(this)
   override def fromRow(r: Row): Currency = {
-    Currency(id(r),code(r),name(r),symbol(r),state(r))
+    Currency(currencyId(r),code(r),name(r),symbol(r))
   }
 }
 
@@ -37,23 +36,22 @@ object CurrencyRepository extends CurrencyRepository with RootConnector {
 
   def save(currency: Currency): Future[ResultSet] = {
     insert
-      .value(_.id, currency.id)
+      .value(_.currencyId, currency.currencyId)
       .value(_.name, currency.name)
       .value(_.code, currency.code)
       .value(_.symbol, currency.symbol)
-      .value(_.state, currency.state)
       .future()
   }
 
-  def findById(id: String):Future[Option[Currency]] = {
-    select.where(_.id eqs id).one()
+  def findById(currencyId: String):Future[Option[Currency]] = {
+    select.where(_.currencyId eqs currencyId).one()
   }
   def findAll: Future[Seq[Currency]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id:String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(currencyId:String): Future[ResultSet] = {
+    delete.where(_.currencyId eqs currencyId).future()
   }
 
 

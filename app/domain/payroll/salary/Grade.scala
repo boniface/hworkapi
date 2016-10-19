@@ -2,6 +2,7 @@ package domain.payroll.salary
 
 import java.util.Date
 
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
@@ -14,7 +15,7 @@ case class Grade(organisationId: String,
                  lowerAmount: BigDecimal,
                  topAmount: BigDecimal,
                  currencyId: String,
-                 date: Date,
+                 date: DateTime,
                  notes: String)
 
 object Grade {

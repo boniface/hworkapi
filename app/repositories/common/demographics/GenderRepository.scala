@@ -14,11 +14,11 @@ import domain.common.demographics.Gender
 import scala.concurrent.Future
 
 sealed class GenderRepository extends CassandraTable[GenderRepository,Gender]{
-  object id extends StringColumn(this) with PartitionKey[String]
+  object genderId extends StringColumn(this) with PartitionKey[String]
   object name extends StringColumn(this)
-  object state extends StringColumn(this)
+
   override def fromRow(r: Row): Gender = {
-    Gender(id(r),name(r),state(r))
+    Gender(genderId(r),name(r))
   }
 }
 
@@ -31,20 +31,19 @@ object GenderRepository extends GenderRepository with RootConnector {
 
   def save(gender: Gender): Future[ResultSet] = {
     insert
-      .value(_.id, gender.id)
+      .value(_.genderId, gender.genderId)
       .value(_.name, gender.name)
-      .value(_.state, gender.state)
       .future()
   }
 
-  def findById(id: String):Future[Option[Gender]] = {
-    select.where(_.id eqs id).one()
+  def findById(genderId: String):Future[Option[Gender]] = {
+    select.where(_.genderId eqs genderId).one()
   }
   def findAll: Future[Seq[Gender]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id:String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(genderId:String): Future[ResultSet] = {
+    delete.where(_.genderId eqs genderId).future()
   }
 }

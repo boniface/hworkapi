@@ -11,12 +11,10 @@ import domain.common.education.EducationType
 import scala.concurrent.Future
 
 sealed class EducationTypeRepository extends CassandraTable[EducationTypeRepository,EducationType]{
-  object id extends StringColumn(this) with PartitionKey[String]
+  object educationTypeId extends StringColumn(this) with PartitionKey[String]
   object name extends StringColumn(this)
-  object description extends StringColumn(this)
-  object state extends StringColumn(this)
   override def fromRow(r: Row): EducationType = {
-    EducationType(id(r),name(r),state(r))
+    EducationType(educationTypeId(r),name(r))
   }
 }
 
@@ -29,20 +27,19 @@ object EducationTypeRepository extends EducationTypeRepository with RootConnecto
 
   def save(edutype: EducationType): Future[ResultSet] = {
     insert
-      .value(_.id, edutype.id)
+      .value(_.educationTypeId, edutype.educationTypeId)
       .value(_.name, edutype.name)
-      .value(_.state, edutype.state)
       .future()
   }
 
-  def findById(id: String):Future[Option[EducationType]] = {
-    select.where(_.id eqs id).one()
+  def findById(educationTypeId: String):Future[Option[EducationType]] = {
+    select.where(_.educationTypeId eqs educationTypeId).one()
   }
   def findAll: Future[Seq[EducationType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id:String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(educationTypeId:String): Future[ResultSet] = {
+    delete.where(_.educationTypeId eqs educationTypeId).future()
   }
 }

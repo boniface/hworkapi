@@ -15,14 +15,12 @@ import scala.concurrent.Future
  */
 class DegreeTypeRepository extends CassandraTable[DegreeTypeRepository, DegreeType] {
 
-  object id extends StringColumn(this) with PartitionKey[String]
+  object degreeTypeId extends StringColumn(this) with PartitionKey[String]
 
   object name extends StringColumn(this)
 
-  object state extends StringColumn(this)
-
   override def fromRow(r: Row): DegreeType = {
-    DegreeType(id(r), name(r), state(r))
+    DegreeType(degreeTypeId(r), name(r))
   }
 }
 
@@ -35,21 +33,20 @@ object DegreeTypeRepository extends DegreeTypeRepository with RootConnector {
 
   def save(degreeType: DegreeType): Future[ResultSet] = {
     insert
-      .value(_.id, degreeType.id)
+      .value(_.degreeTypeId, degreeType.degreeTypeId)
       .value(_.name, degreeType.name)
-      .value(_.state, degreeType.state)
       .future()
   }
 
-  def findById(id: String): Future[Option[DegreeType]] = {
-    select.where(_.id eqs id).one()
+  def findById(degreeTypeId: String): Future[Option[DegreeType]] = {
+    select.where(_.degreeTypeId eqs degreeTypeId).one()
   }
 
   def findAll: Future[Seq[DegreeType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id: String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(degreeTypeId: String): Future[ResultSet] = {
+    delete.where(_.degreeTypeId eqs degreeTypeId).future()
   }
 }

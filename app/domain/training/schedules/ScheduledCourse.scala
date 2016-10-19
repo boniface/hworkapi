@@ -2,6 +2,7 @@ package domain.training.schedules
 
 import java.util.Date
 
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
@@ -13,10 +14,10 @@ case class ScheduledCourse(organisationId: String,
                            venue: String,
                            courseCapacity: Int,
                            creditHours: Int,
-                           startDate: Date,
-                           endDate: Date,
+                           startDate: DateTime,
+                           endDate: DateTime,
                            locationId: String,
-                           dateScheduled: Date
+                           dateScheduled: DateTime
                           )
 
 object ScheduledCourse {

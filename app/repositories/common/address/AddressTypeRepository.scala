@@ -1,4 +1,4 @@
-package repositories.common.location
+package repositories.common.address
 
 import com.datastax.driver.core.Row
 import com.websudos.phantom.CassandraTable
@@ -6,15 +6,15 @@ import com.websudos.phantom.dsl._
 import com.websudos.phantom.keys.PartitionKey
 import com.websudos.phantom.reactivestreams._
 import conf.connection.DataConnection
+import domain.common.address.AddressType
 
 import scala.concurrent.Future
 
 sealed class AddressTypeRepository extends CassandraTable[AddressTypeRepository,AddressType]{
-  object id extends StringColumn(this) with PartitionKey[String]
+  object addressTypeId extends StringColumn(this) with PartitionKey[String]
   object name extends StringColumn(this)
-  object state extends StringColumn(this)
   override def fromRow(r: Row): AddressType = {
-    AddressType(id(r),name(r),state(r))
+    AddressType(addressTypeId(r),name(r))
   }
 }
 
@@ -27,20 +27,19 @@ object AddressTypeRepository extends AddressTypeRepository with RootConnector {
 
   def save(addtype: AddressType): Future[ResultSet] = {
     insert
-      .value(_.id, addtype.id)
+      .value(_.addressTypeId, addtype.addressTypeId)
       .value(_.name, addtype.name)
-      .value(_.state, addtype.state)
       .future()
   }
 
-  def findById(id: String):Future[Option[AddressType]] = {
-    select.where(_.id eqs id).one()
+  def findById(addressTypeId: String):Future[Option[AddressType]] = {
+    select.where(_.addressTypeId eqs addressTypeId).one()
   }
   def findAll: Future[Seq[AddressType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id:String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(addressTypeId:String): Future[ResultSet] = {
+    delete.where(_.addressTypeId eqs addressTypeId).future()
   }
 }

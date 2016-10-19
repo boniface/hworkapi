@@ -11,12 +11,11 @@ import domain.common.util.Status
 import scala.concurrent.Future
 
 sealed class StatusRepository extends CassandraTable[StatusRepository,Status]{
-  object id extends StringColumn(this) with PartitionKey[String]
+  object statusId extends StringColumn(this) with PartitionKey[String]
   object name extends StringColumn(this)
   object value extends StringColumn(this)
-  object state extends StringColumn(this)
   override def fromRow(r: Row): Status = {
-    Status(id(r),name(r),value(r),state(r))
+    Status(statusId(r),name(r),value(r))
   }
 }
 
@@ -29,21 +28,20 @@ object StatusRepository extends StatusRepository with RootConnector {
 
   def save(status: Status): Future[ResultSet] = {
     insert
-      .value(_.id, status.id)
+      .value(_.statusId, status.statusId)
       .value(_.name, status.name)
       .value(_.value, status.value)
-      .value(_.state, status.state)
       .future()
   }
 
-  def findById(id: String):Future[Option[Status]] = {
-    select.where(_.id eqs id).one()
+  def findById(statusId: String):Future[Option[Status]] = {
+    select.where(_.statusId eqs statusId).one()
   }
   def findAll: Future[Seq[Status]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id:String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(statusId:String): Future[ResultSet] = {
+    delete.where(_.statusId eqs statusId).future()
   }
 }

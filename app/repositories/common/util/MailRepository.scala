@@ -17,7 +17,7 @@ import scala.concurrent.Future
 
 class MailRepository extends CassandraTable[MailRepository, Mail] {
 
-  object id extends StringColumn(this) with PartitionKey[String]
+  object mailId extends StringColumn(this) with PartitionKey[String]
 
   object key extends StringColumn(this)
 
@@ -29,10 +29,10 @@ class MailRepository extends CassandraTable[MailRepository, Mail] {
 
   object state extends StringColumn(this)
 
-  object date extends DateColumn(this)
+  object date extends DateTimeColumn(this)
 
   override def fromRow(r: Row): Mail = {
-    Mail(id(r), key(r), value(r), host(r), port(r),state(r),date(r))
+    Mail(mailId(r), key(r), value(r), host(r), port(r),state(r),date(r))
   }
 }
 
@@ -45,7 +45,7 @@ object MailRepository extends MailRepository with RootConnector {
 
   def save(mail: Mail): Future[ResultSet] = {
     insert
-      .value(_.id, mail.id)
+      .value(_.mailId, mail.mailId)
       .value(_.key, mail.key)
       .value(_.value, mail.value)
       .value(_.host, mail.host)
@@ -55,8 +55,8 @@ object MailRepository extends MailRepository with RootConnector {
       .future()
   }
 
-  def findById(id: String): Future[Option[Mail]] = {
-    select.where(_.id eqs id).one()
+  def findById(mailId: String): Future[Option[Mail]] = {
+    select.where(_.mailId eqs mailId).one()
   }
 
   def findAll: Future[Seq[Mail]] = {

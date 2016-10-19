@@ -11,11 +11,10 @@ import domain.common.demographics.Title
 import scala.concurrent.Future
 
 sealed class TitleRepository extends CassandraTable[TitleRepository,Title]{
-  object id extends StringColumn(this) with PartitionKey[String]
+  object titleId extends StringColumn(this) with PartitionKey[String]
   object name extends StringColumn(this)
-  object state extends StringColumn(this)
   override def fromRow(r: Row): Title = {
-    Title(id(r),name(r),state(r))
+    Title(titleId(r),name(r))
   }
 }
 
@@ -28,20 +27,19 @@ object TitleRepository extends TitleRepository with RootConnector {
 
   def save(title: Title): Future[ResultSet] = {
     insert
-      .value(_.id, title.id)
+      .value(_.titleId, title.titleId)
       .value(_.name, title.name)
-      .value(_.state, title.state)
       .future()
   }
 
-  def findById(id: String):Future[Option[Title]] = {
-    select.where(_.id eqs id).one()
+  def findById(titleId: String):Future[Option[Title]] = {
+    select.where(_.titleId eqs titleId).one()
   }
   def findAll: Future[Seq[Title]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id:String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(titleId:String): Future[ResultSet] = {
+    delete.where(_.titleId eqs titleId).future()
   }
 }

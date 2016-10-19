@@ -1,7 +1,7 @@
 package domain.organisations
 
-import java.util.Date
 
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
@@ -13,7 +13,7 @@ case class OrganisationDocuments(organisationId: String,
                                  description: String,
                                  url: String,
                                  mime: String,
-                                 date: Date,
+                                 date: DateTime,
                                  permission: Set[String],
                                  state: String)
 

@@ -1,7 +1,7 @@
 package domain.common.util
 
-import java.util.Date
 
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
@@ -13,7 +13,7 @@ case class Mail( mailId:String,
                  host:String,
                  port:String,
                  state:String,
-                 date:Date)
+                 date:DateTime)
 
 object Mail{
   implicit val mailFmt = Json.format[Mail]
