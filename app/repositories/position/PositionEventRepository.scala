@@ -21,9 +21,9 @@ class PositionEventRepository extends CassandraTable[PositionEventRepository, Po
 
   object positionId extends StringColumn(this) with PartitionKey[String]
 
-  object id extends StringColumn(this) with PrimaryKey[String] with ClusteringOrder[String] with Descending
+  object positionEventId extends StringColumn(this) with PrimaryKey[String] with ClusteringOrder[String] with Descending
 
-  object date extends DateColumn(this) with PrimaryKey[Date] with ClusteringOrder[Date] with Descending
+  object date extends DateTimeColumn(this) with PrimaryKey[DateTime] with ClusteringOrder[DateTime] with Descending
 
   object event extends StringColumn(this)
 
@@ -31,7 +31,7 @@ class PositionEventRepository extends CassandraTable[PositionEventRepository, Po
   override def fromRow(r: Row): PositionEvent = {
     PositionEvent(
       positionId(r),
-      id(r),
+      positionEventId(r),
       date(r),
       event(r)
     )
@@ -48,14 +48,14 @@ object PositionEventRepository extends PositionEventRepository with RootConnecto
   def save(event: PositionEvent): Future[ResultSet] = {
     insert
       .value(_.positionId, event.positionId)
-      .value(_.id, event.id)
+      .value(_.positionEventId, event.positionEventId)
       .value(_.date, event.date)
       .value(_.event, event.event)
       .future()
   }
 
-  def getPositionEvent(positionId: String, id: String): Future[Option[PositionEvent]] = {
-    select.where(_.positionId eqs positionId).and(_.id eqs id).one()
+  def getPositionEvent(positionId: String, positionEventId: String): Future[Option[PositionEvent]] = {
+    select.where(_.positionId eqs positionId).and(_.positionEventId eqs positionEventId).one()
   }
 
   def getPositionEvents(positionId: String): Future[Seq[PositionEvent]] = {

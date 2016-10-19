@@ -8,7 +8,7 @@ import domain.common.education.EducationType
 class EducationTypeFactory {
   def createEducationType(values:Map[String,String]):EducationType={
 
-    EducationType(dducationTypeId = values("dducationTypeId"),name = values("name"))
+    EducationType(educationTypeId = values("dducationTypeId"),name = values("name"))
   }
 
 }

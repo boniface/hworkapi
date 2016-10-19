@@ -15,7 +15,9 @@ import scala.concurrent.Future
  */
 class StorageUrlRepository extends CassandraTable[StorageUrlRepository, StorageUrl] {
 
-  object id extends StringColumn(this) with PartitionKey[String]
+  object organisationId extends StringColumn(this) with PartitionKey[String]
+
+  object storageUrlId extends StringColumn(this)
 
   object name extends StringColumn(this)
 
@@ -24,7 +26,8 @@ class StorageUrlRepository extends CassandraTable[StorageUrlRepository, StorageU
 
   override def fromRow(r: Row): StorageUrl = {
     StorageUrl(
-      id(r),
+      organisationId(r),
+      storageUrlId(r),
       name(r),
       url(r)
     )
@@ -40,7 +43,8 @@ object StorageUrlRepository extends StorageUrlRepository with RootConnector {
 
   def save(link: StorageUrl): Future[ResultSet] = {
     insert
-      .value(_.id, link.id)
+        .value(_.organisationId, link.organisationId)
+      .value(_.storageUrlId, link.storageUrlId)
       .value(_.name, link.name)
       .value(_.url, link.url)
       .future()
@@ -50,7 +54,7 @@ object StorageUrlRepository extends StorageUrlRepository with RootConnector {
     select.fetchEnumerator() run Iteratee.collect()
   }
 
-  def getLinkById(id: String): Future[Option[StorageUrl]] = {
-    select.where(_.id eqs id).one()
+  def getLinkById(organisationId: String): Future[Option[StorageUrl]] = {
+    select.where(_.organisationId eqs organisationId).one()
   }
 }

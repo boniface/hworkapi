@@ -11,6 +11,8 @@ class TrainingInstitutionAddress(organisationId: String,
                                  addressTypeId: String,
                                  details: Map[String, String])
 object TrainingInstitutionAddress{
-  implicit val trainingInstitutionFmt = Json.format[TrainingInstitutionAddress]
+  implicit val trainingInstitutionFmt = {
+    Json.format[TrainingInstitutionAddress]
+  }
 
 }

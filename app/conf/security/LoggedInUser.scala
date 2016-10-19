@@ -1,6 +1,7 @@
 package conf.security
 
-import domain.people.User
+//import domain.people.User
+import domain.users.User
 import services.people.UserService
 import services.util.TokenService
 

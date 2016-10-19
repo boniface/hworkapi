@@ -21,21 +21,18 @@ class DepartureReasonRepository extends CassandraTable[DepartureReasonRepository
   //  description: String,
   //  state: String
 
-  object company extends StringColumn(this) with PartitionKey[String]
 
-  object id extends StringColumn(this) with PrimaryKey[String]
-
+  object organisationId extends StringColumn(this) with PrimaryKey[String]
+  object departureReasonId extends StringColumn(this) with PartitionKey[String]
   object reason extends StringColumn(this)
-
   object description extends StringColumn(this)
-
   object state extends StringColumn(this)
 
 
   override def fromRow(r: Row): DepartureReason = {
     DepartureReason(
-      company(r),
-      id(r),
+      organisationId(r),
+      departureReasonId(r),
       reason(r),
       description(r),
       state(r)
@@ -52,20 +49,20 @@ object DepartureReasonRepository extends DepartureReasonRepository with RootConn
 
   def save(reason: DepartureReason): Future[ResultSet] = {
     insert
-      .value(_.company, reason.company)
-      .value(_.id, reason.id)
+      .value(_.organisationId, reason.organisationId)
+      .value(_.departureReasonId, reason.departureReasonId)
       .value(_.reason, reason.description)
       .value(_.description, reason.description)
       .value(_.state, reason.state)
       .future()
   }
 
-  def getDepartureReason(company: String, id: String): Future[Option[DepartureReason]] = {
-    select.where(_.company eqs company).and(_.id eqs id).one()
+  def getDepartureReason(organisationId: String, departureReasonId: String): Future[Option[DepartureReason]] = {
+    select.where(_.organisationId eqs organisationId).and(_.departureReasonId eqs departureReasonId).one()
   }
 
-  def getCompanyDepatureReasons(company: String): Future[Seq[DepartureReason]] = {
-    select.where(_.company eqs company).fetchEnumerator() run Iteratee.collect()
+  def getCompanyDepatureReasons(organisationId: String): Future[Seq[DepartureReason]] = {
+    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
   }
 
 }

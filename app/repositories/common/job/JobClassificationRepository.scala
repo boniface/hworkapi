@@ -20,7 +20,7 @@ import scala.concurrent.Future
 
 sealed class JobClassificationRepository extends CassandraTable[JobClassificationRepository, JobClassification] {
 
-  object id extends StringColumn(this) with PartitionKey[String]
+  object jobClassificationId extends StringColumn(this) with PartitionKey[String]
 
   object currentTitle extends StringColumn(this)
 
@@ -34,18 +34,15 @@ sealed class JobClassificationRepository extends CassandraTable[JobClassificatio
 
   object comment extends StringColumn(this)
 
-  object state extends StringColumn(this)
-
   override def fromRow(r: Row): JobClassification = {
     JobClassification(
-      id(r),
+      jobClassificationId(r),
       currentTitle(r),
       oldTitle(r),
       oldCode(r),
       currentCode(r),
       codeConversion(r),
-      comment(r),
-      state(r))
+      comment(r))
   }
 }
 
@@ -58,26 +55,25 @@ object JobClassificationRepository extends JobClassificationRepository with Root
 
   def save(jobClassification: JobClassification): Future[ResultSet] = {
     insert
-      .value(_.id, jobClassification.id)
+      .value(_.jobClassificationId, jobClassification.jobClassificationId)
       .value(_.comment, jobClassification.comment)
       .value(_.currentTitle, jobClassification.currentTitle)
       .value(_.codeConversion, jobClassification.codeConversion)
       .value(_.oldTitle, jobClassification.oldTitle)
       .value(_.oldCode, jobClassification.oldCode)
       .value(_.currentCode, jobClassification.currentCode)
-      .value(_.state, jobClassification.state)
       .future()
   }
 
-  def findById(id: String): Future[Option[JobClassification]] = {
-    select.where(_.id eqs id).one()
+  def findById(jobClassificationId: String): Future[Option[JobClassification]] = {
+    select.where(_.jobClassificationId eqs jobClassificationId).one()
   }
 
   def findAll: Future[Seq[JobClassification]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id: String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(jobClassificationId: String): Future[ResultSet] = {
+    delete.where(_.jobClassificationId eqs jobClassificationId).future()
   }
 }

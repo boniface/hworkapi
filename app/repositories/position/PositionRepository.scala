@@ -15,9 +15,9 @@ import scala.concurrent.Future
   */
 class PositionRepository extends CassandraTable[PositionRepository, Position] {
 
-  object company extends StringColumn(this) with PartitionKey[String]
+  object organisationId extends StringColumn(this) with PartitionKey[String]
 
-  object id extends StringColumn(this) with PrimaryKey[String]
+  object positionId extends StringColumn(this) with PrimaryKey[String]
 
   object code extends StringColumn(this)
 
@@ -33,12 +33,12 @@ class PositionRepository extends CassandraTable[PositionRepository, Position] {
 
   object state extends StringColumn(this)
 
-  object date extends DateColumn(this)
+  object date extends DateTimeColumn(this)
 
   override def fromRow(r: Row): Position = {
     Position(
-      company(r),
-      id(r),
+      organisationId(r),
+      positionId(r),
       code(r),
       title(r),
       jobId(r),
@@ -60,24 +60,24 @@ object PositionRepository extends PositionRepository with RootConnector {
 
   def save(position: Position): Future[ResultSet] = {
     insert
-      .value(_.company, position.company)
-      .value(_.id, position.id)
+      .value(_.organisationId, position.organisationId)
+      .value(_.positionId, position.positionId)
       .value(_.code, position.code)
       .value(_.title, position.title)
       .value(_.jobId, position.jobId)
-      .value(_.positionType, position.positionType)
+      .value(_.supervisorId, position.supervisorId)
       .value(_.description, position.description)
       .value(_.state, position.state)
       .value(_.date, position.date)
       .future()
   }
 
-  def getPositionById(company: String, id: String): Future[Option[Position]] = {
-    select.where(_.company eqs company).and(_.id eqs id).one()
+  def getPositionById(organisationId: String, positionId: String): Future[Option[Position]] = {
+    select.where(_.organisationId eqs organisationId).and(_.positionId eqs positionId).one()
   }
 
-  def getCompanyPositions(company: String): Future[Seq[Position]] = {
-    select.where(_.company eqs company).fetchEnumerator() run Iteratee.collect()
+  def getCompanyPositions(organisationId: String): Future[Seq[Position]] = {
+    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
   }
 
 }
