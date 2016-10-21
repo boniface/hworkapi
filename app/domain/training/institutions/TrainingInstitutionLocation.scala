@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 /**
   * Created by hashcode on 2016/10/17.
   */
-class TrainingInstitutionLocation(organisationId: String,
+case class TrainingInstitutionLocation(organisationId: String,
                                   TrainingInstitutionLocationId: String,
                                   name: String,
                                   locationTypeId: String,

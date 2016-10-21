@@ -26,7 +26,7 @@ class FileResultsRepository extends CassandraTable[FileResultsRepository, FileRe
       fileResultsId(r),
       fileResultsId(r),
       url(r),
-      size  = Option("r")
+      size(r)
     )
   }
 }

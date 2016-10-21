@@ -9,7 +9,7 @@ class TargetGroupFactory
 {
   def createTargetGroup(values: Map[String, String]): TargetGroup=
   {
-    TargetGroup(courseTypeId = values("courseTypeId"), name = values("name"))
+    TargetGroup(targetGroupId = values("targetGroupId"),  name = values("name"))
   }
 
 }

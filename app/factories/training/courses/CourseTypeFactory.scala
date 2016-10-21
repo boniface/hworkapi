@@ -9,7 +9,7 @@ class CourseTypeFactory
 {
   def createCourseType(values: Map[String, String]): CourseType=
   {
-    CourseType(targetGroupId = values("targetGroupId"), name = values("name"))
+    CourseType(courseTypeId = values("targetGroupId"), name = values("name"))
   }
 
 }

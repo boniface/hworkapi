@@ -12,7 +12,7 @@ class TrainingInstitutionLocationFactory
   {
     TrainingInstitutionLocation(organisationId = values("organisationId"), TrainingInstitutionLocationId = values("TrainingInstitutionLocationId"),
       name= values("name"), locationTypeId = values("locationTypeId"), code = values("code"),
-      latitude= values("latitude"), longitude = values("longitude"), date = date)
+      latitude= values("latitude"), longitude = values("longitude"), state = values("state"), date = date)
   }
 
 }
