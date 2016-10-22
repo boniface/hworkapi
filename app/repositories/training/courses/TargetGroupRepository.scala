@@ -28,7 +28,7 @@ object TargetGroupRepository extends TargetGroupRepository with RootConnector {
 
   def save(targetGroup: TargetGroup): Future[ResultSet] = {
     insert
-      .value(_.targetGroupId, targetGroup.criteriaId)
+      .value(_.targetGroupId, targetGroup.targetGroupId)
       .value(_.name, targetGroup.name)
       .future()
   }

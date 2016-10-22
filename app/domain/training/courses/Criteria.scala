@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 /**
   * Created by hashcode on 2016/10/17.
   */
-class Criteria(criteriaId:String, name:String)
+case class Criteria(criteriaId:String, name:String)
 object Criteria{
   implicit val criteriaFmt = Json.format[Criteria]
 }
