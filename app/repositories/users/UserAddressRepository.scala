@@ -16,7 +16,7 @@ class UserAddressRepository extends CassandraTable[UserAddressRepository,UserAdd
   object userId extends StringColumn(this)
   object userAddressId extends StringColumn(this)
   object addressTypeId extends StringColumn(this)
-  object details extends MapColumn[UserAddressRepository,UserAddress, String, String](this)
+  object details extends MapColumn[UserAddressRepository,UserAddress,String, String] (this)
   object date extends DateTimeColumn(this)
   object state extends StringColumn(this)
 
