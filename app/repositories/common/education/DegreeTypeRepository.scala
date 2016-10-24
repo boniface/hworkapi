@@ -45,6 +45,9 @@ object DegreeTypeRepository extends DegreeTypeRepository with RootConnector {
   def findAll: Future[Seq[DegreeType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getDegreeType(degreeTypeId: String): Future[Seq[DegreeType]] = {
+    select.where(_.degreeTypeId eqs degreeTypeId).fetchEnumerator() run Iteratee.collect()
+  }
 
   def deleteById(degreeTypeId: String): Future[ResultSet] = {
     delete.where(_.degreeTypeId eqs degreeTypeId).future()

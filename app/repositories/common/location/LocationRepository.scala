@@ -55,6 +55,9 @@ object LocationRepository extends LocationRepository with RootConnector {
   def findAll: Future[Seq[Location]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getLocation(locationId: String): Future[Seq[Location]] = {
+    select.where(_.locationId eqs locationId).fetchEnumerator() run Iteratee.collect()
+  }
 
   def deleteById(locationId: String): Future[ResultSet] = {
     delete.where(_.locationId eqs locationId).future()

@@ -40,6 +40,9 @@ object StatusRepository extends StatusRepository with RootConnector {
   def findAll: Future[Seq[Status]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getStatus(statusId: String): Future[Seq[Status]] = {
+    select.where(_.statusId eqs statusId).fetchEnumerator() run Iteratee.collect()
+  }
 
   def deleteById(statusId:String): Future[ResultSet] = {
     delete.where(_.statusId eqs statusId).future()

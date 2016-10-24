@@ -58,6 +58,9 @@ object MailRepository extends MailRepository with RootConnector {
   def findById(mailId: String): Future[Option[Mail]] = {
     select.where(_.mailId eqs mailId).one()
   }
+  def getMail(mailId: String): Future[Seq[Mail]] = {
+    select.where(_.mailId eqs mailId).fetchEnumerator() run Iteratee.collect()
+  }
 
   def findAll: Future[Seq[Mail]] = {
     select.fetchEnumerator() run Iteratee.collect()

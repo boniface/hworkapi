@@ -42,6 +42,9 @@ object CompetencyRepository extends CompetencyRepository with RootConnector {
   def findAll: Future[Seq[Competency]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getCompetency(compencyId:String): Future[Seq[Competency]] = {
+    select.where(_.compencyId eqs compencyId)fetchEnumerator() run Iteratee.collect()
+  }
 
   def deleteById(compencyId:String): Future[ResultSet] = {
     delete.where(_.compencyId eqs compencyId).future()

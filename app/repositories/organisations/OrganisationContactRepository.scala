@@ -14,7 +14,7 @@ import scala.concurrent.Future
 class OrganisationContactRepository extends CassandraTable[OrganisationContactRepository,OrganisationContact]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
   object organisationEmail extends StringColumn(this)
-  object organisationContactId extends StringColumn(this)
+  object organisationContactId extends StringColumn(this) with PrimaryKey[String]
   object contactTypeId extends StringColumn(this)
   object details extends MapColumn[OrganisationRepository,OrganisationContact, String, String](this)
 
@@ -37,20 +37,23 @@ object OrganisationContactRepository extends OrganisationContactRepository with 
       .value(_.organisationId, organisationContact.organisationId)
       .value(_.organisationEmail, organisationContact.organisationEmail)
       .value(_.organisationContactId, organisationContact.organisationContactId)
-      .value(_.details, organisationContact.details)
       .value(_.contactTypeId, organisationContact.contactTypeId)
       .value(_.details, organisationContact.details)
       .future()
   }
 
-  def findById(organisationId: String):Future[Option[OrganisationContact]] = {
-    select.where(_.organisationId eqs organisationId).one()
+  def getFileResultById(organisationId: String, organisationContactId: String): Future[Option[OrganisationContact]] = {
+    select.where(_.organisationId eqs organisationId).and (_.organisationContactId eqs organisationContactId).one()
   }
+
   def findAll: Future[Seq[OrganisationContact]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getOrganisationContact(organisationId: String): Future[Seq[OrganisationContact]] = {
+    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
+  }
 
-  def deleteById(organisationId:String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId).future()
+  def deleteById(organisationId: String, organisationContactId: String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId).and (_.organisationContactId eqs organisationContactId).future()
   }
 }

@@ -13,7 +13,7 @@ import scala.concurrent.Future
   */
 class MedicalAidRepository extends CassandraTable[MedicalAidRepository,MedicalAid]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object medicalAidId extends StringColumn(this)
+  object medicalAidId extends StringColumn(this) with PrimaryKey[String]
   object name extends StringColumn(this)
   object code extends StringColumn(this)
 
@@ -39,14 +39,18 @@ object MedicalAidRepository extends MedicalAidRepository with RootConnector {
       .future()
   }
 
-  def findById(organisationId: String):Future[Option[MedicalAid]] = {
-    select.where(_.organisationId eqs organisationId).one()
+  def getFileResultById(organisationId: String, medicalAidId: String): Future[Option[MedicalAid]] = {
+    select.where(_.organisationId eqs organisationId).and (_.medicalAidId eqs medicalAidId).one()
   }
+
   def findAll: Future[Seq[MedicalAid]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getMedicalAid(organisationId: String): Future[Seq[MedicalAid]] = {
+    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
+  }
 
-  def deleteById(organisationId:String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId).future()
+  def deleteById(organisationId: String, medicalAidId: String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId).and (_.medicalAidId eqs medicalAidId).future()
   }
 }

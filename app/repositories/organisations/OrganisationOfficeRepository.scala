@@ -14,7 +14,7 @@ import scala.concurrent.Future
   */
 class OrganisationOfficeRepository extends CassandraTable[OrganisationOfficeRepository,OrganisationOffice]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object organisationOfficeId extends StringColumn(this)
+  object organisationOfficeId extends StringColumn(this) with PrimaryKey[String]
   object name extends StringColumn(this)
   object description extends StringColumn(this)
   object active extends StringColumn(this)
@@ -49,14 +49,18 @@ object OrganisationOfficeRepository extends OrganisationOfficeRepository with Ro
       .future()
   }
 
-  def findById(organisationId: String):Future[Option[OrganisationOffice]] = {
-    select.where(_.organisationId eqs organisationId).one()
+  def getFileResultById(organisationId: String, organisationOfficeId: String): Future[Option[OrganisationOffice]] = {
+    select.where(_.organisationId eqs organisationId).and (_.organisationOfficeId eqs organisationOfficeId).one()
   }
+
   def findAll: Future[Seq[OrganisationOffice]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getOrganisationOffice(organisationId: String): Future[Seq[OrganisationOffice]] = {
+    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
+  }
 
-  def deleteById(organisationId:String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId).future()
+  def deleteById(organisationId: String, organisationOfficeId: String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId).and (_.organisationOfficeId eqs organisationOfficeId).future()
   }
 }

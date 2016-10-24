@@ -38,6 +38,9 @@ object EvaluationRepository extends EvaluationRepository with RootConnector {
   def findAll: Future[Seq[Evaluation]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getEvaluation(evaluationId: String): Future[Seq[Evaluation]] = {
+    select.where(_.evaluationId eqs evaluationId).fetchEnumerator() run Iteratee.collect()
+  }
 
   def deleteById(evaluationId:String): Future[ResultSet] = {
     delete.where(_.evaluationId eqs evaluationId).future()
