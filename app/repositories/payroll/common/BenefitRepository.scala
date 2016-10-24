@@ -14,7 +14,7 @@ import scala.concurrent.Future
  */
 class BenefitRepository extends CassandraTable[BenefitRepository,Benefit]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object benefitId extends StringColumn(this)
+  object benefitId extends StringColumn(this)  with PrimaryKey[String]
   object name extends StringColumn(this)
   object date extends DateTimeColumn(this)
   object state extends StringColumn(this)
@@ -42,14 +42,18 @@ object BenefitRepository extends BenefitRepository with RootConnector {
       .future()
   }
 
-  def findById(organisationId: String):Future[Option[Benefit]] = {
-    select.where(_.organisationId eqs organisationId).one()
+  def getFileResultById(organisationId: String, benefitId: String): Future[Option[Benefit]] = {
+    select.where(_.organisationId eqs organisationId).and (_.benefitId eqs benefitId).one()
   }
+
   def findAll: Future[Seq[Benefit]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getBenefit(organisationId: String): Future[Seq[Benefit]] = {
+    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
+  }
 
-  def deleteById(organisationId:String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId).future()
+  def deleteById(organisationId: String, benefitId: String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId).and (_.benefitId eqs benefitId).future()
   }
 }

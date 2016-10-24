@@ -12,8 +12,8 @@ import scala.concurrent.Future
   */
 class PersonRoleRepository extends CassandraTable[PersonRoleRepository,PersonRole]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object userId extends StringColumn(this)
-  object roleId extends StringColumn(this)
+  object userId extends StringColumn(this) with PrimaryKey[String]
+  object roleId extends StringColumn(this) with PrimaryKey[String]
   object state extends StringColumn(this)
 
   override def fromRow(r: Row): PersonRole = {
@@ -37,14 +37,17 @@ object PersonRoleRepository extends PersonRoleRepository with RootConnector {
       .future()
   }
 
-  def findById(organisationId: String):Future[Option[PersonRole]] = {
-    select.where(_.organisationId eqs organisationId).one()
+  def findById(organisationId: String, userId: String, roleId: String):Future[Option[PersonRole]] = {
+    select.where(_.organisationId eqs organisationId). and(_.userId eqs userId).and(_.roleId eqs roleId).one()
   }
   def findAll: Future[Seq[PersonRole]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getPersonRole(organisationId: String): Future[Seq[PersonRole]] = {
+    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
+  }
 
-  def deleteById(organisationId:String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId).future()
+  def deleteById(organisationId:String, userId: String, roleId: String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId). and(_.userId eqs userId).and(_.roleId eqs roleId).future()
   }
 }

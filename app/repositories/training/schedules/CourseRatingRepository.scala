@@ -13,7 +13,7 @@ import scala.concurrent.Future
   */
 class CourseRatingRepository extends CassandraTable[CourseRatingRepository,CourseRating]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object scheduledCourseId extends StringColumn(this)
+  object scheduledCourseId extends StringColumn(this)  with PrimaryKey[String]
   object rating extends IntColumn(this)
   object comment extends StringColumn(this)
 
@@ -38,14 +38,17 @@ object CourseRatingRepository extends CourseRatingRepository with RootConnector 
       .future()
   }
 
-  def findById(organisationId: String):Future[Option[CourseRating]] = {
-    select.where(_.organisationId eqs organisationId).one()
+  def findById(organisationId: String, scheduledCourseId: String):Future[Option[CourseRating]] = {
+    select.where(_.organisationId eqs organisationId). and(_.scheduledCourseId eqs scheduledCourseId).one()
   }
   def findAll: Future[Seq[CourseRating]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getCourseRating(organisationId: String): Future[Seq[CourseRating]] = {
+    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
+  }
 
-  def deleteById(organisationId:String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId).future()
+  def deleteById(organisationId:String,scheduledCourseId: String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId). and(_.scheduledCourseId eqs scheduledCourseId).future()
   }
 }

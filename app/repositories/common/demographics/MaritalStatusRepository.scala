@@ -38,6 +38,9 @@ object MaritalStatusRepository extends MaritalStatusRepository with RootConnecto
   def findAll: Future[Seq[MaritalStatus]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getMaritalStatus(maritalStatusId: String): Future[Seq[MaritalStatus]] = {
+    select.where(_.maritalStatusId eqs maritalStatusId).fetchEnumerator() run Iteratee.collect()
+  }
 
   def deleteById(maritalStatusId:String): Future[ResultSet] = {
     delete.where(_.maritalStatusId eqs maritalStatusId).future()

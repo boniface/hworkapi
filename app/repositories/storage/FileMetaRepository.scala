@@ -51,6 +51,9 @@ object FileMetaRepository extends FileMetaRepository with RootConnector
   def findAll: Future[Seq[FileMeta]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getFileMeta(organisationId: String): Future[Seq[FileMeta]] = {
+    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
+  }
 
   def deleteById(organisationId: String): Future[ResultSet] = {
     delete.where(_.organisationId eqs organisationId).future()

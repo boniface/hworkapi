@@ -42,6 +42,10 @@ object GenderRepository extends GenderRepository with RootConnector {
   def findAll: Future[Seq[Gender]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getGender(genderId: String): Future[Seq[Gender]] = {
+    select.where(_.genderId eqs genderId).fetchEnumerator() run Iteratee.collect()
+  }
+
 
   def deleteById(genderId:String): Future[ResultSet] = {
     delete.where(_.genderId eqs genderId).future()

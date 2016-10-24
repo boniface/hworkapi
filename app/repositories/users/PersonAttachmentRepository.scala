@@ -13,8 +13,8 @@ import scala.concurrent.Future
   */
 class PersonAttachmentRepository extends CassandraTable[PersonAttachmentRepository,PersonAttachment]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object userId extends StringColumn(this)
-  object personAttachmentId extends StringColumn(this)
+  object userId extends StringColumn(this) with PrimaryKey[String]
+  object personAttachmentId extends StringColumn(this) with PrimaryKey[String]
   object url extends StringColumn(this)
   object description extends StringColumn(this)
   object mime extends StringColumn(this)
@@ -45,14 +45,17 @@ object PersonAttachmentRepository extends PersonAttachmentRepository with RootCo
       .future()
   }
 
-  def findById(organisationId: String):Future[Option[PersonAttachment]] = {
-    select.where(_.organisationId eqs organisationId).one()
+  def findById(organisationId: String, userId: String, personAttachmentId: String):Future[Option[PersonAttachment]] = {
+    select.where(_.organisationId eqs organisationId). and(_.userId eqs userId). and (_.personAttachmentId eqs personAttachmentId).one()
   }
   def findAll: Future[Seq[PersonAttachment]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getPersonAttachment(organisationId: String): Future[Seq[PersonAttachment]] = {
+    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
+  }
 
-  def deleteById(organisationId:String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId).future()
+  def deleteById(organisationId:String, userId: String, personAttachmentId: String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId). and(_.userId eqs userId). and (_.personAttachmentId eqs personAttachmentId).future()
   }
 }

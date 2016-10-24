@@ -13,9 +13,9 @@ import scala.concurrent.Future
   */
 class TrainingInstitutionLocationRepository extends CassandraTable[TrainingInstitutionLocationRepository,TrainingInstitutionLocation]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object TrainingInstitutionLocationId extends StringColumn(this)
+  object TrainingInstitutionLocationId extends StringColumn(this) with PrimaryKey[String]
   object name extends StringColumn(this)
-  object locationTypeId extends StringColumn(this)
+  object locationTypeId extends StringColumn(this) with PrimaryKey[String]
   object code extends StringColumn(this)
   object latitude extends StringColumn(this)
   object longitude extends StringColumn(this)
@@ -50,14 +50,17 @@ object TrainingInstitutionLocationRepository extends TrainingInstitutionLocation
       .future()
   }
 
-  def findById(organisationId: String):Future[Option[TrainingInstitutionLocation]] = {
-    select.where(_.organisationId eqs organisationId).one()
+  def findById(organisationId: String, TrainingInstitutionLocationId: String, locationTypeId: String):Future[Option[TrainingInstitutionLocation]] = {
+    select.where(_.organisationId eqs organisationId). and(_.TrainingInstitutionLocationId eqs TrainingInstitutionLocationId). and (_.locationTypeId eqs locationTypeId).one()
   }
   def findAll: Future[Seq[TrainingInstitutionLocation]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getTrainingInstitutionLocation(organisationId: String): Future[Seq[TrainingInstitutionLocation]] = {
+    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
+  }
 
-  def deleteById(organisationId:String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId).future()
+  def deleteById(organisationId:String, TrainingInstitutionLocationId: String, locationTypeId: String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId). and(_.TrainingInstitutionLocationId eqs TrainingInstitutionLocationId). and (_.locationTypeId eqs locationTypeId).future()
   }
 }

@@ -49,6 +49,9 @@ object RoleRepository extends RoleRepository with RootConnector {
   def findAll: Future[Seq[Role]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getRole(roleId: String): Future[Seq[Role]] = {
+    select.where(_.roleId eqs roleId).fetchEnumerator() run Iteratee.collect()
+  }
 
   def deleteById(roleId: String): Future[ResultSet] = {
     delete.where(_.roleId eqs roleId).future()
