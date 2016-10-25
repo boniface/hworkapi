@@ -47,10 +47,6 @@ object SubjectRepository extends SubjectRepository with RootConnector {
   def findAll: Future[Seq[Subject]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getSubject(subjectId: String): Future[Seq[Subject]] = {
-    select.where(_.subjectId eqs subjectId).fetchEnumerator() run Iteratee.collect()
-  }
-
 
   def deleteById(subjectId:String): Future[ResultSet] = {
     delete.where(_.subjectId eqs subjectId).future()

@@ -13,7 +13,7 @@ import scala.concurrent.Future
   */
 class LeaveTypeRepository extends CassandraTable[LeaveTypeRepository,LeaveType]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object leaveTypeId extends StringColumn(this) with PrimaryKey[String]
+  object leaveTypeId extends StringColumn(this)
   object name extends StringColumn(this)
 
 
@@ -37,18 +37,14 @@ object LeaveTypeRepository extends LeaveTypeRepository with RootConnector {
       .future()
   }
 
-  def getFileResultById(organisationId: String, leaveTypeId: String): Future[Option[LeaveType]] = {
-    select.where(_.organisationId eqs organisationId).and (_.leaveTypeId eqs leaveTypeId).one()
+  def findById(organisationId: String):Future[Option[LeaveType]] = {
+    select.where(_.organisationId eqs organisationId).one()
   }
-
   def findAll: Future[Seq[LeaveType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getLeaveType(organisationId: String): Future[Seq[LeaveType]] = {
-    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
-  }
 
-  def deleteById(organisationId: String, leaveTypeId: String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId).and (_.leaveTypeId eqs leaveTypeId).future()
+  def deleteById(organisationId:String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId).future()
   }
 }

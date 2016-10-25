@@ -38,9 +38,6 @@ object AddressTypeRepository extends AddressTypeRepository with RootConnector {
   def findAll: Future[Seq[AddressType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getAddressType(addressTypeId: String): Future[Seq[AddressType]] = {
-    select.where(_.addressTypeId eqs addressTypeId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(addressTypeId:String): Future[ResultSet] = {
     delete.where(_.addressTypeId eqs addressTypeId).future()

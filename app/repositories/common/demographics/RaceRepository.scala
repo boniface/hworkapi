@@ -38,9 +38,6 @@ object RaceRepository extends RaceRepository with RootConnector {
   def findAll: Future[Seq[Race]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getRace(raceId: String): Future[Seq[Race]] = {
-    select.where(_.raceId eqs raceId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(raceId:String): Future[ResultSet] = {
     delete.where(_.raceId eqs raceId).future()

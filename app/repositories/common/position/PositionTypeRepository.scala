@@ -38,9 +38,6 @@ object PositionTypeRepository extends PositionTypeRepository with RootConnector 
   def findAll: Future[Seq[PositionType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getPositionType(positionTypeId: String): Future[Seq[PositionType]] = {
-    select.where(_.positionTypeId eqs positionTypeId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(positionTypeId:String): Future[ResultSet] = {
     delete.where(_.positionTypeId eqs positionTypeId).future()

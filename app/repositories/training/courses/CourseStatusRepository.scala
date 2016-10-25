@@ -42,9 +42,6 @@ object CourseStatusRepository extends CourseStatusRepository with RootConnector 
   def findAll: Future[Seq[CourseStatus]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getCourseStatus(courseId: String): Future[Seq[CourseStatus]] = {
-    select.where(_.courseId eqs courseId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(courseId:String): Future[ResultSet] = {
     delete.where(_.courseId eqs courseId).future()

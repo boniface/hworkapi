@@ -72,9 +72,6 @@ object JobClassificationRepository extends JobClassificationRepository with Root
   def findAll: Future[Seq[JobClassification]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getJobClassification(jobClassificationId: String): Future[Seq[JobClassification]] = {
-    select.where(_.jobClassificationId eqs jobClassificationId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(jobClassificationId: String): Future[ResultSet] = {
     delete.where(_.jobClassificationId eqs jobClassificationId).future()

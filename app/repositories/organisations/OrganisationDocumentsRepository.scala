@@ -15,7 +15,7 @@ import scala.concurrent.Future
   */
 class OrganisationDocumentsRepository extends CassandraTable[OrganisationDocumentsRepository,OrganisationDocuments]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object organisationDocumentsId extends StringColumn(this)  with PrimaryKey[String]
+  object organisationDocumentsId extends StringColumn(this)
   object description extends StringColumn(this)
   object url extends StringColumn(this)
   object date extends DateTimeColumn(this)
@@ -48,18 +48,14 @@ object OrganisationDocumentsRepository extends OrganisationDocumentsRepository w
       .future()
   }
 
-  def getFileResultById(organisationId: String, organisationDocumentsId: String): Future[Option[OrganisationDocuments]] = {
-    select.where(_.organisationId eqs organisationId).and (_.organisationDocumentsId eqs organisationDocumentsId).one()
+  def findById(organisationId: String):Future[Option[OrganisationDocuments]] = {
+    select.where(_.organisationId eqs organisationId).one()
   }
-
   def findAll: Future[Seq[OrganisationDocuments]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getOrganisationDocuments(organisationId: String): Future[Seq[OrganisationDocuments]] = {
-    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
-  }
 
-  def deleteById(organisationId: String, organisationDocumentsId: String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId).and (_.organisationDocumentsId eqs organisationDocumentsId).future()
+  def deleteById(organisationId:String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId).future()
   }
 }

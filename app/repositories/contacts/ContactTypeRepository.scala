@@ -38,9 +38,6 @@ object ContactTypeRepository extends ContactTypeRepository with RootConnector {
   def findAll: Future[Seq[ContactType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getContactType(contactTypeId: String): Future[Seq[ContactType]] = {
-    select.where(_.contactTypeId eqs contactTypeId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(contactTypeId:String): Future[ResultSet] = {
     delete.where(_.contactTypeId eqs contactTypeId).future()

@@ -13,7 +13,7 @@ import scala.concurrent.Future
   */
 class UserRepository extends CassandraTable[UserRepository,User]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object userId extends StringColumn(this) with PrimaryKey[String]
+  object userId extends StringColumn(this)
   object firstName extends StringColumn(this)
   object middleName extends StringColumn(this)
   object email extends StringColumn(this)
@@ -58,17 +58,14 @@ object UserRepository extends UserRepository with RootConnector {
       .future()
   }
 
-  def findById(organisationId: String, userId: String):Future[Option[User]] = {
-    select.where(_.organisationId eqs organisationId). and(_.userId eqs userId).one()
+  def findById(organisationId: String):Future[Option[User]] = {
+    select.where(_.organisationId eqs organisationId).one()
   }
   def findAll: Future[Seq[User]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getUser(organisationId: String): Future[Seq[User]] = {
-    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
-  }
 
-  def deleteById(organisationId:String, userId: String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId). and(_.userId eqs userId).future()
+  def deleteById(organisationId:String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId).future()
   }
 }

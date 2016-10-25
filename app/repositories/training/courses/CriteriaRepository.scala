@@ -39,9 +39,6 @@ object CriteriaRepository extends CriteriaRepository with RootConnector {
   def findAll: Future[Seq[Criteria]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getCriteria(criteriaId: String): Future[Seq[Criteria]] = {
-    select.where(_.criteriaId eqs criteriaId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(criteriaId:String): Future[ResultSet] = {
     delete.where(_.criteriaId eqs criteriaId).future()

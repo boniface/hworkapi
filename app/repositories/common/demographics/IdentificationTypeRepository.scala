@@ -43,9 +43,6 @@ object IdentificationTypeRepository extends IdentificationTypeRepository with Ro
   def findAll: Future[Seq[IdentificationType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getIdentificationType(identificationTypeId: String): Future[Seq[IdentificationType]] = {
-    select.where(_.identificationTypeId eqs identificationTypeId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(identificationTypeId:String): Future[ResultSet] = {
     delete.where(_.identificationTypeId eqs identificationTypeId).future()
