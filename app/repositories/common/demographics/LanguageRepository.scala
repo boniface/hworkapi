@@ -38,9 +38,6 @@ object LanguageRepository extends LanguageRepository with RootConnector {
   def findAll: Future[Seq[Language]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getLanguage(languageId: String): Future[Seq[Language]] = {
-    select.where(_.languageId eqs languageId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(languageId:String): Future[ResultSet] = {
     delete.where(_.languageId eqs languageId).future()

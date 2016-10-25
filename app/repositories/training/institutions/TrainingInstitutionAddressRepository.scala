@@ -13,8 +13,8 @@ import scala.concurrent.Future
   */
 class TrainingInstitutionAddressRepository extends CassandraTable[TrainingInstitutionAddressRepository,TrainingInstitutionAddress]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object TrainingInstitutionAddressId extends StringColumn(this) with PrimaryKey[String]
-  object trainingInstitutionLocationId extends StringColumn(this) with PrimaryKey[String]
+  object TrainingInstitutionAddressId extends StringColumn(this)
+  object trainingInstitutionLocationId extends StringColumn(this)
   object addressTypeId extends StringColumn(this)
   object details extends MapColumn[TrainingInstitutionAddressRepository,TrainingInstitutionAddress, String, String](this)
 
@@ -40,17 +40,14 @@ object TrainingInstitutionAddressRepository extends TrainingInstitutionAddressRe
       .future()
   }
 
-  def findById(organisationId: String, TrainingInstitutionAddressId: String, trainingInstitutionLocationId: String):Future[Option[TrainingInstitutionAddress]] = {
-    select.where(_.organisationId eqs organisationId). and(_.TrainingInstitutionAddressId eqs TrainingInstitutionAddressId). and (_.trainingInstitutionLocationId eqs trainingInstitutionLocationId).one()
+  def findById(organisationId: String):Future[Option[TrainingInstitutionAddress]] = {
+    select.where(_.organisationId eqs organisationId).one()
   }
   def findAll: Future[Seq[TrainingInstitutionAddress]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getTrainingInstitutionAddress(organisationId: String): Future[Seq[TrainingInstitutionAddress]] = {
-    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
-  }
 
-  def deleteById(organisationId:String, TrainingInstitutionAddressId: String, trainingInstitutionLocationId: String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId). and(_.TrainingInstitutionAddressId eqs TrainingInstitutionAddressId). and (_.trainingInstitutionLocationId eqs trainingInstitutionLocationId).future()
+  def deleteById(organisationId:String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId).future()
   }
 }

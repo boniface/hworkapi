@@ -13,7 +13,7 @@ import scala.concurrent.Future
   */
 class TraningInstitutionContactsRepository extends CassandraTable[TraningInstitutionContactsRepository,TraningInstitutionContacts]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object traningInstitutionContactsId extends StringColumn(this) with PrimaryKey[String]
+  object traningInstitutionContactsId extends StringColumn(this)
   object contactTypeId extends StringColumn(this)
   object details extends MapColumn[TraningInstitutionContactsRepository, TraningInstitutionContacts, String, String](this)
 
@@ -38,17 +38,14 @@ object TraningInstitutionContactsRepository extends TraningInstitutionContactsRe
       .future()
   }
 
-  def findById(organisationId: String, traningInstitutionContactsId: String):Future[Option[TraningInstitutionContacts]] = {
-    select.where(_.organisationId eqs organisationId). and(_.traningInstitutionContactsId eqs traningInstitutionContactsId).one()
+  def findById(organisationId: String):Future[Option[TraningInstitutionContacts]] = {
+    select.where(_.organisationId eqs organisationId).one()
   }
   def findAll: Future[Seq[TraningInstitutionContacts]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getTraningInstitutionContacts(organisationId: String): Future[Seq[TraningInstitutionContacts]] = {
-    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
-  }
 
-  def deleteById(organisationId:String, traningInstitutionContactsId: String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId). and(_.traningInstitutionContactsId eqs traningInstitutionContactsId).future()
+  def deleteById(organisationId:String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId).future()
   }
 }

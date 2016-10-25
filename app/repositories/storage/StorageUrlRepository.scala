@@ -17,7 +17,7 @@ class StorageUrlRepository extends CassandraTable[StorageUrlRepository, StorageU
 
   object organisationId extends StringColumn(this) with PartitionKey[String]
 
-  object storageUrlId extends StringColumn(this)  with PrimaryKey[String]
+  object storageUrlId extends StringColumn(this)
 
   object name extends StringColumn(this)
 
@@ -50,18 +50,11 @@ object StorageUrlRepository extends StorageUrlRepository with RootConnector {
       .future()
   }
 
-  def getFileResultById(organisationId: String, storageUrlId: String): Future[Option[StorageUrl]] = {
-    select.where(_.organisationId eqs organisationId).and (_.storageUrlId eqs storageUrlId).one()
-  }
-
-  def findAll: Future[Seq[StorageUrl]] = {
+  def getAllLinks: Future[Seq[StorageUrl]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getStorageUrl(organisationId: String): Future[Seq[StorageUrl]] = {
-    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
-  }
 
-  def deleteById(organisationId: String, storageUrlId: String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId).and (_.storageUrlId eqs storageUrlId).future()
+  def getLinkById(organisationId: String): Future[Option[StorageUrl]] = {
+    select.where(_.organisationId eqs organisationId).one()
   }
 }

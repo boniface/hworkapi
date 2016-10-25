@@ -49,9 +49,6 @@ object OrganisationRepository extends OrganisationRepository with RootConnector 
   def findAll: Future[Seq[Organisation]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getOrganisation(organisationId: String): Future[Seq[Organisation]] = {
-    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(organisationId:String): Future[ResultSet] = {
     delete.where(_.organisationId eqs organisationId).future()

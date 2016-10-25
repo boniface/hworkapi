@@ -49,9 +49,6 @@ object CurrencyRepository extends CurrencyRepository with RootConnector {
   def findAll: Future[Seq[Currency]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getCurrency(currencyId: String): Future[Seq[Currency]] = {
-    select.where(_.currencyId eqs currencyId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(currencyId:String): Future[ResultSet] = {
     delete.where(_.currencyId eqs currencyId).future()

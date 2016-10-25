@@ -38,9 +38,6 @@ object TitleRepository extends TitleRepository with RootConnector {
   def findAll: Future[Seq[Title]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getTitle(titleId: String): Future[Seq[Title]] = {
-    select.where(_.titleId eqs titleId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(titleId:String): Future[ResultSet] = {
     delete.where(_.titleId eqs titleId).future()

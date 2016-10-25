@@ -33,18 +33,14 @@ object TargetGroupRepository extends TargetGroupRepository with RootConnector {
       .future()
   }
 
-  def findById(targetGroupId: String):Future[Option[TargetGroup]] = {
-    select.where(_.targetGroupId eqs targetGroupId).one()
+  def findById(criteriaId: String):Future[Option[TargetGroup]] = {
+    select.where(_.targetGroupId eqs criteriaId).one()
   }
   def findAll: Future[Seq[TargetGroup]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getTargetGroup(targetGroupId: String): Future[Seq[TargetGroup]] = {
-    select.where(_.targetGroupId eqs targetGroupId).fetchEnumerator() run Iteratee.collect()
-  }
 
-
-  def deleteById(targetGroupId:String): Future[ResultSet] = {
-    delete.where(_.targetGroupId eqs targetGroupId).future()
+  def deleteById(criteriaId:String): Future[ResultSet] = {
+    delete.where(_.targetGroupId eqs criteriaId).future()
   }
 }

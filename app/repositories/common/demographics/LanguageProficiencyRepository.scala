@@ -38,9 +38,6 @@ object LanguageProficiencyRepository extends LanguageProficiencyRepository with 
   def findAll: Future[Seq[LanguageProficiency]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getLanguageProficiency(languageProficiencyId: String): Future[Seq[LanguageProficiency]] = {
-    select.where(_.languageProficiencyId eqs languageProficiencyId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(languageProficiencyId:String): Future[ResultSet] = {
     delete.where(_.languageProficiencyId eqs languageProficiencyId).future()

@@ -43,9 +43,6 @@ object OfficeTypeRepository extends OfficeTypeRepository with RootConnector {
   def findAll: Future[Seq[OfficeType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getOfficeType(officeTypeId: String): Future[Seq[OfficeType]] = {
-    select.where(_.officeTypeId eqs officeTypeId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(officeTypeId:String): Future[ResultSet] = {
     delete.where(_.officeTypeId eqs officeTypeId).future()

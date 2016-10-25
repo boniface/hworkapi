@@ -40,9 +40,6 @@ object CourseTypeRepository extends CourseTypeRepository with RootConnector {
   def findAll: Future[Seq[CourseType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getCourseType(courseTypeId: String): Future[Seq[CourseType]] = {
-    select.where(_.courseTypeId eqs courseTypeId).fetchEnumerator() run Iteratee.collect()
-  }
 
   def deleteById(courseTypeId:String): Future[ResultSet] = {
     delete.where(_.courseTypeId eqs courseTypeId).future()
