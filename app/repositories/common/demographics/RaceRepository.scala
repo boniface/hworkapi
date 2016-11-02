@@ -32,11 +32,11 @@ object RaceRepository extends RaceRepository with RootConnector {
       .future()
   }
 
-  def findById(raceId: String):Future[Option[Race]] = {
+  def getRaceById(raceId: String):Future[Option[Race]] = {
     select.where(_.raceId eqs raceId).one()
   }
-  def findAll: Future[Seq[Race]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getRaces(raceId:String): Future[Seq[Race]] = {
+    select.where(_.raceId eqs raceId).fetchEnumerator() run Iteratee.collect()
   }
 
   def deleteById(raceId:String): Future[ResultSet] = {

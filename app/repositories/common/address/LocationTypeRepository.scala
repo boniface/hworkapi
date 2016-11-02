@@ -36,11 +36,11 @@ object LocationTypeRepository extends LocationTypeRepository with RootConnector 
       .future()
   }
 
-  def findById(locationTypeId: String):Future[Option[LocationType]] = {
+  def getLocationTypeById(locationTypeId: String):Future[Option[LocationType]] = {
     select.where(_.locationTypeId eqs locationTypeId).one()
   }
-  def findAll: Future[Seq[LocationType]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getLocationTypes(locationTypeId:String): Future[Seq[LocationType]] = {
+    select.where(_.locationTypeId eqs locationTypeId).fetchEnumerator() run Iteratee.collect()
   }
 
   def deleteById(locationTypeId:String): Future[ResultSet] = {

@@ -32,11 +32,11 @@ object LanguageProficiencyRepository extends LanguageProficiencyRepository with 
       .future()
   }
 
-  def findById(languageProficiencyId: String):Future[Option[LanguageProficiency]] = {
+  def getLanguageProficiencyById(languageProficiencyId: String):Future[Option[LanguageProficiency]] = {
     select.where(_.languageProficiencyId eqs languageProficiencyId).one()
   }
-  def findAll: Future[Seq[LanguageProficiency]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getLanguageProficiencies(languageProficiencyId:String): Future[Seq[LanguageProficiency]] = {
+    select.where(_.languageProficiencyId eqs languageProficiencyId ).fetchEnumerator() run Iteratee.collect()
   }
 
   def deleteById(languageProficiencyId:String): Future[ResultSet] = {

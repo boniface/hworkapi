@@ -37,11 +37,11 @@ object IdentificationTypeRepository extends IdentificationTypeRepository with Ro
       .future()
   }
 
-  def findById(identificationTypeId: String):Future[Option[IdentificationType]] = {
+  def getIdentificationTypeById(identificationTypeId: String):Future[Option[IdentificationType]] = {
     select.where(_.identificationTypeId eqs identificationTypeId).one()
   }
-  def findAll: Future[Seq[IdentificationType]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getIdentificationTypes(identificationTypeId:String): Future[Seq[IdentificationType]] = {
+    select.where(_.identificationTypeId eqs identificationTypeId).fetchEnumerator() run Iteratee.collect()
   }
 
   def deleteById(identificationTypeId:String): Future[ResultSet] = {

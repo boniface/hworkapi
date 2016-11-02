@@ -37,11 +37,11 @@ object OfficeTypeRepository extends OfficeTypeRepository with RootConnector {
       .future()
   }
 
-  def findById(officeTypeId: String):Future[Option[OfficeType]] = {
+  def getOfficeTypeById(officeTypeId: String):Future[Option[OfficeType]] = {
     select.where(_.officeTypeId eqs officeTypeId).one()
   }
-  def findAll: Future[Seq[OfficeType]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getOfficeTypes(officeTypeId:String): Future[Seq[OfficeType]] = {
+    select.where(_.officeTypeId eqs officeTypeId).fetchEnumerator() run Iteratee.collect()
   }
 
   def deleteById(officeTypeId:String): Future[ResultSet] = {

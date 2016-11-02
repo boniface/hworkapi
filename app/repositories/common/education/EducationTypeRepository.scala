@@ -32,11 +32,11 @@ object EducationTypeRepository extends EducationTypeRepository with RootConnecto
       .future()
   }
 
-  def findById(educationTypeId: String):Future[Option[EducationType]] = {
+  def getEducationTypeById(educationTypeId: String):Future[Option[EducationType]] = {
     select.where(_.educationTypeId eqs educationTypeId).one()
   }
-  def findAll: Future[Seq[EducationType]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getEducationTypes(educationTypeId:String): Future[Seq[EducationType]] = {
+    select.where(_.educationTypeId eqs educationTypeId).fetchEnumerator() run Iteratee.collect()
   }
 
   def deleteById(educationTypeId:String): Future[ResultSet] = {
