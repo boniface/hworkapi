@@ -1,5 +1,6 @@
 package domain.payroll.funding
 
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
@@ -9,7 +10,7 @@ case class FundingSources(organisationId: String,
                           fundingSourcesId: String,
                           name: String,
                           costCenterNumber: String,
-                          date: String,
+                          date: DateTime,
                           details: Map[String, String])
 
 object FundingSources {
