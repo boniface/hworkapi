@@ -32,11 +32,11 @@ object AddressTypeRepository extends AddressTypeRepository with RootConnector {
       .future()
   }
 
-  def findById(addressTypeId: String):Future[Option[AddressType]] = {
+  def getAddressTypeById(addressTypeId: String):Future[Option[AddressType]] = {
     select.where(_.addressTypeId eqs addressTypeId).one()
   }
-  def findAll: Future[Seq[AddressType]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getAddressTypes(addressTypeId:String): Future[Seq[AddressType]] = {
+    select.where(_.addressTypeId eqs addressTypeId).fetchEnumerator() run Iteratee.collect()
   }
   def getAddressType(addressTypeId: String): Future[Seq[AddressType]] = {
     select.where(_.addressTypeId eqs addressTypeId).fetchEnumerator() run Iteratee.collect()

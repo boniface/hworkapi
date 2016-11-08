@@ -65,12 +65,12 @@ object JobClassificationRepository extends JobClassificationRepository with Root
       .future()
   }
 
-  def findById(jobClassificationId: String): Future[Option[JobClassification]] = {
+  def getJobClassificationById(jobClassificationId: String): Future[Option[JobClassification]] = {
     select.where(_.jobClassificationId eqs jobClassificationId).one()
   }
 
-  def findAll: Future[Seq[JobClassification]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getJobClassifications(jobClassificationId:String): Future[Seq[JobClassification]] = {
+    select.where(_.jobClassificationId eqs jobClassificationId).fetchEnumerator() run Iteratee.collect()
   }
   def getJobClassification(jobClassificationId: String): Future[Seq[JobClassification]] = {
     select.where(_.jobClassificationId eqs jobClassificationId).fetchEnumerator() run Iteratee.collect()

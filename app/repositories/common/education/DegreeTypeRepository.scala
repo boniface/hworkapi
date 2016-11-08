@@ -38,12 +38,12 @@ object DegreeTypeRepository extends DegreeTypeRepository with RootConnector {
       .future()
   }
 
-  def findById(degreeTypeId: String): Future[Option[DegreeType]] = {
+  def getDegreeTypeById(degreeTypeId: String): Future[Option[DegreeType]] = {
     select.where(_.degreeTypeId eqs degreeTypeId).one()
   }
 
-  def findAll: Future[Seq[DegreeType]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getDegreeTypes(degreeTypeId:String): Future[Seq[DegreeType]] = {
+    select.where(_.degreeTypeId eqs degreeTypeId).fetchEnumerator() run Iteratee.collect()
   }
   def getDegreeType(degreeTypeId: String): Future[Seq[DegreeType]] = {
     select.where(_.degreeTypeId eqs degreeTypeId).fetchEnumerator() run Iteratee.collect()
