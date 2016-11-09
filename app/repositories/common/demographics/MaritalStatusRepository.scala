@@ -11,11 +11,10 @@ import domain.common.demographics.MaritalStatus
 import scala.concurrent.Future
 
 sealed class MaritalStatusRepository extends CassandraTable[MaritalStatusRepository,MaritalStatus]{
-  object id extends StringColumn(this) with PartitionKey[String]
+  object maritalStatusId extends StringColumn(this) with PartitionKey[String]
   object name extends StringColumn(this)
-  object state extends StringColumn(this)
   override def fromRow(r: Row): MaritalStatus = {
-    MaritalStatus(id(r),name(r),state(r))
+    MaritalStatus(maritalStatusId(r),name(r))
   }
 }
 
@@ -28,20 +27,22 @@ object MaritalStatusRepository extends MaritalStatusRepository with RootConnecto
 
   def save(maritals: MaritalStatus): Future[ResultSet] = {
     insert
-      .value(_.id, maritals.id)
+      .value(_.maritalStatusId, maritals.maritalStatusId)
       .value(_.name, maritals.name)
-      .value(_.state, maritals.state)
       .future()
   }
 
-  def findById(id: String):Future[Option[MaritalStatus]] = {
-    select.where(_.id eqs id).one()
+  def getMaritalStatusById(maritalStatusId: String):Future[Option[MaritalStatus]] = {
+    select.where(_.maritalStatusId eqs maritalStatusId).one()
   }
-  def findAll: Future[Seq[MaritalStatus]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getMaritalStatuses(maritalStatusId:String): Future[Seq[MaritalStatus]] = {
+    select.where(_.maritalStatusId eqs maritalStatusId).fetchEnumerator() run Iteratee.collect()
+  }
+  def getMaritalStatus(maritalStatusId: String): Future[Seq[MaritalStatus]] = {
+    select.where(_.maritalStatusId eqs maritalStatusId).fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id:String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(maritalStatusId:String): Future[ResultSet] = {
+    delete.where(_.maritalStatusId eqs maritalStatusId).future()
   }
 }

@@ -11,11 +11,10 @@ import domain.common.demographics.Race
 import scala.concurrent.Future
 
 sealed class RaceRepository extends CassandraTable[RaceRepository,Race]{
-  object id extends StringColumn(this) with PartitionKey[String]
+  object raceId extends StringColumn(this) with PartitionKey[String]
   object name extends StringColumn(this)
-  object state extends StringColumn(this)
   override def fromRow(r: Row): Race = {
-    Race(id(r),name(r),state(r))
+    Race(raceId(r),name(r))
   }
 }
 
@@ -28,20 +27,22 @@ object RaceRepository extends RaceRepository with RootConnector {
 
   def save(race: Race): Future[ResultSet] = {
     insert
-      .value(_.id, race.id)
+      .value(_.raceId, race.raceId)
       .value(_.name, race.name)
-      .value(_.state, race.state)
       .future()
   }
 
-  def findById(id: String):Future[Option[Race]] = {
-    select.where(_.id eqs id).one()
+  def getRaceById(raceId: String):Future[Option[Race]] = {
+    select.where(_.raceId eqs raceId).one()
   }
-  def findAll: Future[Seq[Race]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getRaces(raceId:String): Future[Seq[Race]] = {
+    select.where(_.raceId eqs raceId).fetchEnumerator() run Iteratee.collect()
+  }
+  def getRace(raceId: String): Future[Seq[Race]] = {
+    select.where(_.raceId eqs raceId).fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id:String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(raceId:String): Future[ResultSet] = {
+    delete.where(_.raceId eqs raceId).future()
   }
 }

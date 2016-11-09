@@ -58,7 +58,7 @@ object JobEventRepository extends JobEventRepository with RootConnector {
     select.where(_.jobId eqs jobId).and(_.jobEventId eqs jobEventId).one()
   }
 
-  def getJobEvents(jobId: String): Future[Seq[JobEvent]] = {
+   def getJobEvents(jobId: String): Future[Seq[JobEvent]] = {
     select.where(_.jobId eqs jobId).fetchEnumerator() run Iteratee.collect()
   }
 

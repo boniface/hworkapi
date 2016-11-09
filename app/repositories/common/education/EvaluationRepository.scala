@@ -11,11 +11,10 @@ import domain.common.education.Evaluation
 import scala.concurrent.Future
 
 sealed class EvaluationRepository extends CassandraTable[EvaluationRepository,Evaluation]{
-  object id extends StringColumn(this) with PartitionKey[String]
+  object evaluationId extends StringColumn(this) with PartitionKey[String]
   object name extends StringColumn(this)
-  object state extends StringColumn(this)
   override def fromRow(r: Row): Evaluation = {
-    Evaluation(id(r),name(r),state(r))
+    Evaluation(evaluationId(r),name(r))
   }
 }
 
@@ -28,20 +27,22 @@ object EvaluationRepository extends EvaluationRepository with RootConnector {
 
   def save(evaluation: Evaluation): Future[ResultSet] = {
     insert
-      .value(_.id, evaluation.id)
+      .value(_.evaluationId, evaluation.evaluationId)
       .value(_.name, evaluation.name)
-      .value(_.state, evaluation.state)
       .future()
   }
 
-  def findById(id: String):Future[Option[Evaluation]] = {
-    select.where(_.id eqs id).one()
+  def getEvaluationById(evaluationId: String):Future[Option[Evaluation]] = {
+    select.where(_.evaluationId eqs evaluationId).one()
   }
-  def findAll: Future[Seq[Evaluation]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getEvaluations(evaluationId:String): Future[Seq[Evaluation]] = {
+    select.where(_.evaluationId eqs evaluationId).fetchEnumerator() run Iteratee.collect()
+  }
+  def getEvaluation(evaluationId: String): Future[Seq[Evaluation]] = {
+    select.where(_.evaluationId eqs evaluationId).fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id:String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(evaluationId:String): Future[ResultSet] = {
+    delete.where(_.evaluationId eqs evaluationId).future()
   }
 }

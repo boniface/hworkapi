@@ -18,9 +18,9 @@ import scala.concurrent.Future
 class GradeRepository extends CassandraTable[GradeRepository, Grade] {
 
 
-  object company extends StringColumn(this) with PartitionKey[String]
+  object organisationId extends StringColumn(this) with PartitionKey[String]
 
-  object id extends StringColumn(this) with PrimaryKey[String] with ClusteringOrder[String] with Descending
+  object gradeId extends StringColumn(this) with PrimaryKey[String] with ClusteringOrder[String] with Descending
 
   object name extends StringColumn(this)
 
@@ -32,7 +32,7 @@ class GradeRepository extends CassandraTable[GradeRepository, Grade] {
 
   object currencyId extends StringColumn(this)
 
-  object date extends DateColumn(this) with PrimaryKey[Date] with ClusteringOrder[Date] with Descending
+  object date extends DateTimeColumn(this) with PrimaryKey[DateTime] with ClusteringOrder[DateTime] with Descending
 
   object notes extends StringColumn(this)
 
@@ -40,8 +40,8 @@ class GradeRepository extends CassandraTable[GradeRepository, Grade] {
 
   override def fromRow(r: Row): Grade = {
     Grade(
-      company(r),
-      id(r),
+      organisationId(r),
+      gradeId(r),
       name(r),
       numberOfNotches(r),
       lowerAmount(r),
@@ -64,8 +64,8 @@ object GradeRepository extends GradeRepository with RootConnector {
 
   def save(grade: Grade): Future[ResultSet] = {
     insert
-      .value(_.company, grade.company)
-      .value(_.id, grade.id)
+      .value(_.organisationId, grade.organisationId)
+      .value(_.gradeId, grade.gradeId)
       .value(_.name, grade.name)
       .value(_.numberOfNotches, grade.numberOfNotches)
       .value(_.lowerAmount, grade.lowerAmount)
@@ -76,12 +76,12 @@ object GradeRepository extends GradeRepository with RootConnector {
       .future()
   }
 
-  def getGradeById(company: String, id: String): Future[Option[Grade]] = {
-    select.where(_.company eqs company).and(_.id eqs id).one()
+  def getGradeById(organisationId: String, gradeId: String): Future[Option[Grade]] = {
+    select.where(_.organisationId eqs organisationId).and(_.gradeId eqs gradeId).one()
   }
 
-  def getCompanyGrades(company: String): Future[Seq[Grade]] = {
-    select.where(_.company eqs company).fetchEnumerator() run Iteratee.collect()
+  def getCompanyGrades(organisationId: String): Future[Seq[Grade]] = {
+    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
   }
 
 }

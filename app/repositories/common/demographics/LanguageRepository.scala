@@ -11,12 +11,10 @@ import domain.common.demographics.Language
 import scala.concurrent.Future
 
 sealed class LanguageRepository extends CassandraTable[LanguageRepository,Language]{
-  object id extends StringColumn(this) with PartitionKey[String]
+  object languageId extends StringColumn(this) with PartitionKey[String]
   object name extends StringColumn(this)
-  object description extends StringColumn(this)
-  object state extends StringColumn(this)
   override def fromRow(r: Row): Language = {
-    Language(id(r),name(r),state(r))
+    Language(languageId(r),name(r))
   }
 }
 
@@ -29,20 +27,22 @@ object LanguageRepository extends LanguageRepository with RootConnector {
 
   def save(language: Language): Future[ResultSet] = {
     insert
-      .value(_.id, language.id)
+      .value(_.languageId, language.languageId)
       .value(_.name, language.name)
-      .value(_.state, language.state)
       .future()
   }
 
-  def findById(id: String):Future[Option[Language]] = {
-    select.where(_.id eqs id).one()
+  def getLanguageById(languageId: String):Future[Option[Language]] = {
+    select.where(_.languageId eqs languageId).one()
   }
-  def findAll: Future[Seq[Language]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getLanguages(languageId:String): Future[Seq[Language]] = {
+    select.where(_.languageId eqs languageId).fetchEnumerator() run Iteratee.collect()
+  }
+  def getLanguage(languageId: String): Future[Seq[Language]] = {
+    select.where(_.languageId eqs languageId).fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id:String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(languageId:String): Future[ResultSet] = {
+    delete.where(_.languageId eqs languageId).future()
   }
 }

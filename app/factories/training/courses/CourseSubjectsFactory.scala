@@ -1,14 +1,15 @@
 package factories.training.courses
 
-import java.util.Date
-
 import domain.training.courses.CourseSubjects
 
 /**
- * Created by gavin.ackerman on 2016-10-23.
- */
-object CourseSubjectsFactory {
-  def createCourseSubjects(values:Map[String, String]):CourseSubjects={
+  * Created by SONY on 2016-10-18.
+  */
+class CourseSubjectsFactory
+{
+  def createCourseSubjects(values: Map[String, String]): CourseSubjects=
+  {
     CourseSubjects(organisationId = values("organisationId"), courseId = values("courseId"),subjectId = values("subjectId"))
   }
+
 }

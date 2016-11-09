@@ -1,7 +1,6 @@
 package domain.users
 
-import java.util.Date
-
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
@@ -11,10 +10,10 @@ case class PersonDemographics(organisationId: String,
                               userId: String,
                               personDemographicsId: String,
                               genderId: String,
-                              dateOfBirth: Date,
+                              dateOfBirth: DateTime,
                               maritalStatusId: String,
                               numberOfDependencies: Int,
-                              date: Date,
+                              date: DateTime,
                               state: String)
 
 object PersonDemographics {

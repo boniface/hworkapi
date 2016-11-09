@@ -19,11 +19,11 @@ class PositionOccupantsRepository extends CassandraTable[PositionOccupantsReposi
 
   object positionId extends StringColumn(this) with PartitionKey[String]
 
-  object id extends StringColumn(this) with PrimaryKey[String] with ClusteringOrder[String] with Descending
+  object positionOccupantId extends StringColumn(this) with PrimaryKey[String] with ClusteringOrder[String] with Descending
 
-  object date extends DateColumn(this) with PrimaryKey[Date] with ClusteringOrder[Date] with Descending
+  object date extends DateTimeColumn(this) with PrimaryKey[DateTime] with ClusteringOrder[DateTime] with Descending
 
-  object personId extends StringColumn(this)
+  object userId extends StringColumn(this)
 
   object state extends StringColumn(this)
 
@@ -31,9 +31,9 @@ class PositionOccupantsRepository extends CassandraTable[PositionOccupantsReposi
   override def fromRow(r: Row): PositionOccupants = {
     PositionOccupants(
       positionId(r),
-      id(r),
+      positionOccupantId(r),
       date(r),
-      personId(r),
+      userId(r),
       state(r)
     )
   }
@@ -49,15 +49,15 @@ object PositionOccupantsRepository extends PositionOccupantsRepository with Root
   def save(occupants: PositionOccupants): Future[ResultSet] = {
     insert
       .value(_.positionId, occupants.positionId)
-      .value(_.id, occupants.id)
+      .value(_.positionOccupantId, occupants.positionOccupantId)
       .value(_.date, occupants.date)
-      .value(_.personId, occupants.personId)
+      .value(_.userId, occupants.userId)
       .value(_.state, occupants.state)
       .future()
   }
 
-  def getPositionOccupant(positionId: String, id: String): Future[Option[PositionOccupants]] = {
-    select.where(_.positionId eqs positionId).and(_.id eqs id).one()
+  def getPositionOccupant(positionId: String, positionOccupantId: String): Future[Option[PositionOccupants]] = {
+    select.where(_.positionId eqs positionId).and(_.positionOccupantId eqs positionOccupantId).one()
   }
 
   def getPositionOccupants(positionId: String): Future[Seq[PositionOccupants]] = {

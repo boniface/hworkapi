@@ -11,12 +11,10 @@ import domain.common.position.PositionType
 import scala.concurrent.Future
 
 sealed class PositionTypeRepository extends CassandraTable[PositionTypeRepository,PositionType]{
-  object id extends StringColumn(this) with PartitionKey[String]
+  object positionTypeId extends StringColumn(this) with PartitionKey[String]
   object name extends StringColumn(this)
-  object description extends StringColumn(this)
-  object state extends StringColumn(this)
   override def fromRow(r: Row): PositionType = {
-    PositionType(id(r),name(r),state(r))
+    PositionType(positionTypeId(r),name(r))
   }
 }
 
@@ -29,20 +27,22 @@ object PositionTypeRepository extends PositionTypeRepository with RootConnector 
 
   def save(positionType: PositionType): Future[ResultSet] = {
     insert
-      .value(_.id, positionType.id)
+      .value(_.positionTypeId, positionType.positionTypeId)
       .value(_.name, positionType.name)
-      .value(_.state, positionType.state)
       .future()
   }
 
-  def findById(id: String):Future[Option[PositionType]] = {
-    select.where(_.id eqs id).one()
+  def findById(positionTypeId: String):Future[Option[PositionType]] = {
+    select.where(_.positionTypeId eqs positionTypeId).one()
   }
   def findAll: Future[Seq[PositionType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
+  def getPositionType(positionTypeId: String): Future[Seq[PositionType]] = {
+    select.where(_.positionTypeId eqs positionTypeId).fetchEnumerator() run Iteratee.collect()
+  }
 
-  def deleteById(id:String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(positionTypeId:String): Future[ResultSet] = {
+    delete.where(_.positionTypeId eqs positionTypeId).future()
   }
 }

@@ -14,12 +14,11 @@ import domain.common.demographics.IdentificationType
 import scala.concurrent.Future
 
 sealed class IdentificationTypeRepository extends CassandraTable[IdentificationTypeRepository,IdentificationType]{
-  object id extends StringColumn(this) with PartitionKey[String]
+  object identificationTypeId extends StringColumn(this) with PartitionKey[String]
   object name extends StringColumn(this)
   object description extends StringColumn(this)
-  object state extends StringColumn(this)
   override def fromRow(r: Row): IdentificationType = {
-    IdentificationType(id(r),name(r),description(r),state(r))
+    IdentificationType(identificationTypeId(r),name(r),description(r))
   }
 }
 
@@ -32,21 +31,23 @@ object IdentificationTypeRepository extends IdentificationTypeRepository with Ro
 
   def save(idtype: IdentificationType): Future[ResultSet] = {
     insert
-      .value(_.id, idtype.id)
+      .value(_.identificationTypeId, idtype.identificationTypeId)
       .value(_.name, idtype.name)
       .value(_.description,idtype.description)
-      .value(_.state, idtype.state)
       .future()
   }
 
-  def findById(id: String):Future[Option[IdentificationType]] = {
-    select.where(_.id eqs id).one()
+  def getIdentificationTypeById(identificationTypeId: String):Future[Option[IdentificationType]] = {
+    select.where(_.identificationTypeId eqs identificationTypeId).one()
   }
-  def findAll: Future[Seq[IdentificationType]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getIdentificationTypes(identificationTypeId:String): Future[Seq[IdentificationType]] = {
+    select.where(_.identificationTypeId eqs identificationTypeId).fetchEnumerator() run Iteratee.collect()
+  }
+  def getIdentificationType(identificationTypeId: String): Future[Seq[IdentificationType]] = {
+    select.where(_.identificationTypeId eqs identificationTypeId).fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(id:String): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
+  def deleteById(identificationTypeId:String): Future[ResultSet] = {
+    delete.where(_.identificationTypeId eqs identificationTypeId).future()
   }
 }

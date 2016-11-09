@@ -22,7 +22,7 @@ import scala.concurrent.Future
 //emailAddress: Map[String, String],
 //state: String,
 //lastupdate: Date
-sealed class ContactsRepository extends CassandraTable[ContactsRepository, CompanyContacts] {
+sealed class ContactsRepository{/* extends CassandraTable[ContactsRepository, CompanyContacts] {
 
   object company extends StringColumn(this) with PartitionKey[String]
 
@@ -90,5 +90,5 @@ object ContactsRepository extends ContactsRepository with RootConnector {
 
   def findEntityContacts(company: String, entityId:String): Future[Seq[CompanyContacts]] = {
     select.where(_.company eqs company).and(_.entityId eqs entityId).fetchEnumerator() run Iteratee.collect()
-  }
+  }*/
 }
