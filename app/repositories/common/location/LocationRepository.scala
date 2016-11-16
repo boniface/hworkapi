@@ -9,9 +9,6 @@ import conf.connection.DataConnection
 import domain.common.location.Location
 import scala.concurrent.Future
 
-/**
-  * Created by SONY on 2016-10-18.
-  */
 class LocationRepository extends CassandraTable[LocationRepository, Location] {
 
   object locationId extends StringColumn(this) with PartitionKey[String]
