@@ -32,11 +32,11 @@ object TitleRepository extends TitleRepository with RootConnector {
       .future()
   }
 
-  def findById(titleId: String):Future[Option[Title]] = {
+  def getTitleById(titleId: String):Future[Option[Title]] = {
     select.where(_.titleId eqs titleId).one()
   }
-  def findAll: Future[Seq[Title]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getTitles(titleId:String): Future[Seq[Title]] = {
+    select.where(_.titleId eqs titleId).fetchEnumerator() run Iteratee.collect()
   }
   def getTitle(titleId: String): Future[Seq[Title]] = {
     select.where(_.titleId eqs titleId).fetchEnumerator() run Iteratee.collect()

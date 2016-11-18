@@ -32,11 +32,11 @@ object EvaluationRepository extends EvaluationRepository with RootConnector {
       .future()
   }
 
-  def findById(evaluationId: String):Future[Option[Evaluation]] = {
+  def getEvaluationById(evaluationId: String):Future[Option[Evaluation]] = {
     select.where(_.evaluationId eqs evaluationId).one()
   }
-  def findAll: Future[Seq[Evaluation]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getEvaluations(evaluationId:String): Future[Seq[Evaluation]] = {
+    select.where(_.evaluationId eqs evaluationId).fetchEnumerator() run Iteratee.collect()
   }
   def getEvaluation(evaluationId: String): Future[Seq[Evaluation]] = {
     select.where(_.evaluationId eqs evaluationId).fetchEnumerator() run Iteratee.collect()

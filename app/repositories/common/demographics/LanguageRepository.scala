@@ -32,11 +32,11 @@ object LanguageRepository extends LanguageRepository with RootConnector {
       .future()
   }
 
-  def findById(languageId: String):Future[Option[Language]] = {
+  def getLanguageById(languageId: String):Future[Option[Language]] = {
     select.where(_.languageId eqs languageId).one()
   }
-  def findAll: Future[Seq[Language]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getLanguages(languageId:String): Future[Seq[Language]] = {
+    select.where(_.languageId eqs languageId).fetchEnumerator() run Iteratee.collect()
   }
   def getLanguage(languageId: String): Future[Seq[Language]] = {
     select.where(_.languageId eqs languageId).fetchEnumerator() run Iteratee.collect()
