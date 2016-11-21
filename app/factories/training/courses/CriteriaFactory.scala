@@ -5,7 +5,7 @@ import domain.training.courses.Criteria
 /**
  * Created by gavin.ackerman on 2016-10-23.
  */
-object CriteriaFactory {
+class CriteriaFactory {
   def createCriteria(values:Map[String, String]):Criteria={
     Criteria(criteriaId = values("criteriaId"), name = values("name"))
   }
