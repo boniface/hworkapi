@@ -6,7 +6,6 @@ import play.api.libs.json.Json
 /**
   * Created by hashcode on 2016/10/17.
   */
-
 class CourseStatus(courseId: String, status: String, date: DateTime)
 
 
