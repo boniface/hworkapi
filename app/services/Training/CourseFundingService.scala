@@ -17,6 +17,6 @@ trait CourseFundingService {
 
 }
 
-object TargetGroupService{
+object CourseFundingService{
   def apply:CourseFundingService = new CourseFundingServiceImpl()
 }
