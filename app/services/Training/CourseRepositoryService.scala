@@ -14,7 +14,7 @@ trait CourseRepositoryService {
 
   def getCourseById( id: String): Future[Option[Course]]
 
-  def getCourses(id: String): Future[Seq[Course]]
+  def getCourses(): Future[Seq[Course]]
 
 }
 

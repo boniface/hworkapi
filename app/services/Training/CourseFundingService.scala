@@ -13,10 +13,10 @@ trait CourseFundingService {
 
   def getCourseFundingById( id: String): Future[Option[CourseFunding]]
 
-  def getCourseFunding(id: String): Future[Seq[CourseFunding]]
+  def getCourseFunding(): Future[Seq[CourseFunding]]
 
 }
 
-object TargetGroupService{
+object CourseFundingService{
   def apply:CourseFundingService = new CourseFundingServiceImpl()
 }

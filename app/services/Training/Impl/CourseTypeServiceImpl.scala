@@ -16,11 +16,11 @@ class CourseTypeServiceImpl extends CourseTypeService with Service{
     CourseTypeRepository.save(courseType)
   }
 
-  def getEvaluationById( id: String): Future[Option[CourseType]] = {
+  def getCourseTypeById( id: String): Future[Option[CourseType]] = {
     CourseTypeRepository.getCourseTypesById( id)
   }
 
-  def getEvaluation(): Future[Seq[CourseType]] = {
+  def getCourseTypes(): Future[Seq[CourseType]] = {
     CourseTypeRepository.getAllCourseTypeGroups
   }
 

@@ -16,7 +16,7 @@ class CourseSubjectsServiceImpl extends CourseSubjectService with Service{
     CourseSubjectsRepository.save(courseSubjects)
   }
 
-  def getCourseSubjectsById( id: String): Future[Option[CourseSubjects]] = {
+  def getCourseSubjectById( id: String): Future[Option[CourseSubjects]] = {
     CourseSubjectsRepository.getCourseSubjectsById( id)
   }
 

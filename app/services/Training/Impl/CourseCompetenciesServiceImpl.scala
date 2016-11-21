@@ -20,7 +20,7 @@ class CourseCompetenciesServiceImpl extends CourseCompetenciesService with Servi
     CourseCompetenciesRepository.getCourseCompetenciesById( id)
   }
 
-  def getCourseCompetencies(): Future[Seq[CourseCompetencies]] = {
+  def getCourseCompetenciess(): Future[Seq[CourseCompetencies]] = {
     CourseCompetenciesRepository.getAllCourseCourseCompetencies
   }
 
