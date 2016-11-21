@@ -7,7 +7,7 @@ import domain.training.courses.CourseTargetGroups
 /**
  * Created by gavin.ackerman on 2016-10-23.
  */
-class CourseTargetGroupsFactory {
+object CourseTargetGroupsFactory {
   def createCourseTargetGroups(values:Map[String, String]):CourseTargetGroups={
     CourseTargetGroups(organisationId = values("organisationId"), courseId = values("courseId"),targetGroupId = values("targetGroupId"))
   }

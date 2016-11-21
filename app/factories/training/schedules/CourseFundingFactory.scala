@@ -8,7 +8,7 @@ import scala.math.BigDecimal
 /**
  * Created by gavin.ackerman on 2016-10-23.
  */
-class CourseFundingFactory {
+object CourseFundingFactory {
   def createCourseFunding(values:Map[String, String],amount:BigDecimal):CourseFunding={
     CourseFunding(scheduledCourseId = values("scheduledCourseId"), fundingSourcesId = values("fundingSourcesId"),amount = amount,
       currencyId = values("currencyId"))
