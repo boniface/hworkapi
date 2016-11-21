@@ -1,13 +1,12 @@
 package domain.training.institutions
 
-import java.util.Date
-
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
   * Created by hashcode on 2016/10/17.
   */
-class TrainingInstitutionLocation(organisationId: String,
+case class TrainingInstitutionLocation(organisationId: String,
                                   TrainingInstitutionLocationId: String,
                                   name: String,
                                   locationTypeId: String,
@@ -15,7 +14,7 @@ class TrainingInstitutionLocation(organisationId: String,
                                   latitude: String,
                                   longitude: String,
                                   state: String,
-                                  date: Date)
+                                  date: DateTime)
 object TrainingInstitutionLocation{
   implicit val traningInstitutionFmt = Json.format[TrainingInstitutionLocation]
 
