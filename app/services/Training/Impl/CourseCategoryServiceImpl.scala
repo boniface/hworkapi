@@ -23,7 +23,7 @@ class CourseCategoryServiceImpl extends CourseCategoryService with Service{
     CourseCategoryRepository.getCourseCategoryById( id)
   }
 
-  def getCourseCategory(): Future[Seq[CourseCategory]] = {
+  def getCourseCategorys(): Future[Seq[CourseCategory]] = {
     CourseCategoryRepository.getAllCourseCategory
   }
 

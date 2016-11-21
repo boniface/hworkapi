@@ -20,7 +20,7 @@ class CourseStatusServiceImpl extends CourseStatusService with Service{
     CourseStatusRepository.getCourseStatussById( id)
   }
 
-  def getCourseStatus(): Future[Seq[CourseStatus]] = {
+  def getCourseStatuss(): Future[Seq[CourseStatus]] = {
     CourseStatusRepository.getAllCourseCourseStatus
   }
 

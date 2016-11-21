@@ -12,7 +12,7 @@ trait CourseCategoryService {
 
   def getCourseCategoryById( id: String): Future[Option[CourseCategory]]
 
-  def getCourseCategorys(id: String): Future[Seq[CourseCategory]]
+  def getCourseCategorys(): Future[Seq[CourseCategory]]
 
 }
 

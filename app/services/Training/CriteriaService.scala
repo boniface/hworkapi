@@ -13,7 +13,7 @@ trait CriteriaService {
 
   def getCriteriaById( id: String): Future[Option[Criteria]]
 
-  def getCriteria(id: String): Future[Seq[Criteria]]
+  def getCriteria(): Future[Seq[Criteria]]
 
 }
 
