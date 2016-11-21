@@ -20,7 +20,7 @@ class CourseServiceImpl extends CourseRepositoryService with Service{
     CourseRepository.getCourseTypeById( id)
   }
 
-  def getCourse(): Future[Seq[Course]] = {
+  def getCourses(): Future[Seq[Course]] = {
     CourseRepository.getAllCourseType
   }
 

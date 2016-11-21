@@ -13,7 +13,7 @@ trait CourseTargetGroupService {
 
   def getCourseTargetGroupById( id: String): Future[Option[CourseTargetGroups]]
 
-  def getCourseTargetGroups(id: String): Future[Seq[CourseTargetGroups]]
+  def getCourseTargetGroups(): Future[Seq[CourseTargetGroups]]
 
 }
 

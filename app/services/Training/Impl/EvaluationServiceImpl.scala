@@ -18,7 +18,7 @@ class EvaluationServiceImpl extends EvaluationService with Service{
     EvaluationRepository.getEvaluationById( id)
   }
 
-  def getEvaluation(): Future[Seq[Evaluation]] = {
+  def getEvaluations(): Future[Seq[Evaluation]] = {
     EvaluationRepository.getAllEvaluation
   }
 

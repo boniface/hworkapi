@@ -13,7 +13,7 @@ trait CourseStatusService {
 
   def getCourseStatusById( id: String): Future[Option[CourseStatus]]
 
-  def getCourseStatuss(id: String): Future[Seq[CourseStatus]]
+  def getCourseStatuss(): Future[Seq[CourseStatus]]
 
 }
 
