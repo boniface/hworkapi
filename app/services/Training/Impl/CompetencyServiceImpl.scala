@@ -18,7 +18,7 @@ class CompetencyServiceImpl extends CompetencyService with Service{
   }
 
   def getCompetencyById( id: String): Future[Option[Competency]] = {
-    CompetencyRepository.getJobById( id)
+    CompetencyRepository.getcompById( id)
   }
 
   def getCompetency(): Future[Seq[Competency]] = {

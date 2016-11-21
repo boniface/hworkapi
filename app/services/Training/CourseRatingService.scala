@@ -9,7 +9,7 @@ import com.websudos.phantom.dsl._
  * Created by gavin.ackerman on 2016-11-10.
  */
 trait CourseRatingService {
-  def createOrUpdate(course: Subject): Future[ResultSet]
+  def createOrUpdate(course: CourseRating): Future[ResultSet]
 
   def getCourseRatingById( id: String): Future[Option[CourseRating]]
 
