@@ -12,7 +12,7 @@ trait BenefitService {
 
 def getFileResultById(organisationId: String, benefitId: String): Future[Option[Benefit]]
 
-def getBenefit(benefit: String): Future[Seq[Benefit]]
+def getBenefit(organisationId: String): Future[Seq[Benefit]]
 }
 object BenefitService{
   def apply: BenefitService = new BenefitServiceImpl()
