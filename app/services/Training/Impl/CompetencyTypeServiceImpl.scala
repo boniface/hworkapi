@@ -16,11 +16,11 @@ class CompetencyTypeServiceImpl extends CompetencyTypeService with Service{
     CompetencyTypeRepository.save(competency)
   }
 
-  def getCompetencyTypeById( id: String): Future[Option[Competency]] = {
+  def getCompetencyTypeById( id: String): Future[Option[CompetencyType]] = {
     CompetencyTypeRepository.getCompetencyTypeById( id)
   }
 
-  def getCompetencyType(): Future[Seq[Competency]] = {
+  def getCompetencyTypes(): Future[Seq[CompetencyType]] = {
     CompetencyTypeRepository.getAllCompetencyType
   }
 

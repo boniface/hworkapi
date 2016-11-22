@@ -14,7 +14,7 @@ trait EvaluationService {
 
   def getEvaluationById( id: String): Future[Option[Evaluation]]
 
-  def getEvaluations(id: String): Future[Seq[Evaluation]]
+  def getEvaluations(): Future[Seq[Evaluation]]
 
 }
 

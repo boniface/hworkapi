@@ -9,6 +9,6 @@ import domain.training.competencies.CompetencyType
  */
 object CompetencyTypeFactory {
   def createCompetencyType(values:util.Map[String, String]):CompetencyType={
-    CompetencyType(competencyTypeId = values("competencyTypeId"), name = values("name")))
+    CompetencyType(competencyTypeId = values("competencyTypeId"), name = values("name"))
   }
 }
