@@ -1,7 +1,6 @@
 package domain.organisations
 
-import java.util.Date
-
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
@@ -16,7 +15,7 @@ case class OrganisationLocation(organisationId: String,
                                 longitude: String,
                                 parentId: String,
                                 state: String,
-                                date: Date)
+                                date: DateTime)
 
 object OrganisationLocation {
   implicit val location = Json.format[OrganisationLocation]

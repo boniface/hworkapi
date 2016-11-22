@@ -30,9 +30,6 @@ libraryDependencies ++= Seq(
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
   "com.websudos" % "phantom-dsl_2.11" % PhantomVersion,
   "com.websudos" % "phantom-reactivestreams_2.11" % PhantomVersion,
-  "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.4.1",
-  "org.apache.logging.log4j" % "log4j-api" % "2.4.1",
-  "org.apache.logging.log4j" % "log4j-core" % "2.4.1",
   "com.chuusai" %% "shapeless" % "2.2.5"
 )
 
@@ -46,8 +43,6 @@ libraryDependencies += "junit" % "junit" % "4.12"
 libraryDependencies += "com.github.t3hnar" % "scala-bcrypt_2.11" % "2.5"
 libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.4"
 libraryDependencies += "org.scalaz" %% "scalaz-core" % ScalaZVersion
-// https://mvnrepository.com/artifact/org.scalatest/scalatest_2.11
-libraryDependencies += "org.scalatest" % "scalatest_2.11" % "3.0.0"
 // https://mvnrepository.com/artifact/com.google.guava/guava
 libraryDependencies += "com.google.guava" % "guava" % "19.0"
 
@@ -59,6 +54,9 @@ libraryDependencies += "com.esotericsoftware.kryo" % "kryo" % "2.24.0"
 libraryDependencies += "org.typelevel" %% "cats" % "0.7.2"
 // https://mvnrepository.com/artifact/com.github.nscala-time/nscala-time_2.11
 libraryDependencies += "com.github.nscala-time" % "nscala-time_2.11" % "2.12.0"
+libraryDependencies += "com.typesafe.play" % "play-logback_2.11" % "2.5.1"
+// https://mvnrepository.com/artifact/org.apache.commons/commons-email
+libraryDependencies += "org.apache.commons" % "commons-email" % "1.4"
 
 routesGenerator := InjectedRoutesGenerator
 libraryDependencies += filters

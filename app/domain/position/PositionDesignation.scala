@@ -2,6 +2,7 @@ package domain.position
 
 import java.util.Date
 
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 /**
@@ -9,7 +10,7 @@ import play.api.libs.json.Json
  */
 case class PositionDesignation(positionId: String,
                                positionDesignationId: String,
-                               date: Date,
+                               date: DateTime,
                                designationId: String,
                                state: String)
 
