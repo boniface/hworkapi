@@ -1,16 +1,14 @@
 package services.Training.Impl
 
-import java.sql.ResultSet
-
-import domain.training.competencies.Evaluation
+import com.websudos.phantom.dsl._
 import domain.training.courses.CourseCategory
-import repositories.Training.competencies.EvaluationRepository
-import repositories.Training.courses.CourseCategoryRepository
+//import repositories.Training.courses.CourseCategoryRepository
 import services.Service
-import services.Training.{CourseCategoryService, EvaluationService}
+import services.Training.{CourseCategoryService}
+
 import scala.collection.Seq
 import scala.concurrent.Future
-import com.websudos.phantom.dsl._
+import repositories.training.courses.CourseCategoryRepository
 /**
  * Created by gavin.ackerman on 2016-11-12.
  */
@@ -19,12 +17,12 @@ class CourseCategoryServiceImpl extends CourseCategoryService with Service{
     CourseCategoryRepository.save(courseCategory)
   }
 
-  def getCourseCategoryById( id: String): Future[Option[CourseCategory]] = {
-    CourseCategoryRepository.getCourseCategoryById( id)
+  def getCourseCategoryById( id: String, courseCategoryId:String): Future[Option[CourseCategory]] = {
+    CourseCategoryRepository.getCourseCategoryById( id, courseCategoryId)
   }
 
-  def getCourseCategorys(): Future[Seq[CourseCategory]] = {
-    CourseCategoryRepository.getAllCourseCategory
+  def getCourseCategorys(id: String): Future[Seq[CourseCategory]] = {
+    CourseCategoryRepository.getCourseCategorys(id)
   }
 
 

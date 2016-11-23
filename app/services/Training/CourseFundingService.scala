@@ -11,9 +11,11 @@ import com.websudos.phantom.dsl._
 trait CourseFundingService {
   def createOrUpdate(course: CourseFunding): Future[ResultSet]
 
-  def getCourseFundingById( id: String): Future[Option[CourseFunding]]
+  def getCourseFundingById( id: String, fundingSourcesId: String): Future[Option[CourseFunding]]
 
-  def getCourseFunding(): Future[Seq[CourseFunding]]
+  def getAllCourseFunding(): Future[Seq[CourseFunding]]
+
+  def getCourseFunding(id: String): Future[Seq[CourseFunding]]
 
 }
 

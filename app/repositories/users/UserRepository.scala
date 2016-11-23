@@ -61,7 +61,7 @@ object UserRepository extends UserRepository with RootConnector {
   def findById(organisationId: String, userId: String):Future[Option[User]] = {
     select.where(_.organisationId eqs organisationId). and(_.userId eqs userId).one()
   }
-  def findAll: Future[Seq[User]] = {
+  def getAllUser: Future[Seq[User]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getUser(organisationId: String): Future[Seq[User]] = {

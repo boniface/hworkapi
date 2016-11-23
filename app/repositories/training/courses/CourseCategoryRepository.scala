@@ -36,13 +36,13 @@ object CourseCategoryRepository extends CourseCategoryRepository with RootConnec
       .future()
   }
 
-  def findById(organisationId: String, courseCategoryId: String):Future[Option[CourseCategory]] = {
+  def getCourseCategoryById(organisationId: String, courseCategoryId: String):Future[Option[CourseCategory]] = {
     select.where(_.organisationId eqs organisationId). and (_.courseCategoryId eqs courseCategoryId).one()
   }
-  def findAll: Future[Seq[CourseCategory]] = {
+  def getAllCourseCategory: Future[Seq[CourseCategory]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getCourseCategory(organisationId: String): Future[Seq[CourseCategory]] = {
+  def getCourseCategorys(organisationId: String): Future[Seq[CourseCategory]] = {
     select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
   }
   def deleteById(organisationId:String, courseCategoryId: String): Future[ResultSet] = {

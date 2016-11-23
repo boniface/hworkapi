@@ -5,7 +5,7 @@ import com.websudos.phantom.dsl._
 import com.websudos.phantom.keys.PartitionKey
 import com.websudos.phantom.reactivestreams._
 import conf.connection.DataConnection
-import domain.common.education.Evaluation
+import domain.training.competencies.Evaluation
 
 import scala.concurrent.Future
 /**
@@ -34,7 +34,7 @@ object EvaluationRepository extends EvaluationRepository with RootConnector {
       .future()
   }
 
-  def findById(evaluationId: String):Future[Option[Evaluation]] = {
+  def getEvaluationById(evaluationId: String):Future[Option[Evaluation]] = {
     select.where(_.evaluationId eqs evaluationId).one()
   }
   def findAll: Future[Seq[Evaluation]] = {

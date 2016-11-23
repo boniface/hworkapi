@@ -34,10 +34,10 @@ object CourseParticipantsRepository extends CourseParticipantsRepository with Ro
       .future()
   }
 
-  def findById(scheduledCourseId: String, userId: String):Future[Option[CourseParticipants]] = {
+  def getCourseParticipantsById(scheduledCourseId: String, userId: String):Future[Option[CourseParticipants]] = {
     select.where(_.scheduledCourseId eqs scheduledCourseId). and(_.userId eqs userId).one()
   }
-  def findAll: Future[Seq[CourseParticipants]] = {
+  def getAllCourseParticipants: Future[Seq[CourseParticipants]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getCourseParticipants(scheduledCourseId: String): Future[Seq[CourseParticipants]] = {

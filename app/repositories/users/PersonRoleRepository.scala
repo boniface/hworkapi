@@ -40,7 +40,7 @@ object PersonRoleRepository extends PersonRoleRepository with RootConnector {
   def findById(organisationId: String, userId: String, roleId: String):Future[Option[PersonRole]] = {
     select.where(_.organisationId eqs organisationId). and(_.userId eqs userId).and(_.roleId eqs roleId).one()
   }
-  def findAll: Future[Seq[PersonRole]] = {
+  def getAllPersonRole: Future[Seq[PersonRole]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getPersonRole(organisationId: String): Future[Seq[PersonRole]] = {

@@ -41,7 +41,7 @@ object SubjectRepository extends SubjectRepository with RootConnector {
       .future()
   }
 
-  def findById(subjectId: String):Future[Option[Subject]] = {
+  def getSubjectById(subjectId: String):Future[Option[Subject]] = {
     select.where(_.subjectId eqs subjectId).one()
   }
   def findAll: Future[Seq[Subject]] = {

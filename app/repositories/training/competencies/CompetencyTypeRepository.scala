@@ -34,13 +34,13 @@ object CompetencyTypeRepository extends CompetencyTypeRepository with RootConnec
       .future()
   }
 
-  def findById(competencyTypeId: String):Future[Option[CompetencyType]] = {
+  def getCompetencyTypeById(competencyTypeId: String):Future[Option[CompetencyType]] = {
     select.where(_.competencyTypeId eqs competencyTypeId).one()
   }
-  def findAll: Future[Seq[CompetencyType]] = {
+  def getAllCompetencyType: Future[Seq[CompetencyType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getCompetencyType(competencyTypeId:String): Future[Seq[CompetencyType]] = {
+  def getCompetencyTypes(competencyTypeId:String): Future[Seq[CompetencyType]] = {
     select.where(_.competencyTypeId eqs competencyTypeId)fetchEnumerator() run Iteratee.collect()
   }
 

@@ -11,9 +11,11 @@ import com.websudos.phantom.dsl._
 trait CourseInstructorsService {
   def createOrUpdate(course: CourseInstructors): Future[ResultSet]
 
-  def getCourseInstructorsById( id: String): Future[Option[CourseInstructors]]
+  def getCourseInstructorsById( id: String, TrainingInstructorId: String): Future[Option[CourseInstructors]]
 
-  def getCourseInstructors(): Future[Seq[CourseInstructors]]
+  def getAllCourseInstructors(): Future[Seq[CourseInstructors]]
+
+  def getCourseInstructors(id: String): Future[Seq[CourseInstructors]]
 
 }
 
