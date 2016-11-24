@@ -36,8 +36,7 @@ class CourseRatingRepository extends CassandraTable[CourseRatingRepository, Cour
       organisationId(r),
       scheduledCourseId(r),
       rating(r),
-      comment(r),
-
+      comment(r)
     )
   }
 }

@@ -20,7 +20,7 @@ class TargetGroupRepository extends CassandraTable[TargetGroupRepository, Target
   override def fromRow(r: Row): TargetGroup = {
     TargetGroup(
       targetGroupId(r),
-      name(r),
+      name(r)
 
 
 
