@@ -23,7 +23,7 @@ class CriteriaRepository extends CassandraTable[CriteriaRepository, Criteria] {
   override def fromRow(r: Row): Criteria = {
     Criteria(
       criteriaId(r),
-      name(r),
+      name(r)
 
     )
   }

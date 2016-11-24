@@ -35,7 +35,7 @@ class SubjectRepository extends CassandraTable[SubjectRepository, Subject] {
       topic(r),
       subjectCode(r),
       credit(r),
-      description(r),
+      description(r)
 
     )
   }

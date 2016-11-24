@@ -23,7 +23,7 @@ class CompetencyTypeRepository extends CassandraTable[CompetencyTypeRepository, 
   override def fromRow(r: Row): CompetencyType = {
     CompetencyType(
       competencyTypeId(r),
-      name(r),
+      name(r)
     )
   }
 }

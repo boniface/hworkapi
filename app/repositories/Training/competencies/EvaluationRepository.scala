@@ -23,7 +23,7 @@ class EvaluationRepository extends CassandraTable[EvaluationRepository, Evaluati
   override def fromRow(r: Row): Evaluation = {
     Evaluation(
       evaluationId(r),
-      name(r),
+      name(r)
     )
   }
 }
