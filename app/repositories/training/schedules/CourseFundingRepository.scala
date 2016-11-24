@@ -52,3 +52,4 @@ object CourseFundingRepository extends CourseFundingRepository with RootConnecto
     delete.where(_.scheduledCourseId eqs scheduledCourseId). and(_.fundingSourcesId eqs fundingSourcesId).future()
   }
 }
+
