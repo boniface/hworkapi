@@ -14,7 +14,7 @@ trait CompetencyService {
 
   def getCompetencyById( id: String): Future[Option[Competency]]
 
-  def getCompetencys(): Future[Seq[Competency]]
+  def getCompetencys(id: String): Future[Seq[Competency]]
 
 }
 

@@ -13,7 +13,7 @@ class PositionPackageFactory {
     gradeId = values("gradeId"),
     notchId = values("notchId"),
     state = values("state"),
-    date = DateTime)
+    date = date)
   }
 
 }

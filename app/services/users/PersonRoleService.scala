@@ -13,6 +13,8 @@ trait PersonRoleService {
   def getPersonRoleById(organisationId: String, userId: String, roleId: String): Future[Option[PersonRole]]
 
   def getPersonRole(organisationId: String): Future[Seq[PersonRole]]
+
+  def getAllPersonRole(): Future[Seq[PersonRole]]
 }
 
 object PersonRoleService{

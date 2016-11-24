@@ -16,6 +16,8 @@ trait UserContactService
   def getUserContactById(organisationId: String, userId: String, userContactId: String): Future[Option[UserContact]]
 
   def getUserContact(organisationId: String): Future[Seq[UserContact]]
+
+  def getAllUserContact(): Future[Seq[UserContact]]
 }
 
 object UserContactService{

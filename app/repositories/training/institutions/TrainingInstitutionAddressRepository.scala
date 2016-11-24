@@ -16,7 +16,7 @@ class TrainingInstitutionAddressRepository extends CassandraTable[TrainingInstit
   object TrainingInstitutionAddressId extends StringColumn(this) with PrimaryKey[String]
   object trainingInstitutionLocationId extends StringColumn(this) with PrimaryKey[String]
   object addressTypeId extends StringColumn(this)
-  object details extends MapColumn[TrainingInstitutionAddressRepository,TrainingInstitutionAddress, String, String](this)
+  object details extends MapColumn[ String, String](this)
 
   override def fromRow(r: Row): TrainingInstitutionAddress = {
     TrainingInstitutionAddress(organisationId(r),TrainingInstitutionAddressId(r),trainingInstitutionLocationId(r), addressTypeId(r), details(r))

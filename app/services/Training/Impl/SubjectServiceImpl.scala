@@ -1,12 +1,12 @@
 package services.Training.Impl
 import domain.training.courses.Subject
-import domain.training.competencies.Evaluation
-import repositories.Training.competencies.EvaluationRepository
-import repositories.Training.courses.SubjectRepository
+
 import services.Service
-import services.Training.{SubjectService, EvaluationService}
+import services.Training.{SubjectService}
+
 import scala.concurrent.Future
 import com.websudos.phantom.dsl._
+import repositories.training.courses.SubjectRepository
 /**
  * Created by gavin.ackerman on 2016-11-13.
  */
@@ -19,9 +19,7 @@ class SubjectServiceImpl extends SubjectService with Service{
     SubjectRepository.getSubjectById( id)
   }
 
-  def getSubject(): Future[Seq[Subject]] = {
-    SubjectRepository.getAllSubject
+  def getSubject(id: String): Future[Seq[Subject]] = {
+    SubjectRepository.getSubject(id)
   }
-
-
 }

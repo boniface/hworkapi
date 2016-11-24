@@ -13,7 +13,7 @@ trait CourseTypeService {
 
   def getCourseTypeById( id: String): Future[Option[CourseType]]
 
-  def getCourseTypes(): Future[Seq[CourseType]]
+  def getCourseTypes(id: String): Future[Seq[CourseType]]
 
 }
 

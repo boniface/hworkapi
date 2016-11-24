@@ -12,9 +12,11 @@ import domain.training.courses.{Course, CourseCompetencies}
 trait CourseRepositoryService {
   def createOrUpdate(course: Course): Future[ResultSet]
 
-  def getCourseById( id: String): Future[Option[Course]]
+  def getCourseById( id: String, courseId: String, courseCode: String): Future[Option[Course]]
 
-  def getCourses(): Future[Seq[Course]]
+  def getAllCourseType(): Future[Seq[Course]]
+
+  def getCourse(id: String): Future[Seq[Course]]
 
 }
 

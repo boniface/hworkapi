@@ -1,13 +1,12 @@
 package services.Training.Impl
 
-import domain.training.competencies.Evaluation
 import domain.training.schedules.CourseFunding
-import repositories.Training.competencies.EvaluationRepository
-import repositories.Training.schedules.CourseFundingRepository
 import services.Service
-import services.Training.{CourseFundingService, EvaluationService}
+import services.Training.CourseFundingService
+
 import scala.concurrent.Future
 import com.websudos.phantom.dsl._
+import repositories.training.schedules.CourseFundingRepository
 /**
  * Created by gavin.ackerman on 2016-11-13.
  */
@@ -16,13 +15,15 @@ class CourseFundingServiceImpl extends CourseFundingService with Service{
     CourseFundingRepository.save(courseFunding)
   }
 
-  def getCourseFundingById( id: String): Future[Option[CourseFunding]] = {
-    CourseFundingRepository.getCourseFundingById( id)
+  def getCourseFundingById( id: String, fundingSourcesId: String): Future[Option[CourseFunding]] = {
+    CourseFundingRepository.getCourseFundingById( id, fundingSourcesId)
   }
 
-  def getCourseFunding(): Future[Seq[CourseFunding]] = {
+  def getAllCourseFunding(): Future[Seq[CourseFunding]] = {
     CourseFundingRepository.getAllCourseFunding
   }
-
+  def getCourseFunding(id: String): Future[Seq[CourseFunding]] = {
+    CourseFundingRepository.getCourseFunding(id)
+  }
 
 }

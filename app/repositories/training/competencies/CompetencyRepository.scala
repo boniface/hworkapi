@@ -36,13 +36,13 @@ object CompetencyRepository extends CompetencyRepository with RootConnector {
       .future()
   }
 
-  def findById(compencyId: String):Future[Option[Competency]] = {
+  def getcompById(compencyId: String):Future[Option[Competency]] = {
     select.where(_.compencyId eqs compencyId).one()
   }
-  def findAll: Future[Seq[Competency]] = {
+  def getAllcomp: Future[Seq[Competency]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getCompetency(compencyId:String): Future[Seq[Competency]] = {
+  def getCompetencys(compencyId:String): Future[Seq[Competency]] = {
     select.where(_.compencyId eqs compencyId)fetchEnumerator() run Iteratee.collect()
   }
 

@@ -23,5 +23,9 @@ class UserContactServiceImpl  extends UserContactService with Service {
   def getUserContact(organisationId: String): Future[Seq[UserContact]] = {
     UserContactRepository.getUserContact(organisationId)
   }
+  def getAllUserContact(): Future[Seq[UserContact]] = {
+    UserContactRepository.getAllUserContact
+  }
+
 }
 

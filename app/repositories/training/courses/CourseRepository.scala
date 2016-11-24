@@ -52,10 +52,10 @@ object CourseRepository extends CourseRepository with RootConnector {
       .future()
   }
 
-  def findById(organisationId: String, courseId: String, courseCode: String):Future[Option[Course]] = {
+  def getCourseTypeById(organisationId: String, courseId: String, courseCode: String):Future[Option[Course]] = {
     select.where(_.organisationId eqs organisationId). and (_.courseId eqs courseId). and (_.courseCode eqs courseCode).one()
   }
-  def findAll: Future[Seq[Course]] = {
+  def getAllCourseType: Future[Seq[Course]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getCourse(organisationId: String): Future[Seq[Course]] = {

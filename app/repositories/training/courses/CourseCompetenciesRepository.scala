@@ -36,10 +36,10 @@ object CourseCompetenciesRepository extends CourseCompetenciesRepository with Ro
       .future()
   }
 
-  def findById(organisationId: String, courseId: String):Future[Option[CourseCompetencies]] = {
+  def getCourseCompetenciesById(organisationId: String, courseId: String):Future[Option[CourseCompetencies]] = {
     select.where(_.organisationId eqs organisationId). and (_.courseId eqs courseId).one()
   }
-  def findAll: Future[Seq[CourseCompetencies]] = {
+  def getAllCourseCourseCompetencies: Future[Seq[CourseCompetencies]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getCourseCompetencies(organisationId: String): Future[Seq[CourseCompetencies]] = {
