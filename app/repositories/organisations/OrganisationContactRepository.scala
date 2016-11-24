@@ -42,6 +42,7 @@ object OrganisationContactRepository extends OrganisationContactRepository with 
       .future()
   }
 
+
   def getFileResultById(organisationId: String, organisationContactId: String): Future[Option[OrganisationContact]] = {
     select.where(_.organisationId eqs organisationId).and (_.organisationContactId eqs organisationContactId).one()
   }
