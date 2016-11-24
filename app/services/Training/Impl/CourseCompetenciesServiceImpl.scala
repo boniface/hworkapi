@@ -1,13 +1,12 @@
 package services.Training.Impl
 
-import domain.training.competencies.Evaluation
 import domain.training.courses.CourseCompetencies
-import repositories.Training.competencies.EvaluationRepository
-import repositories.Training.courses.CourseCompetenciesRepository
 import services.Service
-import services.Training.{CourseCompetenciesService, EvaluationService}
+import services.Training.CourseCompetenciesService
+
 import scala.concurrent.Future
 import com.websudos.phantom.dsl._
+import repositories.training.courses.CourseCompetenciesRepository
 /**
  * Created by gavin.ackerman on 2016-11-13.
  */
@@ -16,12 +15,15 @@ class CourseCompetenciesServiceImpl extends CourseCompetenciesService with Servi
     CourseCompetenciesRepository.save(courseCompetencies)
   }
 
-  def getCourseCompetenciesById( id: String): Future[Option[CourseCompetencies]] = {
-    CourseCompetenciesRepository.getCourseCompetenciesById( id)
+  def getCourseCompetenciesById( id: String, courseId: String): Future[Option[CourseCompetencies]] = {
+    CourseCompetenciesRepository.getCourseCompetenciesById( id,courseId )
   }
 
-  def getCourseCompetencies(): Future[Seq[CourseCompetencies]] = {
+  def getAllCourseCourseCompetencies(): Future[Seq[CourseCompetencies]] = {
     CourseCompetenciesRepository.getAllCourseCourseCompetencies
+  }
+  def getCourseCompetencies(id: String): Future[Seq[CourseCompetencies]] = {
+    CourseCompetenciesRepository.getCourseCompetencies(id)
   }
 
 

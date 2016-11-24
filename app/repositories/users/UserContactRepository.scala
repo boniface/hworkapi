@@ -16,7 +16,7 @@ class UserContactRepository extends CassandraTable[UserContactRepository,UserCon
   object userId extends StringColumn(this)with PrimaryKey[String]
   object userContactId extends StringColumn(this) with PrimaryKey[String]
   object contactTypeId extends StringColumn(this)
-  object details extends MapColumn[UserAddressRepository,UserContact, String, String](this)
+  object details extends MapColumn[String, String](this)
   object date extends DateTimeColumn(this)
   object state extends StringColumn(this)
 
@@ -47,7 +47,7 @@ object UserContactRepository extends UserContactRepository with RootConnector {
   def findById(organisationId: String, userId: String, userContactId: String):Future[Option[UserContact]] = {
     select.where(_.organisationId eqs organisationId). and(_.userId eqs userId). and (_.userContactId eqs userContactId).one()
   }
-  def findAll: Future[Seq[UserContact]] = {
+  def getAllUserContact: Future[Seq[UserContact]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getUserContact(organisationId: String): Future[Seq[UserContact]] = {

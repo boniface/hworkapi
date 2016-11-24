@@ -11,7 +11,7 @@ import com.websudos.phantom.dsl._
 trait ScheduledCourseService {
   def createOrUpdate(course: ScheduledCourse): Future[ResultSet]
 
-  def getScheduledCourseById( id: String): Future[Option[ScheduledCourse]]
+  def getScheduledCourseById( id: String, courseId: String , scheduledCourseId:String): Future[Option[ScheduledCourse]]
 
   def getScheduledCourse(id: String): Future[Seq[ScheduledCourse]]
 

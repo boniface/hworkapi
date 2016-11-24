@@ -23,6 +23,9 @@ class UserServiceImpl extends UserService with Service {
   def getUser(organisationId: String): Future[Seq[User]] = {
     UserRepository.getUser(organisationId)
   }
+  def getAllUser(): Future[Seq[User]] = {
+    UserRepository.getAllUser
+  }
 
 
 }

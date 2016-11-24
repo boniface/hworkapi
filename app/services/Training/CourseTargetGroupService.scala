@@ -11,7 +11,7 @@ import com.websudos.phantom.dsl._
 trait CourseTargetGroupService {
   def createOrUpdate(course: CourseTargetGroups): Future[ResultSet]
 
-  def getCourseTargetGroupById( id: String): Future[Option[CourseTargetGroups]]
+  def getCourseTargetGroupById( id: String, courseId: String, targetGroupId: String): Future[Option[CourseTargetGroups]]
 
   def getCourseTargetGroups(id: String): Future[Seq[CourseTargetGroups]]
 

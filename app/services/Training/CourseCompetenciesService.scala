@@ -10,9 +10,11 @@ import com.websudos.phantom.dsl._
 trait CourseCompetenciesService {
   def createOrUpdate(courseCompetencies: CourseCompetencies): Future[ResultSet]
 
-  def getCourseCompetenciesById( id: String): Future[Option[CourseCompetencies]]
+  def getCourseCompetenciesById( id: String, courseId: String): Future[Option[CourseCompetencies]]
 
-  def getCourseCompetenciess(id: String): Future[Seq[CourseCompetencies]]
+  def getAllCourseCourseCompetencies(): Future[Seq[CourseCompetencies]]
+
+  def getCourseCompetencies(id: String): Future[Seq[CourseCompetencies]]
 
 }
 

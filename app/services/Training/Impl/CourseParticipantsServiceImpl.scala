@@ -1,13 +1,12 @@
 package services.Training.Impl
 
-import domain.training.courses.CourseStatus
 import domain.training.schedules.CourseParticipants
-import repositories.Training.courses.CourseStatusRepository
-import repositories.Training.schedules.CourseParticipantsRepository
 import services.Service
-import services.Training.{CourseParticipantsService, CourseStatusService}
+import services.Training.CourseParticipantsService
+
 import scala.concurrent.Future
 import com.websudos.phantom.dsl._
+import repositories.training.schedules.CourseParticipantsRepository
 /**
  * Created by gavin.ackerman on 2016-11-15.
  */
@@ -16,11 +15,14 @@ class CourseParticipantsServiceImpl extends CourseParticipantsService with Servi
     CourseParticipantsRepository.save(courseParticipants)
   }
 
-  def getCourseParticipantsById( id: String): Future[Option[CourseParticipants]] = {
-    CourseParticipantsRepository.getCourseParticipantsById( id)
+  def getCourseParticipantsById( id: String, userId: String): Future[Option[CourseParticipants]] = {
+    CourseParticipantsRepository.getCourseParticipantsById( id, userId)
   }
 
-  def getCourseParticipants(): Future[Seq[CourseParticipants]] = {
+  def getAllCourseParticipants(): Future[Seq[CourseParticipants]] = {
     CourseParticipantsRepository.getAllCourseParticipants
+  }
+  def getCourseParticipants(id: String): Future[Seq[CourseParticipants]] = {
+    CourseParticipantsRepository.getCourseParticipants(id)
   }
 }

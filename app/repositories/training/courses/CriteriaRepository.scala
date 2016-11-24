@@ -33,7 +33,7 @@ object CriteriaRepository extends CriteriaRepository with RootConnector {
       .future()
   }
 
-  def findById(criteriaId: String):Future[Option[Criteria]] = {
+  def getCriteriaById(criteriaId: String):Future[Option[Criteria]] = {
     select.where(_.criteriaId eqs criteriaId).one()
   }
   def findAll: Future[Seq[Criteria]] = {

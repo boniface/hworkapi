@@ -1,14 +1,13 @@
 package services.Training.Impl
 
-import domain.job.Job
 import domain.training.competencies.Competency
-import repositories.Training.competencies.CompetencyRepository
-import repositories.job.JobRepository
+
 import services.Service
 import services.Training.CompetencyService
-import services.job.JobService
+
 import scala.concurrent.Future
 import com.websudos.phantom.dsl._
+import repositories.training.competencies.CompetencyRepository
 /**
  * Created by gavin.ackerman on 2016-11-10.
  */
@@ -21,8 +20,8 @@ class CompetencyServiceImpl extends CompetencyService with Service{
     CompetencyRepository.getcompById( id)
   }
 
-  def getCompetency(): Future[Seq[Competency]] = {
-    CompetencyRepository.getAllcomp
+  def getCompetencys(id: String): Future[Seq[Competency]] = {
+    CompetencyRepository.getCompetencys(id)
   }
 
 

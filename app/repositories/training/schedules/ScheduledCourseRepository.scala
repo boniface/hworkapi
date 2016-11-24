@@ -50,10 +50,10 @@ object ScheduledCourseRepository extends ScheduledCourseRepository with RootConn
       .future()
   }
 
-  def findById(organisationId: String, courseId:String, scheduledCourseId: String):Future[Option[ScheduledCourse]] = {
+  def getScheduledCourseById(organisationId: String, courseId:String, scheduledCourseId: String):Future[Option[ScheduledCourse]] = {
     select.where(_.organisationId eqs organisationId). and(_.courseId eqs courseId). and(_.scheduledCourseId eqs scheduledCourseId).one()
   }
-  def findAll: Future[Seq[ScheduledCourse]] = {
+  def getAllScheduledCourse: Future[Seq[ScheduledCourse]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getScheduledCourse(organisationId: String): Future[Seq[ScheduledCourse]] = {

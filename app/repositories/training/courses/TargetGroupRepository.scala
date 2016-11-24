@@ -33,10 +33,10 @@ object TargetGroupRepository extends TargetGroupRepository with RootConnector {
       .future()
   }
 
-  def findById(targetGroupId: String):Future[Option[TargetGroup]] = {
+  def getTargetGroupById(targetGroupId: String):Future[Option[TargetGroup]] = {
     select.where(_.targetGroupId eqs targetGroupId).one()
   }
-  def findAll: Future[Seq[TargetGroup]] = {
+  def getAllTargetGroup: Future[Seq[TargetGroup]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getTargetGroup(targetGroupId: String): Future[Seq[TargetGroup]] = {

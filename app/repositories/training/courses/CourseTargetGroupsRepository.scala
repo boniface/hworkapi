@@ -36,7 +36,7 @@ object CourseTargetGroupsRepository extends CourseTargetGroupsRepository with Ro
       .future()
   }
 
-  def findById(organisationId: String, courseId: String, targetGroupId: String):Future[Option[CourseTargetGroups]] = {
+  def getCourseTargetGroupsById(organisationId: String, courseId: String, targetGroupId: String):Future[Option[CourseTargetGroups]] = {
     select.where(_.organisationId eqs organisationId). and (_.courseId eqs courseId). and (_.targetGroupId eqs targetGroupId).one()
   }
   def findAll: Future[Seq[CourseTargetGroups]] = {

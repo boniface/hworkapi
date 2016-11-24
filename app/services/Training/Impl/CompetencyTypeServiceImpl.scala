@@ -1,12 +1,12 @@
 package services.Training.Impl
 
-import domain.training.competencies.{CompetencyType, Competency}
-import repositories.Training.competencies.CompetencyTypeRepository
-
+import domain.training.competencies.{CompetencyType}
 import services.Service
 import services.Training.CompetencyTypeService
+
 import scala.concurrent.Future
 import com.websudos.phantom.dsl._
+import repositories.training.competencies.CompetencyTypeRepository
 
 /**
  * Created by gavin.ackerman on 2016-11-12.
@@ -16,12 +16,12 @@ class CompetencyTypeServiceImpl extends CompetencyTypeService with Service{
     CompetencyTypeRepository.save(competency)
   }
 
-  def getCompetencyTypeById( id: String): Future[Option[Competency]] = {
+  def getCompetencyTypeById( id: String): Future[Option[CompetencyType]] = {
     CompetencyTypeRepository.getCompetencyTypeById( id)
   }
 
-  def getCompetencyType(): Future[Seq[Competency]] = {
-    CompetencyTypeRepository.getAllCompetencyType
+  def getCompetencyTypes(id: String): Future[Seq[CompetencyType]] = {
+    CompetencyTypeRepository.getCompetencyTypes(id)
   }
 
 

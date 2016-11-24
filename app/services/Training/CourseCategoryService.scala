@@ -10,7 +10,7 @@ import com.websudos.phantom.dsl._
 trait CourseCategoryService {
   def createOrUpdate(courseCategory: CourseCategory): Future[ResultSet]
 
-  def getCourseCategoryById( id: String): Future[Option[CourseCategory]]
+  def getCourseCategoryById( id: String, courseCategoryId:String): Future[Option[CourseCategory]]
 
   def getCourseCategorys(id: String): Future[Seq[CourseCategory]]
 
