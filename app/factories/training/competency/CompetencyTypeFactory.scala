@@ -1,6 +1,6 @@
 package factories.training.competency
 
-import java.util
+
 
 import domain.training.competencies.CompetencyType
 
