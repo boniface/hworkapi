@@ -14,7 +14,7 @@ import domain.training.competencies.Evaluation
  */
 class EvaluationRepository extends CassandraTable[EvaluationRepository, Evaluation] {
 
-  object id extends StringColumn(this) with PrimaryKey[String]
+  object evaluationId extends StringColumn(this) with PrimaryKey[String]
 
   object name extends StringColumn(this)
 
@@ -22,7 +22,7 @@ class EvaluationRepository extends CassandraTable[EvaluationRepository, Evaluati
 
   override def fromRow(r: Row): Evaluation = {
     Evaluation(
-      id(r),
+      evaluationId(r),
       name(r),
     )
   }
@@ -37,7 +37,7 @@ object EvaluationRepository extends EvaluationRepository with RootConnector {
 
   def save(eval: Evaluation): Future[ResultSet] = {
     insert
-      .value(_.id, eval.evaluationId)
+      .value(_.evaluationId, eval.evaluationId)
       .value(_.name, eval.name)
 
       .future()
@@ -48,6 +48,6 @@ object EvaluationRepository extends EvaluationRepository with RootConnector {
   }
 
   def getEvaluationById(id: String): Future[Option[Evaluation]] = {
-    select.where(_.id eqs id).one()
+    select.where(_.evaluationId eqs id).one()
   }
 }

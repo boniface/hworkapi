@@ -21,7 +21,7 @@ class CourseRepository extends CassandraTable[CourseRepository , Course] {
   object courseCategoryId extends StringColumn(this) with PartitionKey[String]
 
   object name extends StringColumn(this)
-  object courseCode extends StringColumn(this) with PrimaryKey[String]
+  object courseCode extends StringColumn(this) with PartitionKey[String]
 
   object trainingInstitutionId extends StringColumn(this) with PartitionKey[String]
 
