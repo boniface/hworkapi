@@ -20,7 +20,7 @@ class CourseParticipantsRepository extends CassandraTable[CourseParticipantsRepo
   override def fromRow(r: Row): CourseParticipants = {
     CourseParticipants(
       scheduledCourseId(r),
-      userId(r),
+      userId(r)
 
     )
   }

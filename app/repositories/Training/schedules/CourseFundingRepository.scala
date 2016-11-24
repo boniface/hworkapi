@@ -30,7 +30,7 @@ class CourseFundingRepository extends CassandraTable[CourseFundingRepository, Co
       scheduledCourseId(r),
       fundingSourcesId(r),
       amount(r),
-      currencyId(r),
+      currencyId(r)
 
     )
   }

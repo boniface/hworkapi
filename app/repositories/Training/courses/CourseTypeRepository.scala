@@ -23,7 +23,7 @@ class CourseTypeRepository extends CassandraTable[CourseTypeRepository, CourseTy
   override def fromRow(r: Row): CourseType = {
     CourseType(
       courseTypeId(r),
-      name(r),
+      name(r)
 
     )
   }
