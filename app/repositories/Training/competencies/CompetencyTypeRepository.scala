@@ -14,7 +14,7 @@ import domain.training.competencies.CompetencyType
  */
 class CompetencyTypeRepository extends CassandraTable[CompetencyTypeRepository, CompetencyType] {
 
-  object id extends StringColumn(this) with PrimaryKey[String]
+  object competencyTypeId extends StringColumn(this) with PrimaryKey[String]
 
   object name extends StringColumn(this)
 
@@ -22,7 +22,7 @@ class CompetencyTypeRepository extends CassandraTable[CompetencyTypeRepository, 
 
   override def fromRow(r: Row): CompetencyType = {
     CompetencyType(
-      id(r),
+      competencyTypeId(r),
       name(r),
     )
   }
@@ -37,7 +37,7 @@ object CompetencyTypeRepository extends CompetencyTypeRepository with RootConnec
 
   def save(comp: CompetencyType): Future[ResultSet] = {
     insert
-      .value(_.id, comp.competencyTypeId)
+      .value(_.competencyTypeId, comp.competencyTypeId)
       .value(_.name, comp.name)
 
       .future()
@@ -48,6 +48,6 @@ object CompetencyTypeRepository extends CompetencyTypeRepository with RootConnec
   }
 
   def getCompetencyTypeById(id: String): Future[Option[CompetencyType]] = {
-    select.where(_.id eqs id).one()
+    select.where(_.competencyTypeId eqs id).one()
   }
 }
