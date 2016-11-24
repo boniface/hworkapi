@@ -38,10 +38,10 @@ object CourseFundingRepository extends CourseFundingRepository with RootConnecto
       .future()
   }
 
-  def findById(scheduledCourseId: String, fundingSourcesId: String):Future[Option[CourseFunding]] = {
+  def getCourseFundingById(scheduledCourseId: String, fundingSourcesId: String):Future[Option[CourseFunding]] = {
     select.where(_.scheduledCourseId eqs scheduledCourseId). and(_.fundingSourcesId eqs fundingSourcesId).one()
   }
-  def findAll: Future[Seq[CourseFunding]] = {
+  def getAllCourseFunding: Future[Seq[CourseFunding]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getCourseFunding(scheduledCourseId: String): Future[Seq[CourseFunding]] = {

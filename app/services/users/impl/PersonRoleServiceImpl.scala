@@ -21,4 +21,7 @@ class PersonRoleServiceImpl extends PersonRoleService with Service {
   def getPersonRole(jobId: String): Future[Seq[PersonRole]] = {
     PersonRoleRepository.getPersonRole(jobId)
   }
+  def getAllPersonRole(): Future[Seq[PersonRole]] = {
+    PersonRoleRepository.getAllPersonRole
+  }
 }

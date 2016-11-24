@@ -18,6 +18,6 @@ class PositionFactory {
       description = values("description"),
       supervisorId = values("supervisorId"),
       state = values("state"),
-      date = DateTime)
+      date = date)
   }
 }

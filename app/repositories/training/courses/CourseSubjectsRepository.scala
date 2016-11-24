@@ -36,10 +36,10 @@ object CourseSubjectsRepository extends CourseSubjectsRepository with RootConnec
       .future()
   }
 
-  def findById(organisationId: String, courseId: String, subjectId: String):Future[Option[CourseSubjects]] = {
+  def getCourseSubjectsById(organisationId: String, courseId: String, subjectId: String):Future[Option[CourseSubjects]] = {
     select.where(_.organisationId eqs organisationId). and (_.courseId eqs courseId). and (_.subjectId eqs subjectId).one()
   }
-  def findAll: Future[Seq[CourseSubjects]] = {
+  def getAllCourseCourseSubjects: Future[Seq[CourseSubjects]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getCourseSubjects(organisationId: String): Future[Seq[CourseSubjects]] = {

@@ -34,13 +34,13 @@ object CourseTypeRepository extends CourseTypeRepository with RootConnector {
       .future()
   }
 
-  def findById(courseTypeId: String):Future[Option[CourseType]] = {
+  def getCourseTypesById(courseTypeId: String):Future[Option[CourseType]] = {
     select.where(_.courseTypeId eqs courseTypeId).one()
   }
   def findAll: Future[Seq[CourseType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getCourseType(courseTypeId: String): Future[Seq[CourseType]] = {
+  def getCourseTypes(courseTypeId: String): Future[Seq[CourseType]] = {
     select.where(_.courseTypeId eqs courseTypeId).fetchEnumerator() run Iteratee.collect()
   }
 

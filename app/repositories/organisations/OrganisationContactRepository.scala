@@ -16,7 +16,7 @@ class OrganisationContactRepository extends CassandraTable[OrganisationContactRe
   object organisationEmail extends StringColumn(this)
   object organisationContactId extends StringColumn(this) with PrimaryKey[String]
   object contactTypeId extends StringColumn(this)
-  object details extends MapColumn[OrganisationRepository,OrganisationContact, String, String](this)
+  object details extends MapColumn[ String, String](this)
 
 
   override def fromRow(r: Row): OrganisationContact = {

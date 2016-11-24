@@ -11,7 +11,7 @@ class PositionFundingFactory {
     PositionFunding(organisationId = values("organisationId"),
       positionId = values("positionId"),
       fundingSourcesId = values("fundingSourcesId"),
-      date = DateTime)
+      date = date)
   }
 
 }
