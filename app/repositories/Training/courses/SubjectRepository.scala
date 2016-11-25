@@ -21,9 +21,9 @@ class SubjectRepository extends CassandraTable[SubjectRepository, Subject] {
 
   object subjectCode extends StringColumn(this)
 
-  object credit extends IntColumn(this)
-
   object description extends StringColumn(this)
+
+  object credit extends IntColumn(this)
 
 
 
@@ -34,8 +34,8 @@ class SubjectRepository extends CassandraTable[SubjectRepository, Subject] {
       subjectId(r),
       topic(r),
       subjectCode(r),
-      credit(r),
-      description(r)
+      description(r),
+      credit(r)
 
     )
   }
@@ -55,8 +55,8 @@ object SubjectRepository extends SubjectRepository with RootConnector {
       .value(_.subjectId, sub.subjectId)
       .value(_.topic, sub.topic)
       .value(_.subjectCode, sub.subjectCode)
-      .value(_.credit, sub.credit)
       .value(_.description, sub.description)
+      .value(_.credit, sub.credit)
 
       .future()
   }
