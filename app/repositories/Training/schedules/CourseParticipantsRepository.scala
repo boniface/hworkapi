@@ -2,7 +2,12 @@ package repositories.Training.schedules
 
 import conf.connection.DataConnection
 import domain.training.schedules.CourseParticipants
-
+import com.datastax.driver.core.Row
+import com.websudos.phantom.CassandraTable
+import com.websudos.phantom.dsl._
+import com.websudos.phantom.keys.PartitionKey
+import com.websudos.phantom.reactivestreams._
+import conf.connection.DataConnection
 /**
  * Created by gavin.ackerman on 2016-11-09.
  */
