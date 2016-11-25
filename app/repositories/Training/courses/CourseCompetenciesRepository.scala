@@ -5,7 +5,6 @@ import com.websudos.phantom.dsl._
 import com.websudos.phantom.keys.PartitionKey
 import com.websudos.phantom.reactivestreams._
 import conf.connection.DataConnection
-import repositories.training.courses.CourseCompetenciesRepository._
 import scala.concurrent.Future
 import conf.connection.DataConnection
 import domain.training.courses.CourseCompetencies
@@ -15,12 +14,19 @@ import domain.training.courses.CourseCompetencies
  */
 class CourseCompetenciesRepository extends CassandraTable[CourseCompetenciesRepository, CourseCompetencies] {
 
+  object compentencyId extends StringColumn(this) with PrimaryKey[String]
+
+  object name extends StringColumn(this)
+
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object courseId extends StringColumn(this) with PrimaryKey[String]
-  object compentencyId extends StringColumn(this)
+
 
   override def fromRow(r: Row): CourseCompetencies = {
-    CourseCompetencies(organisationId(r),courseId(r),compentencyId(r))
+    CourseCompetencies(
+      compentencyId (r),
+      name(r),
+      organisationId(r)
+    )
   }
 }
 
@@ -31,11 +37,11 @@ object CourseCompetenciesRepository extends CourseCompetenciesRepository with Ro
 
   override implicit def session: Session = DataConnection.session
 
-  def save(courseCompetencies: CourseCompetencies): Future[ResultSet] = {
+  def save(course: CourseCompetencies): Future[ResultSet] = {
     insert
-      .value(_.organisationId, courseCompetencies.organisationId)
-      .value(_.courseId, courseCompetencies.courseId)
-      .value(_.compentencyId, courseCompetencies.compentencyId)
+      .value(_.compentencyId, course.compentencyId)
+      .value(_.name, course.name)
+      .value(_.organisationId, course.organisationId)
       .future()
   }
 
