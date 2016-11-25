@@ -44,7 +44,7 @@ object CourseCompetenciesRepository extends CourseCompetenciesRepository with Ro
   }
 
   def getCourseCompetenciesById(id: String): Future[Option[CourseCompetencies]] = {
-    select.where(_.compentencyId eqs id).one()
+    select.where(_.courseId eqs id).one()
   }
 
 }
