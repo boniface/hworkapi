@@ -18,7 +18,7 @@ class CourseStatusRepository extends CassandraTable[CourseStatusRepository, Cour
 
   object status extends StringColumn(this)
 
-  object date extends DateColumn(this)
+  object date extends DateTimeColumn(this)
 
 
   override def fromRow(r: Row): CourseStatus = {
