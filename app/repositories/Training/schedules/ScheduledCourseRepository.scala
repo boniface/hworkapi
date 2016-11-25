@@ -27,13 +27,13 @@ class ScheduledCourseRepository extends CassandraTable[ScheduledCourseRepository
 
   object creditHours extends IntColumn(this)
 
-  object startDate extends DateColumn(this)
+  object startDate extends DateTimeColumn(this)
 
-  object  endDate extends DateColumn(this)
+  object  endDate extends DateTimeColumn(this)
 
   object locationId extends StringColumn(this) with PartitionKey[String]
 
-  object dateScheduled extends DateColumn(this)
+  object dateScheduled extends DateTimeColumn(this)
 
   override def fromRow(r: Row): ScheduledCourse = {
     ScheduledCourse(
