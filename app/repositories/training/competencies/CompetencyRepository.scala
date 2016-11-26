@@ -21,6 +21,7 @@ class CompetencyRepository  extends CassandraTable[CompetencyRepository,Competen
   }
 }
 
+
 object CompetencyRepository extends CompetencyRepository with RootConnector {
   override lazy val tableName = "competency"
 

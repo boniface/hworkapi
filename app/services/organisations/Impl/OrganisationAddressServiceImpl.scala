@@ -18,7 +18,7 @@ class OrganisationAddressServiceImpl extends  OrganisationAddressService with  S
     OrganisationAddressRepository.getOrganisationAddress(organisationAddress)
   }
 
-  override def deleteById(organisationAddress: String, organisationAddressId: String): concurrent.Future[ResultSet] = {
+  override def deleteById(organisationAddress: String, organisationAddressId: String): Future[ResultSet] = {
     OrganisationAddressRepository.deleteById(organisationAddress,organisationAddressId)
   }
 }
