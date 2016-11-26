@@ -21,7 +21,7 @@ trait UserService
 
   def getAllUser(): Future[Seq[User]]
 
-  def getRole(user: User):Future[Option[UserRole]]
+  def getRole(user: User):Future[UserRole]
 
   def getRoles(user: User):Future[Seq[UserRole]]
 

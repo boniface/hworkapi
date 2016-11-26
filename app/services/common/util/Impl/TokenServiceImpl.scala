@@ -133,9 +133,7 @@ class TokenServiceImpl extends TokenService with Service {
     val signature = Future {
       credential.email
     }
-    val userRole = UserService.apply.getRole(user) map (role => {
-      role map (e => e.roleId)
-    })
+    val userRole = UserService.apply.getRole(user) map (role => role)
 
 
 
@@ -148,7 +146,7 @@ class TokenServiceImpl extends TokenService with Service {
       val claims = JwtClaimsSet(Map(
         "iss" -> user.organisationId,
         "sub" -> user.email,
-        "role" -> tokenValues._2.head, //getOrElse("")
+        "role" -> tokenValues._2, //getOrElse("")
         "exp" -> DateTime.now.plusHours(12).getMillis,
         "creation" -> DateTime.now.getMillis,
         "iat" -> DateTime.now.getMillis,
