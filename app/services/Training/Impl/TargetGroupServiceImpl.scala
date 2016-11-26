@@ -25,5 +25,4 @@ class TargetGroupServiceImpl extends TargetGroupService with Service{
     TargetGroupRepository.getTargetGroup(id)
   }
 
-
 }

@@ -5,10 +5,9 @@ import com.websudos.phantom.dsl._
 import com.websudos.phantom.keys.PartitionKey
 import com.websudos.phantom.reactivestreams._
 import conf.connection.DataConnection
-import repositories.Training.courses.CourseCompetenciesRepository
-import scala.concurrent.Future
-import conf.connection.DataConnection
 import domain.training.courses.CourseCompetencies
+
+import scala.concurrent.Future
 
 /**
  * Created by gavin.ackerman on 2016-11-08.

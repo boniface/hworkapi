@@ -2,7 +2,6 @@ package services.Training.Impl
 
 import com.websudos.phantom.dsl._
 import domain.training.courses.CourseCategory
-//import repositories.Training.courses.CourseCategoryRepository
 import services.Service
 import services.Training.{CourseCategoryService}
 

@@ -5,10 +5,10 @@ import play.api.libs.json.Json
 /**
   * Created by hashcode on 2015/10/30.
   */
-case class User(organisationId: String,
+case class User(  organisationId: String,
                   userId: String,
                   firstName: String,
-                  middleName: String,
+                  middleName: Option[String],
                   email: String,
                   lastName: String,
                   title: String,

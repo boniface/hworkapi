@@ -7,7 +7,7 @@ import domain.users.User
   */
 class UsersFactory {
   def createUser(values: Map[String, String], valBool: Map[String, Boolean]): User=
-    User(organisationId = values("organisationId"), userId = values("userId"), firstName= values("firstName"), middleName= values("middleName"),
+    User(organisationId = values("organisationId"), userId = values("userId"), firstName= values("firstName"), middleName= Some(values("middleName")),
       email= values("email"), lastName= values("lastName"), title= values("title"), authvalue= values("authvalue"), enabled= valBool("enabled"),
       accountNonExpired= valBool("accountNonExpired"), credentialsNonExpired= valBool("credentialsNonExpired"),
       accountNonLocked= valBool("accountNonLocked"),state= values("state")

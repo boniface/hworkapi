@@ -2,7 +2,7 @@ package services.Training.institutions.Impl
 
 import com.websudos.phantom.dsl.ResultSet
 import domain.training.institutions.TrainingInstitutionContacts
-import repositories.training.institutions.{TrainingInstitutionContactsRepository, TrainingInstitutionContactsRepository$$}
+import repositories.training.institutions.TrainingInstitutionContactsRepository
 import services.Service
 import services.Training.institutions.TrainingInstitutionContactsService
 

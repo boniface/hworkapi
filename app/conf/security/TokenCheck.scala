@@ -2,7 +2,7 @@ package conf.security
 
 import play.api.libs.json.JsValue
 import play.api.mvc.{AnyContent, Request}
-import services.util.TokenService
+import services.common.util.TokenService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 

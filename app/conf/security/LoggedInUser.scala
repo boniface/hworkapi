@@ -2,9 +2,8 @@ package conf.security
 
 //import domain.people.User
 import domain.users.User
-import services.people.UserService
+import services.common.util.TokenService
 import services.users.UserService
-import services.util.TokenService
 
 import scala.concurrent.Future
 
@@ -15,7 +14,6 @@ object LoggedInUser {
   def user(token: String): Future[Option[User]] = {
     val email = TokenService.apply().getEmail(token)
     val orgCode = TokenService.apply().getOrgCode(token)
-   // UserService.apply().getUserByEmail(orgCode, email)
-    UserService.apply.getUserById(orgCode, email)
+    UserService.apply.getUser(orgCode, email)
   }
 }

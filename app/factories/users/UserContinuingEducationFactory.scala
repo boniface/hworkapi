@@ -2,7 +2,7 @@ package factories.users
 
 import java.util.Date
 
-import domain.users.{PersonContinuingEducation, UserContact}
+import domain.users.{UserContinuingEducation, UserContact}
 import org.joda.time.DateTime
 
 /**
@@ -10,7 +10,7 @@ import org.joda.time.DateTime
   */
 class UserContinuingEducationFactory {
 
-  def createUserContinuingEducation(stringMap: Map[String,String], date:DateTime): PersonContinuingEducation = {
-    PersonContinuingEducation(organisationId = stringMap("organisationId"),userId = stringMap("userId"),personContinuingEducationId = stringMap("personContinuingEducationId"),courseId = stringMap("courseId"),competencyEvaluationId = stringMap("competencyEvaluationId"),courseScheduleId = stringMap("courseScheduleId"),date = date,state = stringMap("state"))
+  def createUserContinuingEducation(stringMap: Map[String,String], date:DateTime): UserContinuingEducation = {
+    UserContinuingEducation(organisationId = stringMap("organisationId"),userId = stringMap("userId"),personContinuingEducationId = stringMap("personContinuingEducationId"),courseId = stringMap("courseId"),competencyEvaluationId = stringMap("competencyEvaluationId"),courseScheduleId = stringMap("courseScheduleId"),date = date,state = stringMap("state"))
   }
 }

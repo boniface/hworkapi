@@ -1,8 +1,6 @@
 package services.Training.Impl
 
 import domain.training.schedules.ScheduledCourse
-//import repositories.Training.courses.SubjectRepository
-//import repositories.Training.schedules.ScheduledCourseRepository
 import services.Service
 import services.Training.{ScheduledCourseService, SubjectService}
 

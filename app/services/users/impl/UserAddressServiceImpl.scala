@@ -4,6 +4,7 @@ import com.websudos.phantom.dsl.ResultSet
 import domain.users.UserAddress
 import repositories.users.UserAddressRepository
 import services.Service
+import services.users.UserAddressService
 
 import scala.concurrent.Future
 /**

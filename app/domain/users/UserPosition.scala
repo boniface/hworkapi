@@ -6,16 +6,16 @@ import play.api.libs.json.Json
 /**
   * Created by hashcode on 2016/01/07.
   */
-case class PersonPosition(organisationId: String,
-                          userId: String,
-                          personPositionId: String,
-                          statusDate: DateTime,
-                          positionId: String,
-                          statusId: String,
-                          reason: String
+case class UserPosition(organisationId: String,
+                        userId: String,
+                        personPositionId: String,
+                        statusDate: DateTime,
+                        positionId: String,
+                        statusId: String,
+                        reason: String
                          )
 
-object PersonPosition {
-  implicit val personPosFmt = Json.format[PersonPosition]
+object UserPosition {
+  implicit val personPosFmt = Json.format[UserPosition]
 
 }

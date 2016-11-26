@@ -1,7 +1,7 @@
 package services.users
 
 import com.websudos.phantom.dsl._
-import domain.users.User
+import domain.users.{User, UserRole}
 import services.users.impl.UserServiceImpl
 
 import scala.concurrent.Future
@@ -11,15 +11,22 @@ import scala.concurrent.Future
   */
 trait UserService
 {
-  def createOrUpdate(personRole: User): Future[ResultSet]
+  def createOrUpdate(user: User): Future[ResultSet]
 
-  def getUserById(organisationId: String, userId: String): Future[Option[User]]
+  def getUser(organisationId: String, userId: String): Future[Option[User]]
 
-  def getUser(organisationId: String): Future[Seq[User]]
+  def getUserByEmail(email: String): Future[Seq[User]]
+
+  def getOrganisationUsers(organisationId: String): Future[Seq[User]]
 
   def getAllUser(): Future[Seq[User]]
+
+  def getRole(user: User):Future[Option[UserRole]]
+
+  def getRoles(user: User):Future[Seq[UserRole]]
+
 }
 
 object UserService{
-  def apply: UserService = new UserServiceImpl()
+  def apply(): UserService = new UserServiceImpl()
 }
