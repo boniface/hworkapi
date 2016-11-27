@@ -12,12 +12,13 @@ import scala.concurrent.Future
 trait TrainingInstitutionContactsService {
   def createOrUpdate(trainingInstitutionContacts: TrainingInstitutionContacts): Future[ResultSet]
 
-  def getTrainingInstitutionContactsById(id: String, trainingInstitutionContactId: String): Future[Seq[TrainingInstitutionContacts]]
+  def getTrainingInstitutionContactsById(id: String, trainingInstitutionContactId: String): Future[Option[TrainingInstitutionContacts]]
 
   def getTrainingInstitutionContacts(companyId: String): Future[Seq[TrainingInstitutionContacts]]
 
   def getAllTrainingInstitutionContacts(): Future[Seq[TrainingInstitutionContacts]]
 }
+
 
 object TrainingInstitutionContactsService{
   def apply: TrainingInstitutionContactsService = new TrainingInstitutionContactsServiceImpl();
