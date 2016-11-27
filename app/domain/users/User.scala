@@ -17,8 +17,7 @@ case class User(  organisationId: String,
                   accountNonExpired: Boolean,
                   credentialsNonExpired: Boolean,
                   accountNonLocked: Boolean,
-                  state: String
-                 )
+                  state: String)
 
 object User {
   implicit val personFmt = Json.format[User]
