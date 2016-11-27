@@ -22,5 +22,4 @@ case class User(  organisationId: String,
 
 object User {
   implicit val personFmt = Json.format[User]
-
 }
