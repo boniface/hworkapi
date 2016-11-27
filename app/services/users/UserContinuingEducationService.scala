@@ -1,20 +1,22 @@
 package services.users
 
-import com.websudos.phantom.dsl._
+import scala.concurrent.Future
+import com.websudos.phantom.dsl.ResultSet
 import domain.users.UserContinuingEducation
 import services.users.impl.UserContinuingEducationServiceImpl
-
-import scala.concurrent.Future
 
 /**
   * Created by Lonwabo on 10/31/2016.
   */
 trait UserContinuingEducationService {
-  def createOrupdate(userAttachment : UserContinuingEducation):Future[ResultSet]
 
-  def getPersonContinuingEducationById(organisationId : String,userId: String, personContinuingEducationId : String): Future[Option[UserContinuingEducation]]
-  def getPersonAttachments(person: String):Future[Seq[UserContinuingEducationService]]
+  def createOrupdate(userAttachment: UserContinuingEducation): Future[ResultSet]
+
+  def getPersonContinuingEducationById(organisationId: String, userId: String, personContinuingEducationId: String): Future[Option[UserContinuingEducation]]
+
+  def getPersonAttachments(personId: String): Future[Seq[UserContinuingEducation]]
 }
-object UserContinuingEducationService{
+
+object UserContinuingEducationService {
   def apply: UserContinuingEducationService = new UserContinuingEducationServiceImpl()
 }

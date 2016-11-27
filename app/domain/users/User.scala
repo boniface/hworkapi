@@ -20,7 +20,7 @@ case class User(  organisationId: String,
                   state: String
                  )
 
-object user {
+object User {
   implicit val personFmt = Json.format[User]
 
 }

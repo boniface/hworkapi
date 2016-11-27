@@ -1,7 +1,7 @@
 package services.common.demographics
 
 import com.websudos.phantom.dsl._
-import domain.common.demographics.{LanguageProficiency, Title}
+import domain.common.demographics.LanguageProficiency
 import services.common.demographics.Impl.LanguageProficiencyServiceImpl
 
 import scala.concurrent.Future
@@ -13,9 +13,9 @@ trait LanguageProficiencyService {
 
   def createOrUpdate(languageProficiency:LanguageProficiency):Future[ResultSet]
 
-  def getLanguageProficiencyById(languageProficiency:String):Future[Option[Title]]
+  def getLanguageProficiencyById(languageProficiency:String):Future[Option[LanguageProficiency]]
 
-  def getLanguageProficiencies(languageProficiency:String):Future[Seq[Title]]
+  def getLanguageProficiencies(languageProficiency:String):Future[Seq[LanguageProficiency]]
 
 }
 
