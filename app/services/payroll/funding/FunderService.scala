@@ -15,6 +15,6 @@ trait FunderService {
 
   def getFunder(organisationId: String): Future[Seq[FundingSources]]
 }
-object BenefitService{
+object FunderService{
   def apply: FunderService = new FunderServiceImpl()
 }
