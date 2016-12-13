@@ -9,6 +9,6 @@ case class CourseParticipants(scheduledCourseId: String,
                               userId: String)
 
 object CourseParticipants {
-  implicit val courseInstructors = Json.format[CourseInstructors]
+  implicit val courseInstructors = Json.format[CourseParticipants]
 
 }
