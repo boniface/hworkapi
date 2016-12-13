@@ -1,9 +1,9 @@
 package services.payroll.common
 
 import com.websudos.phantom.dsl.ResultSet
-import com.websudos.phantom.reactivestreams._
+//import com.websudos.phantom.reactivestreams._
 import domain.payroll.common.MedicalAidPlan
-import repositories.payroll.common.MedicalAidPlanRepository._
+//import repositories.payroll.common.MedicalAidPlanRepository._
 import services.payroll.common.Impl.MedicalAidPlanServiceImpl
 import scala.concurrent.Future
 

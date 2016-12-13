@@ -38,10 +38,10 @@ object CourseRatingRepository extends CourseRatingRepository with RootConnector 
       .future()
   }
 
-  def findById(organisationId: String, scheduledCourseId: String):Future[Option[CourseRating]] = {
+  def getCourseRatingById(organisationId: String, scheduledCourseId: String):Future[Option[CourseRating]] = {
     select.where(_.organisationId eqs organisationId). and(_.scheduledCourseId eqs scheduledCourseId).one()
   }
-  def findAll: Future[Seq[CourseRating]] = {
+  def getAllCourseRating: Future[Seq[CourseRating]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getCourseRating(organisationId: String): Future[Seq[CourseRating]] = {

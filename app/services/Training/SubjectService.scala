@@ -13,7 +13,7 @@ trait SubjectService {
 
   def getSubjectById( id: String): Future[Option[Subject]]
 
-  def getSubject(): Future[Seq[Subject]]
+  def getSubject(id: String): Future[Seq[Subject]]
 
 }
 

@@ -14,7 +14,7 @@ import scala.concurrent.Future
 class OrganisationRepository extends CassandraTable[OrganisationRepository,Organisation]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
   object name extends StringColumn(this)
-  object details extends MapColumn[OrganisationRepository,Organisation, String, String](this)
+  object details extends MapColumn[String, String](this)
   object adminattached extends StringColumn(this)
   object date extends DateTimeColumn(this)
   object state extends StringColumn(this)

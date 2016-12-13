@@ -11,9 +11,11 @@ import com.websudos.phantom.dsl._
 trait CourseRatingService {
   def createOrUpdate(course: CourseRating): Future[ResultSet]
 
-  def getCourseRatingById( id: String): Future[Option[CourseRating]]
+  def getCourseRatingById( id: String, scheduledCourseId: String): Future[Option[CourseRating]]
 
-  def getCourseRating(): Future[Seq[CourseRating]]
+  def getAllCourseRating(): Future[Seq[CourseRating]]
+
+  def getCourseRating(id: String): Future[Seq[CourseRating]]
 
 }
 

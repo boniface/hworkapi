@@ -1,13 +1,14 @@
 package services.Training.Impl
 
-import domain.training.competencies.Evaluation
+
 import domain.training.courses.TargetGroup
-import repositories.Training.competencies.EvaluationRepository
-import repositories.Training.courses.TargetGroupRepository
+
 import services.Service
-import services.Training.{TargetGroupService, EvaluationService}
+import services.Training.{TargetGroupService}
+
 import scala.concurrent.Future
 import com.websudos.phantom.dsl._
+import repositories.training.courses.TargetGroupRepository
 /**
  * Created by gavin.ackerman on 2016-11-13.
  */
@@ -20,9 +21,8 @@ class TargetGroupServiceImpl extends TargetGroupService with Service{
     TargetGroupRepository.getTargetGroupById( id)
   }
 
-  def getTargetGroup(): Future[Seq[TargetGroup]] = {
-    TargetGroupRepository.getAllTargetGroup
+  def getTargetGroup(id: String): Future[Seq[TargetGroup]] = {
+    TargetGroupRepository.getTargetGroup(id)
   }
-
 
 }

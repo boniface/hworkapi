@@ -8,7 +8,7 @@ import play.api.libs.json.Json
 case class User(organisationId: String,
                   userId: String,
                   firstName: String,
-                  middleName: String,
+                  middleName: Option[String],
                   email: String,
                   lastName: String,
                   title: String,
@@ -17,10 +17,8 @@ case class User(organisationId: String,
                   accountNonExpired: Boolean,
                   credentialsNonExpired: Boolean,
                   accountNonLocked: Boolean,
-                  state: String
-                 )
+                  state: String)
 
-object user {
+object User {
   implicit val personFmt = Json.format[User]
-
 }

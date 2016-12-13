@@ -20,4 +20,5 @@ case class Grade(organisationId: String,
 
 object Grade {
   implicit val gradeFmt = Json.format[Grade]
+
 }

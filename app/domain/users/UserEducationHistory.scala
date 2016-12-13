@@ -6,19 +6,19 @@ import play.api.libs.json.Json
 /**
   * Created by hashcode on 2015/12/16.
   */
-case class PersonEducationHistory(organisationId: String,
-                                  userId: String,
-                                  personEducationHistoryId: String,
-                                  institutionName: String,
-                                  institutionLocation: String,
-                                  yearOfGraduation: Int,
-                                  educationTypeId: String,
-                                  degreeId: String,
-                                  notes: String,
-                                  date: DateTime,
-                                  state: String)
+case class UserEducationHistory(organisationId: String,
+                                userId: String,
+                                personEducationHistoryId: String,
+                                institutionName: String,
+                                institutionLocation: String,
+                                yearOfGraduation: Int,
+                                educationTypeId: String,
+                                degreeId: String,
+                                notes: String,
+                                date: DateTime,
+                                state: String)
 
-object PersonEducationHistory {
-  implicit val personrEduhistFmt = Json.format[PersonEducationHistory]
+object UserEducationHistory {
+  implicit val personrEduhistFmt = Json.format[UserEducationHistory]
 
 }

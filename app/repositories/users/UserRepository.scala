@@ -15,7 +15,7 @@ class UserRepository extends CassandraTable[UserRepository,User]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
   object userId extends StringColumn(this) with PrimaryKey[String]
   object firstName extends StringColumn(this)
-  object middleName extends StringColumn(this)
+  object middleName extends OptionalStringColumn(this)
   object email extends StringColumn(this)
   object lastName extends StringColumn(this)
   object title extends StringColumn(this)
@@ -28,8 +28,19 @@ class UserRepository extends CassandraTable[UserRepository,User]{
 
 
   override def fromRow(r: Row): User = {
-    User(organisationId(r), userId(r), firstName(r), middleName(r), email(r), lastName(r), title(r), authvalue(r),
-      enabled(r), accountNonExpired(r),credentialsNonExpired(r), accountNonLocked(r), state(r))
+    User(organisationId(r),
+      userId(r),
+      firstName(r),
+      middleName(r),
+      email(r),
+      lastName(r),
+      title(r),
+      authvalue(r),
+      enabled(r),
+      accountNonExpired(r),
+      credentialsNonExpired(r),
+      accountNonLocked(r),
+      state(r))
   }
 }
 
@@ -58,17 +69,15 @@ object UserRepository extends UserRepository with RootConnector {
       .future()
   }
 
-  def findById(organisationId: String, userId: String):Future[Option[User]] = {
+  def getUser(organisationId: String, userId: String):Future[Option[User]] = {
     select.where(_.organisationId eqs organisationId). and(_.userId eqs userId).one()
   }
-  def findAll: Future[Seq[User]] = {
+  def getAllUser: Future[Seq[User]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getUser(organisationId: String): Future[Seq[User]] = {
+  def getOrganisationUsers(organisationId: String): Future[Seq[User]] = {
     select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteById(organisationId:String, userId: String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId). and(_.userId eqs userId).future()
-  }
+
 }

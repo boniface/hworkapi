@@ -36,10 +36,10 @@ object CourseStatusRepository extends CourseStatusRepository with RootConnector 
       .future()
   }
 
-  def findById(courseId: String):Future[Option[CourseStatus]] = {
+  def getCourseStatusById(courseId: String):Future[Option[CourseStatus]] = {
     select.where(_.courseId eqs courseId).one()
   }
-  def findAll: Future[Seq[CourseStatus]] = {
+  def getAllCourseCourseStatus: Future[Seq[CourseStatus]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getCourseStatus(courseId: String): Future[Seq[CourseStatus]] = {

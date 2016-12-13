@@ -1,9 +1,9 @@
 package services.organisations
 
 import com.websudos.phantom.dsl._
-import io.netty.util.concurrent.Future
 import domain.organisations.OrganisationAddress
 import services.organisations.Impl.OrganisationAddressServiceImpl
+import scala.concurrent.Future
 
 /**
  * Created by Isiphile on 2016/10/21.

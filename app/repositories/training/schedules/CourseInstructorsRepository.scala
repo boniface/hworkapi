@@ -34,10 +34,10 @@ object CourseInstructorsRepository extends CourseInstructorsRepository with Root
       .future()
   }
 
-  def findById(scheduledCourseId: String, TrainingInstructorId: String):Future[Option[CourseInstructors]] = {
+  def getCourseInstructorsById(scheduledCourseId: String, TrainingInstructorId: String):Future[Option[CourseInstructors]] = {
     select.where(_.scheduledCourseId eqs scheduledCourseId). and(_.TrainingInstructorId eqs TrainingInstructorId).one()
   }
-  def findAll: Future[Seq[CourseInstructors]] = {
+  def getAllCourseInstructors: Future[Seq[CourseInstructors]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
   def getCourseInstructors(scheduledCourseId: String): Future[Seq[CourseInstructors]] = {

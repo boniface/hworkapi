@@ -18,13 +18,14 @@ class OrganisationDocumentsRepository extends CassandraTable[OrganisationDocumen
   object organisationDocumentsId extends StringColumn(this)  with PrimaryKey[String]
   object description extends StringColumn(this)
   object url extends StringColumn(this)
+  object mime extends StringColumn(this)
   object date extends DateTimeColumn(this)
-  object permission extends SetColumn[OrganisationDocumentsRepository,OrganisationDocuments, String](this)
+  object permission extends SetColumn[String](this)
   object state extends StringColumn(this)
 
 
   override def fromRow(r: Row): OrganisationDocuments = {
-    OrganisationDocuments(organisationId(r), organisationDocumentsId(r), description(r), url(r),date(r),
+    OrganisationDocuments(organisationId(r), organisationDocumentsId(r), description(r), url(r), mime(r),date(r),
       permission(r), state(r))
   }
 }
@@ -42,6 +43,7 @@ object OrganisationDocumentsRepository extends OrganisationDocumentsRepository w
       .value(_.organisationDocumentsId, organisationDocuments.organisationDocumentsId)
       .value(_.description, organisationDocuments.description)
       .value(_.url, organisationDocuments.url)
+      .value(_.mime, organisationDocuments.mime)
       .value(_.date, organisationDocuments.date)
       .value(_.permission, organisationDocuments.permission)
       .value(_.state, organisationDocuments.state)

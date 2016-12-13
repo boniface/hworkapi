@@ -16,7 +16,7 @@ class OrganisationContactRepository extends CassandraTable[OrganisationContactRe
   object organisationEmail extends StringColumn(this)
   object organisationContactId extends StringColumn(this) with PrimaryKey[String]
   object contactTypeId extends StringColumn(this)
-  object details extends MapColumn[OrganisationRepository,OrganisationContact, String, String](this)
+  object details extends MapColumn[ String, String](this)
 
 
   override def fromRow(r: Row): OrganisationContact = {
@@ -41,6 +41,7 @@ object OrganisationContactRepository extends OrganisationContactRepository with 
       .value(_.details, organisationContact.details)
       .future()
   }
+
 
   def getFileResultById(organisationId: String, organisationContactId: String): Future[Option[OrganisationContact]] = {
     select.where(_.organisationId eqs organisationId).and (_.organisationContactId eqs organisationContactId).one()
