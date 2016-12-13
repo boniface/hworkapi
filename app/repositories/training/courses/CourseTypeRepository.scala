@@ -27,24 +27,19 @@ object CourseTypeRepository extends CourseTypeRepository with RootConnector {
 
   override implicit def session: Session = DataConnection.session
 
-  def save(courseType: CourseType): Future[ResultSet] = {
+  def save(course: CourseType): Future[ResultSet] = {
     insert
-      .value(_.courseTypeId, courseType.courseTypeId)
-      .value(_.name, courseType.name)
+      .value(_.courseTypeId, course.courseTypeId)
+      .value(_.name, course.name)
       .future()
   }
 
-  def getCourseTypesById(courseTypeId: String):Future[Option[CourseType]] = {
-    select.where(_.courseTypeId eqs courseTypeId).one()
-  }
-  def findAll: Future[Seq[CourseType]] = {
+  def getAllCourseTypeGroups: Future[Seq[CourseType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getCourseTypes(courseTypeId: String): Future[Seq[CourseType]] = {
-    select.where(_.courseTypeId eqs courseTypeId).fetchEnumerator() run Iteratee.collect()
+
+  def getCourseTypesById(id: String): Future[Option[CourseType]] = {
+    select.where(_.courseTypeId eqs id).one()
   }
 
-  def deleteById(courseTypeId:String): Future[ResultSet] = {
-    delete.where(_.courseTypeId eqs courseTypeId).future()
-  }
 }
