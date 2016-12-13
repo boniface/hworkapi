@@ -14,7 +14,6 @@ import play.api.test._
   */
 
 class MailControllerTest extends PlaySpec with OneAppPerTest {
-  val gson = new Gson()
   val mail = Mail(
     "SITEID",
     "no_reply_no@hashcode.zm",
@@ -30,15 +29,14 @@ class MailControllerTest extends PlaySpec with OneAppPerTest {
 
     "MailController" should {
 
-//      "Create Mail Object in Through Controller" in {
-//        val json = gson.toJson(mail).stripMargin
-//        val request =  route(app, FakeRequest(POST, "/util/mail/create")
-//          .withJsonBody(Json.parse(json)))
-//          .get
-//        status(request) mustBe OK
-//        contentType(request) mustBe Some("application/json")
-//        println(" The Content is ", contentAsString(request))
-//      }
+      "Create Mail Object in Through Controller" in {
+        val request =  route(app, FakeRequest(POST, "/util/mail/create")
+          .withJsonBody(Json.toJson(mail)))
+          .get
+        status(request) mustBe OK
+        contentType(request) mustBe Some("application/json")
+        println(" The Content is ", contentAsString(request))
+      }
 
       "Get Mail From Controller" in {
         val request = route(app, FakeRequest(GET, "/util/mail/SITEID")
