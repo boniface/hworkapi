@@ -13,13 +13,13 @@ import scala.concurrent.duration._
 class OrganisationServiceTest extends FunSuite {
 
   test("testSaveOrUpdate") {
-    val organisation = Organisation("ORG100", "BN100", "details", "adminattached", new DateTime())
+    val organisation = Organisation("101", "organisation", Map(), "adminattached", new DateTime(), "active")
     val result = Await.result(OrganisationService.apply.createOrUpdate(organisation), 2.minutes)
     assert(result.isExhausted)
   }
 
   test("testGetOrganisation") {
-    val result = Await.result(OrganisationService.apply.getOrganisation("ORG100"), 2.minutes)
-    assert(result.head.name === "Benefit Name")
+    val result = Await.result(OrganisationService.apply.getOrganisation("101"), 2.minutes)
+    assert(result.head.organisationId === "101")
   }
 }

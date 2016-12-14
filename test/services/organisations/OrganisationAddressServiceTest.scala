@@ -11,14 +11,14 @@ import scala.concurrent.duration._
   */
 class OrganisationAddressServiceTest extends FunSuite {
 
-  test("testSaveOrUpdate") {
-    val organisationAddress = OrganisationAddress("ORG100", "email", "addressID", "orgLocID", "addressTypeID","details")
+    test("testSaveOrUpdate") {
+    val organisationAddress = OrganisationAddress("ORG100", "email", "addressID", "orgLocID", "addressTypeID",Map())
     val result = Await.result(OrganisationAddressService.apply.createOrUpdate(organisationAddress), 2.minutes)
     assert(result.isExhausted)
   }
 
   test("testGetOrganisationAddress") {
     val result = Await.result(OrganisationAddressService.apply.getOrganisationAddress("ORG100"), 2.minutes)
-    assert(result.head.addressTypeId === "addressTypeID")
+    assert(result.head.organisationAddressId === "ORG100")
   }
 }

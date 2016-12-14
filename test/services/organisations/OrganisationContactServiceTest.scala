@@ -1,4 +1,4 @@
-package services.organisations
+package services.organisations                                                                                                                                                                                                                                //Xolela Masebeni(213160447) xmasebeni1@gmail.com
 
 import domain.organisations.OrganisationContact
 import org.scalatest.FunSuite
@@ -12,13 +12,13 @@ import scala.concurrent.duration._
 class OrganisationContactServiceTest extends FunSuite {
 
   test("testSaveOrUpdate") {
-    val organisationContact = OrganisationContact("ORG100", "Email", "contactID","contactTypeID", "details")
+    val organisationContact = OrganisationContact("ORG100", "Email", "contactID","contactTypeID", Map())
     val result = Await.result(OrganisationContactService.apply.createOrUpdate(organisationContact), 2.minutes)
     assert(result.isExhausted)
   }
 
-  test("testGetBenefit") {
+  test("testGet") {
     val result = Await.result(OrganisationContactService.apply.getOrganisationContact("ORG100"), 2.minutes)
-    assert(result.head.organisationId === "ORG100")
+    assert(result.head.organisationContactId === "ORG100")
   }
 }

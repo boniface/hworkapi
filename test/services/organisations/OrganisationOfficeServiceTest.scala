@@ -1,6 +1,6 @@
 package services.organisations
 
-import domain.organisations.Organisation
+import domain.organisations.OrganisationOffice
 import org.joda.time.DateTime
 import org.scalatest.FunSuite
 
@@ -13,13 +13,13 @@ import scala.concurrent.duration._
 class OrganisationOfficeServiceTest extends FunSuite {
 
   test("testSaveOrUpdate") {
-    val organisation = Organisation("ORG100", "BN100", "details", "adminattached", new DateTime())
-    val result = Await.result(OrganisationService.apply.createOrUpdate(organisation), 2.minutes)
+    val organisationOffice = OrganisationOffice("123","orgOffice101","orgName", "organisation", "active", "office101", "on", new DateTime())
+    val result = Await.result(OrganisationOfficeService.apply.createOrUpdate(organisationOffice), 2.minutes)
     assert(result.isExhausted)
   }
 
-  test("testGetOrganisation") {
-    val result = Await.result(OrganisationService.apply.getOrganisation("ORG100"), 2.minutes)
-    assert(result.head.name === "Benefit Name")
+  test("testGetOrganisationOffice") {
+    val result = Await.result(OrganisationOfficeService.apply.getOrganisationOffice("123"), 2.minutes)
+    assert(result.head.organisationOfficeId === "123")
   }
 }

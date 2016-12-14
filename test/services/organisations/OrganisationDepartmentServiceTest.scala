@@ -1,4 +1,4 @@
-package services.organisations
+package services.organisations                                                                                                                                                                                                                                                        //Xolela Masebeni(213160447) xmasebeni1@gmail.com
 
 import domain.organisations.OrganisationDepartment
 import org.joda.time.DateTime
@@ -18,8 +18,8 @@ class OrganisationDepartmentServiceTest extends FunSuite {
     assert(result.isExhausted)
   }
 
-  test("testOrganisationDepartment") {
+  test("testGetOrganisationDepartment") {
     val result = Await.result(OrganisationDepartmentService.apply.getOrganisationDepartment("ORG100"), 2.minutes)
-    assert(result.head.organisationId === "ORG100")
+    assert(result.head.organisationDepartmentId === "ORG100")
   }
 }

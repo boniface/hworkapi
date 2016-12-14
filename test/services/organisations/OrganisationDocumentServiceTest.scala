@@ -1,4 +1,4 @@
-package services.organisations
+package services.organisations                                                                                                                                                                                                                                                                    //Xolela Masebeni(213160447) xmasebeni1@gmail.com
 
 import domain.organisations.OrganisationDocuments
 import org.joda.time.DateTime
@@ -13,13 +13,13 @@ import scala.concurrent.duration._
 class OrganisationDocumentServiceTest extends FunSuite {
 
   test("testSaveOrUpdate") {
-    val organisationDocuments = OrganisationDocuments("ORG100", "orgDocumentsID","description","url", "mime", new DateTime(), "granted", "active")
+    val organisationDocuments = OrganisationDocuments("ORG100", "orgDocumentsID","description","url", "mime", new DateTime(), Set(), "active")
     val result = Await.result(OrganisationDocumentsService.apply.createOrUpdate(organisationDocuments), 2.minutes)
     assert(result.isExhausted)
   }
 
-  test("testOrganisationDepartment") {
+  test("testGetOrganisationDocument") {
     val result = Await.result(OrganisationDocumentsService.apply.getOrganisationDocuments("ORG100"), 2.minutes)
-    assert(result.head.organisationId === "ORG100")
+    assert(result.head.organisationDocumentsId === "ORG100")
   }
 }

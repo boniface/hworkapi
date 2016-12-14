@@ -18,8 +18,8 @@ class OrganisationLocationServiceTest extends FunSuite {
     assert(result.isExhausted)
   }
 
-  test("testGetOrganisationAddress") {
+  test("testGetOrganisationLocation") {
     val result = Await.result(OrganisationLocationService.apply.getOrganisationLocation("ORG100"), 2.minutes)
-    assert(result.head.organisationId === "ORG100")
+    assert(result.head.organisationLocationId === "ORG100")
   }
 }
