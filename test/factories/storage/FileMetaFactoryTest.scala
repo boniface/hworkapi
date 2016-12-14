@@ -9,8 +9,8 @@ class FileMetaFactoryTest extends FunSuite
 {
 
   test("testCreateFileMeta")
-  {
-    assert(1==1)
-  }
+{
+  assert(1==1)
+}
 
 }
