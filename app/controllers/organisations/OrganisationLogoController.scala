@@ -1,4 +1,4 @@
-package controllers.organisations
+package controllers.organisations                                                                                                                                                             //Xolela Masebeni(213160447) xmasebeni1@gmail.com
 
 import domain.organisations.OrganisationLogo
 import play.api.libs.json.Json

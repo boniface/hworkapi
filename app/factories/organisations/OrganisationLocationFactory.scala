@@ -1,6 +1,4 @@
-package factories.organisations
-
-import java.util.Date
+package factories.organisations                                                                                                                                                                                                                                                                                                                                                         //Xolela Masebeni(213160447) xmasebeni1@gmail.com
 
 import domain.organisations.OrganisationLocation
 import org.joda.time.DateTime
@@ -11,6 +9,9 @@ import org.joda.time.DateTime
 class OrganisationLocationFactory {
 
   def createOrganisationDepartment(values:Map[String, String],date:DateTime):OrganisationLocation={
-    OrganisationLocation(organisationId = values("organisationId"),organisationLocationId = values("organisationLocationId"),name = values("name"), locationTypeId = values("locationTypeId"), code = values("code"),latitude = values("latitude"),longitude = values("longitude"), parentId = values("parentId"), state = values("state"), date=date)
+    OrganisationLocation( organisationId = values("organisationId"),organisationLocationId = values("organisationLocationId"),
+                          name = values("name"), locationTypeId = values("locationTypeId"), code = values("code"),
+                          latitude = values("latitude"),longitude = values("longitude"), parentId = values("parentId"),
+                          state = values("state"), date=date)
   }
 }

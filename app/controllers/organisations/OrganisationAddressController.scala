@@ -1,9 +1,10 @@
-package controllers.organisations
+package controllers.organisations                                                                                                                     //Xolela Masebeni(213160447) xmasebeni1@gmail.com
 
 import domain.organisations.OrganisationAddress
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import services.organisations.OrganisationAddressService
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * Created by Isiphile on 2016/12/09.
@@ -24,7 +25,7 @@ class OrganisationAddressController extends Controller {
         }
   }
 
-  def getOrganisationAddress(organisationAddressId: String) = Action.async {
+  def getOrganisationAddress(organisationAddressId: String) = Action.async{
     request =>
       val response = for {
         results <- OrganisationAddressService.apply.getOrganisationAddress(organisationAddressId)
