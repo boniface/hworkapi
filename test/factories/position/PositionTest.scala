@@ -35,7 +35,7 @@ class PositionTest extends FunSuite{
     description = "test Position",
     supervisorId = "2",
     state = "testState",
-    date = new DateTime(2016, 10, 11, 5, 20, 0, 0));
+    date = new DateTime(2016, 10, 11, 5, 20, 0, 0)));
 
 
 }
