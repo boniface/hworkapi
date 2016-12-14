@@ -23,7 +23,7 @@ class FileResultsRepository extends CassandraTable[FileResultsRepository, FileRe
   override def fromRow(r: Row): FileResults=
   {
     FileResults(
-      fileResultsId(r),
+      organisationId(r),
       fileResultsId(r),
       url(r),
       size(r)

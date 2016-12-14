@@ -9,7 +9,7 @@ import domain.organisations.OrganisationContact
 
 import scala.concurrent.Future
 /**
-  * Created by SONY on 2016-10-22.
+  * Created by Isiphile on 2016-10-22.
   */
 class OrganisationContactRepository extends CassandraTable[OrganisationContactRepository,OrganisationContact]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
