@@ -1,22 +1,28 @@
-package repositories.training.schedules
-import com.datastax.driver.core.Row
-import com.websudos.phantom.CassandraTable
-import com.websudos.phantom.dsl._
-import com.websudos.phantom.keys.PartitionKey
-import com.websudos.phantom.reactivestreams._
+package repositories.Training.schedules
+
 import conf.connection.DataConnection
 import domain.training.schedules.CourseParticipants
 
-import scala.concurrent.Future
 /**
-  * Created by SONY on 2016-10-19.
-  */
-class CourseParticipantsRepository extends CassandraTable[CourseParticipantsRepository,CourseParticipants]{
-  object scheduledCourseId extends StringColumn(this) with PartitionKey[String]
-  object userId extends StringColumn(this)  with PrimaryKey[String]
+ * Created by gavin.ackerman on 2016-11-09.
+ */
+class CourseParticipantsRepository extends CassandraTable[CourseParticipantsRepository, CourseParticipants] {
+
+
+  object userId extends StringColumn(this) with PartitionKey[String]
+
+  object scheduledCourseId extends StringColumn(this) with PrimaryKey[String]
+
+
+
+
 
   override def fromRow(r: Row): CourseParticipants = {
-    CourseParticipants(scheduledCourseId(r),userId(r))
+    CourseParticipants(
+      scheduledCourseId(r),
+      userId(r),
+
+    )
   }
 }
 
@@ -27,24 +33,24 @@ object CourseParticipantsRepository extends CourseParticipantsRepository with Ro
 
   override implicit def session: Session = DataConnection.session
 
-  def save(courseParticipants: CourseParticipants): Future[ResultSet] = {
+
+
+  def save(course: CourseParticipants): Future[ResultSet] = {
     insert
-      .value(_.scheduledCourseId, courseParticipants.scheduledCourseId)
-      .value(_.userId, courseParticipants.userId)
+      .value(_.scheduledCourseId, course.scheduledCourseId)
+      .value(_.userId, course.userId)
+
+
       .future()
   }
 
-  def getCourseParticipantsById(scheduledCourseId: String, userId: String):Future[Option[CourseParticipants]] = {
-    select.where(_.scheduledCourseId eqs scheduledCourseId). and(_.userId eqs userId).one()
-  }
   def getAllCourseParticipants: Future[Seq[CourseParticipants]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getCourseParticipants(scheduledCourseId: String): Future[Seq[CourseParticipants]] = {
-    select.where(_.scheduledCourseId eqs scheduledCourseId).fetchEnumerator() run Iteratee.collect()
+
+  def getCourseParticipantsById(id: String): Future[Option[CourseParticipants]] = {
+    select.where(_.scheduledCourseId eqs id).one()
   }
 
-  def deleteById(scheduledCourseId:String,userId: String): Future[ResultSet] = {
-    delete.where(_.scheduledCourseId eqs scheduledCourseId). and(_.userId eqs userId).future()
-  }
+
 }

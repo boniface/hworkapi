@@ -1,22 +1,31 @@
-package repositories.training.courses
+package repositories.Training.courses
 import com.datastax.driver.core.Row
 import com.websudos.phantom.CassandraTable
 import com.websudos.phantom.dsl._
 import com.websudos.phantom.keys.PartitionKey
 import com.websudos.phantom.reactivestreams._
 import conf.connection.DataConnection
+import scala.concurrent.Future
+import conf.connection.DataConnection
 import domain.training.courses.CourseType
 
-import scala.concurrent.Future
 /**
-  * Created by SONY on 2016-10-19.
-  */
-class CourseTypeRepository extends CassandraTable[CourseTypeRepository,CourseType]{
-  object courseTypeId extends StringColumn(this) with PartitionKey[String]
+ * Created by gavin.ackerman on 2016-11-09.
+ */
+class CourseTypeRepository extends CassandraTable[CourseTypeRepository, CourseType] {
+
+  object courseTypeId extends StringColumn(this) with PrimaryKey[String]
+
   object name extends StringColumn(this)
 
+
+
   override def fromRow(r: Row): CourseType = {
-    CourseType(courseTypeId(r),name(r))
+    CourseType(
+      courseTypeId(r),
+      name(r),
+
+    )
   }
 }
 
@@ -27,24 +36,19 @@ object CourseTypeRepository extends CourseTypeRepository with RootConnector {
 
   override implicit def session: Session = DataConnection.session
 
-  def save(courseType: CourseType): Future[ResultSet] = {
+  def save(course: CourseType): Future[ResultSet] = {
     insert
-      .value(_.courseTypeId, courseType.courseTypeId)
-      .value(_.name, courseType.name)
+      .value(_.courseTypeId, course.courseTypeId)
+      .value(_.name, course.name)
       .future()
   }
 
-  def getCourseTypesById(courseTypeId: String):Future[Option[CourseType]] = {
-    select.where(_.courseTypeId eqs courseTypeId).one()
-  }
-  def findAll: Future[Seq[CourseType]] = {
+  def getAllCourseTypeGroups: Future[Seq[CourseType]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getCourseTypes(courseTypeId: String): Future[Seq[CourseType]] = {
-    select.where(_.courseTypeId eqs courseTypeId).fetchEnumerator() run Iteratee.collect()
+
+  def getCourseTypesById(id: String): Future[Option[CourseType]] = {
+    select.where(_.courseTypeId eqs id).one()
   }
 
-  def deleteById(courseTypeId:String): Future[ResultSet] = {
-    delete.where(_.courseTypeId eqs courseTypeId).future()
-  }
 }

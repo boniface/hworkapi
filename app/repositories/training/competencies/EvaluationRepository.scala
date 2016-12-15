@@ -1,22 +1,30 @@
-package repositories.training.competencies
+package repositories.Training.competencies
 import com.datastax.driver.core.Row
 import com.websudos.phantom.CassandraTable
 import com.websudos.phantom.dsl._
 import com.websudos.phantom.keys.PartitionKey
 import com.websudos.phantom.reactivestreams._
 import conf.connection.DataConnection
+import scala.concurrent.Future
+import conf.connection.DataConnection
 import domain.training.competencies.Evaluation
 
-import scala.concurrent.Future
 /**
-  * Created by SONY on 2016-10-19.
-  */
-class EvaluationRepository extends CassandraTable[EvaluationRepository,Evaluation]{
-  object evaluationId extends StringColumn(this) with PartitionKey[String]
+ * Created by gavin.ackerman on 2016-11-08.
+ */
+class EvaluationRepository extends CassandraTable[EvaluationRepository, Evaluation] {
+
+  object id extends StringColumn(this) with PrimaryKey[String]
+
   object name extends StringColumn(this)
 
+
+
   override def fromRow(r: Row): Evaluation = {
-    Evaluation(evaluationId(r),name(r))
+    Evaluation(
+      id(r),
+      name(r),
+    )
   }
 }
 
@@ -27,24 +35,19 @@ object EvaluationRepository extends EvaluationRepository with RootConnector {
 
   override implicit def session: Session = DataConnection.session
 
-  def save(evaluation: Evaluation): Future[ResultSet] = {
+  def save(eval: Evaluation): Future[ResultSet] = {
     insert
-      .value(_.evaluationId, evaluation.evaluationId)
-      .value(_.name, evaluation.name)
+      .value(_.id, eval.evaluationId)
+      .value(_.name, eval.name)
+
       .future()
   }
 
-  def getEvaluationById(evaluationId: String):Future[Option[Evaluation]] = {
-    select.where(_.evaluationId eqs evaluationId).one()
-  }
-  def findAll: Future[Seq[Evaluation]] = {
+  def getAllEvaluation: Future[Seq[Evaluation]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getEvaluation(evaluationId: String): Future[Seq[Evaluation]] = {
-    select.where(_.evaluationId eqs evaluationId).fetchEnumerator() run Iteratee.collect()
-  }
 
-  def deleteById(evaluationId:String): Future[ResultSet] = {
-    delete.where(_.evaluationId eqs evaluationId).future()
+  def getEvaluationById(id: String): Future[Option[Evaluation]] = {
+    select.where(_.id eqs id).one()
   }
 }

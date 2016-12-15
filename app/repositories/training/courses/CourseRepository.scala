@@ -1,36 +1,56 @@
-package repositories.training.courses
+package repositories.Training.courses
 import com.datastax.driver.core.Row
 import com.websudos.phantom.CassandraTable
 import com.websudos.phantom.dsl._
 import com.websudos.phantom.keys.PartitionKey
 import com.websudos.phantom.reactivestreams._
 import conf.connection.DataConnection
+import scala.concurrent.Future
+import conf.connection.DataConnection
 import domain.training.courses.Course
 
-import scala.concurrent.Future
 /**
-  * Created by SONY on 2016-10-19.
-  */
-class CourseRepository extends CassandraTable[CourseRepository,Course]{
+ * Created by gavin.ackerman on 2016-11-08.
+ */
+class CourseRepository extends CassandraTable[CourseRepository , Course] {
+
   object organisationId extends StringColumn(this) with PartitionKey[String]
+
   object courseId extends StringColumn(this) with PrimaryKey[String]
+
+  object courseCategoryId extends StringColumn(this) with PartitionKey[String]
+
   object name extends StringColumn(this)
-  object courseCategoryId extends StringColumn(this)
   object courseCode extends StringColumn(this) with PrimaryKey[String]
-  object trainingInstitutionId extends StringColumn(this)
+
+  object trainingInstitutionId extends StringColumn(this) with PartitionKey[String]
+
   object courseObjective extends StringColumn(this)
-  object courseTypeId extends StringColumn(this)
-  object criteriaId extends StringColumn(this)
+
+  object courseTypeId extends StringColumn(this) with PartitionKey[String]
+  object criteriaId extends StringColumn(this) with PartitionKey[String]
+
   object description extends StringColumn(this)
 
 
   override def fromRow(r: Row): Course = {
-    Course(organisationId(r), courseId(r),name(r), courseCategoryId(r),courseCode(r),trainingInstitutionId(r),courseObjective(r),
-      courseTypeId(r), criteriaId(r), description(r))
+    Course(
+      organisationId(r),
+      courseId(r),
+      courseCategoryId(r),
+      name(r),
+      courseCode(r),
+      trainingInstitutionId(r),
+      courseObjective(r),
+      courseTypeId(r),
+      criteriaId(r),
+      description(r)
+
+    )
   }
 }
 
-object CourseRepository extends CourseRepository with RootConnector {
+object CourseRepository  extends CourseRepository  with RootConnector {
   override lazy val tableName = "course"
 
   override implicit def space: KeySpace = DataConnection.keySpace
@@ -41,27 +61,22 @@ object CourseRepository extends CourseRepository with RootConnector {
     insert
       .value(_.organisationId, course.organisationId)
       .value(_.courseId, course.courseId)
-      .value(_.name, course.name)
       .value(_.courseCategoryId, course.courseCategoryId)
+      .value(_.name, course.name)
       .value(_.courseCode, course.courseCode)
       .value(_.trainingInstitutionId, course.trainingInstitutionId)
       .value(_.courseObjective, course.courseObjective)
       .value(_.courseTypeId, course.courseTypeId)
       .value(_.criteriaId, course.criteriaId)
-      .value(_.description, course.description)
+      .value(_. description, course.description)
       .future()
   }
 
-  def getCourseTypeById(organisationId: String, courseId: String, courseCode: String):Future[Option[Course]] = {
-    select.where(_.organisationId eqs organisationId). and (_.courseId eqs courseId). and (_.courseCode eqs courseCode).one()
-  }
   def getAllCourseType: Future[Seq[Course]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getCourse(organisationId: String): Future[Seq[Course]] = {
-    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
-  }
-  def deleteById(organisationId:String, courseId: String, courseCode: String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId). and (_.courseId eqs courseId). and (_.courseCode eqs courseCode).future()
+
+  def getCourseTypeById(id: String): Future[Option[Course]] = {
+    select.where(_.courseId eqs id).one()
   }
 }

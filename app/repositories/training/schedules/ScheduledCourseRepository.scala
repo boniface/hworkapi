@@ -1,66 +1,87 @@
-package repositories.training.schedules
+package repositories.Training.schedules
+
+import conf.connection.DataConnection
+import domain.training.schedules.ScheduledCourse
 import com.datastax.driver.core.Row
 import com.websudos.phantom.CassandraTable
 import com.websudos.phantom.dsl._
 import com.websudos.phantom.keys.PartitionKey
 import com.websudos.phantom.reactivestreams._
 import conf.connection.DataConnection
-import domain.training.schedules.{CourseRating, ScheduledCourse}
-
 import scala.concurrent.Future
 /**
-  * Created by SONY on 2016-10-19.
-  */
-class ScheduledCourseRepository extends CassandraTable[ScheduledCourseRepository,ScheduledCourse]{
+ * Created by gavin.ackerman on 2016-11-09.
+ */
+class ScheduledCourseRepository extends CassandraTable[ScheduledCourseRepository, ScheduledCourse] {
+
+
   object organisationId extends StringColumn(this) with PartitionKey[String]
-  object courseId extends StringColumn(this)  with PrimaryKey[String]
-  object scheduledCourseId extends StringColumn(this)  with PrimaryKey[String]
+
+  object courseId extends StringColumn(this) with PrimaryKey[String] with ClusteringOrder[String] with Descending
+
+  object scheduledCourseId extends StringColumn(this) with PartitionKey[String]
+
   object venue extends StringColumn(this)
+
   object courseCapacity extends IntColumn(this)
+
   object creditHours extends IntColumn(this)
-  object startDate extends DateTimeColumn(this)
-  object endDate extends DateTimeColumn(this)
-  object locationId extends StringColumn(this)
-  object dateScheduled extends DateTimeColumn(this)
+
+  object startDate extends DateColumn(this)
+
+  object  endDate extends DateColumn(this)
+
+  object locationId extends StringColumn(this) with PartitionKey[String]
+
+  object dateScheduled extends DateColumn(this)
 
   override def fromRow(r: Row): ScheduledCourse = {
-    ScheduledCourse(organisationId(r),courseId(r),scheduledCourseId(r), venue(r), courseCapacity(r),
-      creditHours(r), startDate(r), endDate(r), locationId(r), dateScheduled(r))
+    ScheduledCourse(
+      organisationId(r),
+      courseId(r),
+      scheduledCourseId(r),
+      venue(r),
+      courseCapacity(r),
+      creditHours(r),
+      startDate(r),
+      endDate(r),
+      locationId(r),
+      dateScheduled(r)
+    )
   }
 }
 
 object ScheduledCourseRepository extends ScheduledCourseRepository with RootConnector {
-  override lazy val tableName = "courserating"
+  override lazy val tableName = "schedule"
 
   override implicit def space: KeySpace = DataConnection.keySpace
 
   override implicit def session: Session = DataConnection.session
 
-  def save(scheduledCourse: ScheduledCourse): Future[ResultSet] = {
+
+
+  def save(sched: ScheduledCourse): Future[ResultSet] = {
     insert
-      .value(_.organisationId, scheduledCourse.organisationId)
-      .value(_.courseId, scheduledCourse.courseId)
-      .value(_.scheduledCourseId, scheduledCourse.scheduledCourseId)
-      .value(_.venue, scheduledCourse.venue)
-      .value(_.courseCapacity, scheduledCourse.courseCapacity)
-      .value(_.creditHours, scheduledCourse.creditHours)
-      .value(_.endDate, scheduledCourse.endDate)
-      .value(_.locationId, scheduledCourse.locationId)
-      .value(_.dateScheduled, scheduledCourse.dateScheduled)
+      .value(_.organisationId, sched.organisationId)
+      .value(_.courseId, sched.courseId)
+      .value(_.scheduledCourseId, sched.scheduledCourseId)
+      .value(_.venue, sched.venue)
+      .value(_.courseCapacity,sched.courseCapacity)
+      .value(_.creditHours, sched.creditHours)
+      .value(_.startDate, sched.startDate)
+      .value(_.endDate, sched.endDate)
+      .value(_.locationId, sched.locationId)
+      .value(_.dateScheduled, sched.dateScheduled)
       .future()
   }
 
-  def getScheduledCourseById(organisationId: String, courseId:String, scheduledCourseId: String):Future[Option[ScheduledCourse]] = {
-    select.where(_.organisationId eqs organisationId). and(_.courseId eqs courseId). and(_.scheduledCourseId eqs scheduledCourseId).one()
-  }
   def getAllScheduledCourse: Future[Seq[ScheduledCourse]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getScheduledCourse(organisationId: String): Future[Seq[ScheduledCourse]] = {
-    select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
+
+  def getScheduledCourseById(id: String): Future[Option[ScheduledCourse]] = {
+    select.where(_.courseId eqs id).one()
   }
 
-  def deleteById(organisationId:String, courseId:String,scheduledCourseId: String): Future[ResultSet] = {
-    delete.where(_.organisationId eqs organisationId). and(_.courseId eqs courseId).and(_.scheduledCourseId eqs scheduledCourseId).future()
-  }
+
 }

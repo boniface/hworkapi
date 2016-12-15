@@ -1,58 +1,73 @@
-package repositories.training.courses
+package repositories.Training.courses
 import com.datastax.driver.core.Row
 import com.websudos.phantom.CassandraTable
 import com.websudos.phantom.dsl._
 import com.websudos.phantom.keys.PartitionKey
 import com.websudos.phantom.reactivestreams._
 import conf.connection.DataConnection
+import scala.concurrent.Future
+import conf.connection.DataConnection
 import domain.training.courses.Subject
 
-import scala.concurrent.Future
 /**
-  * Created by SONY on 2016-10-19.
-  */
-class SubjectRepository extends CassandraTable[SubjectRepository,Subject]{
-  object subjectId extends StringColumn(this) with PartitionKey[String]
+ * Created by gavin.ackerman on 2016-11-09.
+ */
+class SubjectRepository extends CassandraTable[SubjectRepository, Subject] {
+
+
   object topic extends StringColumn(this)
+
+  object subjectId extends StringColumn(this) with PrimaryKey[String]
+
   object subjectCode extends StringColumn(this)
-  object description extends StringColumn(this)
+
   object credit extends IntColumn(this)
+
+  object description extends StringColumn(this)
+
+
+
 
 
   override def fromRow(r: Row): Subject = {
-    Subject(subjectId(r), subjectCode(r),subjectCode(r), description(r),credit(r))
+    Subject(
+      subjectId(r),
+      topic(r),
+      subjectCode(r),
+      credit(r),
+      description(r),
+
+    )
   }
 }
 
 object SubjectRepository extends SubjectRepository with RootConnector {
-  override lazy val tableName = "subject"
+  override lazy val tableName = "subjects"
 
   override implicit def space: KeySpace = DataConnection.keySpace
 
   override implicit def session: Session = DataConnection.session
 
-  def save(subject: Subject): Future[ResultSet] = {
+
+
+  def save(sub: Subject): Future[ResultSet] = {
     insert
-      .value(_.subjectId, subject.subjectId)
-      .value(_.topic, subject.topic)
-      .value(_.subjectCode, subject.subjectCode)
-      .value(_.description, subject.description)
-      .value(_.credit, subject.credit)
+      .value(_.subjectId, sub.subjectId)
+      .value(_.topic, sub.topic)
+      .value(_.subjectCode, sub.subjectCode)
+      .value(_.credit, sub.credit)
+      .value(_.description, sub.description)
+
       .future()
   }
-
-  def getSubjectById(subjectId: String):Future[Option[Subject]] = {
-    select.where(_.subjectId eqs subjectId).one()
-  }
-  def findAll: Future[Seq[Subject]] = {
+  def getAllSubject: Future[Seq[Subject]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
-  def getSubject(subjectId: String): Future[Seq[Subject]] = {
-    select.where(_.subjectId eqs subjectId).fetchEnumerator() run Iteratee.collect()
+
+  def getSubjectById(id: String): Future[Option[Subject]] = {
+    select.where(_.subjectId eqs id).one()
   }
 
 
-  def deleteById(subjectId:String): Future[ResultSet] = {
-    delete.where(_.subjectId eqs subjectId).future()
-  }
+
 }
