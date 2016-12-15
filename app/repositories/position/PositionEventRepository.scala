@@ -60,6 +60,14 @@ object PositionEventRepository extends PositionEventRepository with RootConnecto
 
   def getPositionEvents(positionId: String): Future[Seq[PositionEvent]] = {
     select.where(_.positionId eqs positionId).fetchEnumerator() run Iteratee.collect()
-}
+  }
+
+  def findAll: Future[Seq[PositionEvent]] = {
+    select.fetchEnumerator() run Iteratee.collect()
+  }
+
+  def deleteById(positionId: String, positionEventId: String): Future[ResultSet] = {
+    delete.where(_.positionId eqs positionId).and (_.positionEventId eqs positionEventId).future()
+  }
 
 }

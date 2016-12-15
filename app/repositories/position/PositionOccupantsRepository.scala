@@ -64,4 +64,12 @@ object PositionOccupantsRepository extends PositionOccupantsRepository with Root
     select.where(_.positionId eqs positionId).fetchEnumerator() run Iteratee.collect()
   }
 
+  def findAll: Future[Seq[PositionOccupants]] = {
+    select.fetchEnumerator() run Iteratee.collect()
+  }
+
+  def deleteById(positionId: String, positionOccupantId: String): Future[ResultSet] = {
+    delete.where(_.positionId eqs positionId).and (_.positionOccupantId eqs positionOccupantId).future()
+  }
+
 }
