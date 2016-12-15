@@ -10,7 +10,7 @@ import domain.organisations.OrganisationLogo
 import scala.concurrent.Future
 
 /**
-  * Created by SONY on 2016-10-22.
+  * Created by Isiphile on 2016-10-22.
   */
 class OrganisationLogoRepository extends CassandraTable[OrganisationLogoRepository,OrganisationLogo]{
   object organisationId extends StringColumn(this) with PartitionKey[String]
