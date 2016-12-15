@@ -2,7 +2,7 @@ package services.Training.institutions
 
 import com.websudos.phantom.dsl.ResultSet
 import domain.training.institutions.TrainingInstitution
-import services.Training.institutions.Impl.TrainingInstructorServiceImpl
+import services.Training.institutions.Impl.{TrainingInstitutionServiceImpl, TrainingInstructorServiceImpl}
 
 import scala.concurrent.Future
 
@@ -22,5 +22,5 @@ trait TrainingInstitutionService {
 }
 
 object TrainingInstitutionService{
-  def apply: TrainingInstructorService = new TrainingInstructorServiceImpl()
+  def apply: TrainingInstitutionService = new TrainingInstitutionServiceImpl()
 }

@@ -13,7 +13,6 @@ import scala.concurrent.duration._
   * Created by Malu.Mukendi on 2016-12-09.
   */
 class BenefitRepositoryTest extends FunSuite with BeforeAndAfterEach{
-
   implicit val keyspace = DataConnection.keySpace
   implicit val session = DataConnection.session
 
@@ -45,5 +44,6 @@ class BenefitRepositoryTest extends FunSuite with BeforeAndAfterEach{
   override protected def afterEach(): Unit = {
     BenefitRepository.truncate().future()
   }
+
 }
 
