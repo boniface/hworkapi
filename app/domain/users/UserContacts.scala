@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 /**
   * Created by hashcode on 2016/08/12.
   */
-case class UserContact(organisationId: String,
+case class UserContacts(organisationId: String,
                        userId: String,
                        userContactId: String,
                        contactTypeId: String,
@@ -14,6 +14,6 @@ case class UserContact(organisationId: String,
                        date: DateTime,
                        state: String)
 
-object UserContact {
-  implicit val userContactsFmt = Json.format[UserContact]
+object UserContacts {
+  implicit val userContactsFmt = Json.format[UserContacts]
 }
