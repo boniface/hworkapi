@@ -65,4 +65,12 @@ object PositionDesignationRepository extends PositionDesignationRepository with 
     select.where(_.positionId eqs positionId).fetchEnumerator() run Iteratee.collect()
   }
 
+  def findAll: Future[Seq[PositionDesignation]] = {
+    select.fetchEnumerator() run Iteratee.collect()
+  }
+
+  def deleteById(organisationId: String, positionDesignationId: String): Future[ResultSet] = {
+    delete.where(_.positionId eqs positionId).and (_.positionDesignationId eqs positionDesignationId).future()
+  }
+
 }

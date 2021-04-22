@@ -61,8 +61,16 @@ object DepartureReasonRepository extends DepartureReasonRepository with RootConn
     select.where(_.organisationId eqs organisationId).and(_.departureReasonId eqs departureReasonId).one()
   }
 
-  def getCompanyDepatureReasons(organisationId: String): Future[Seq[DepartureReason]] = {
+  def getCompanyDepartureReasons(organisationId: String): Future[Seq[DepartureReason]] = {
     select.where(_.organisationId eqs organisationId).fetchEnumerator() run Iteratee.collect()
+  }
+
+  def findAll: Future[Seq[DepartureReason]] = {
+    select.fetchEnumerator() run Iteratee.collect()
+  }
+
+  def deleteById(organisationId: String, departureReasonId: String): Future[ResultSet] = {
+    delete.where(_.organisationId eqs organisationId).and (_.departureReasonId eqs departureReasonId).future()
   }
 
 }
